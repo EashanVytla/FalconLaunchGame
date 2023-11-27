@@ -34,7 +34,7 @@ int main()
 
             LCD.WriteLine("Press anywhere to go back to menu.");
 
-            if(menu_state == 5){
+            if(menu_state == 4){
                 if(press_x < 155){
                     if(press_y > 115){
                         menu_state = 0;
@@ -49,7 +49,7 @@ int main()
                     }
                 }
             }else{
-                menu_state = 5;
+                menu_state = 4;
             }
 
             switch(menu_state){
