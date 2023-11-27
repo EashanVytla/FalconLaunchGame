@@ -30,11 +30,24 @@ int main()
         bool button_press = detectButtonClick(&press_x, &press_y);
         if(button_press){
             LCD.Clear();
-            menu_state = 0;
+
+            if(press_x < 155){
+                if(press_y > 115){
+                    menu_state = 0;
+                }else{
+                    menu_state = 2;
+                }
+            }else{
+                if(press_y > 115){
+                    menu_state = 1;
+                }else{
+                    menu_state = 3;
+                }
+            }
 
             switch(menu_state){
                 case 0:
-                    LCD.WriteAt("Play game here", w_width/2, w_height/2);
+                    LCD.WriteLine("Play game here");
                     break;
                 case 1:
                     displayLeaderBoard();
@@ -43,7 +56,7 @@ int main()
                     displayCredits();
                     break;
                 case 3:
-                    LCD.WriteAt("Instructions", w_width/2, 10);
+                    LCD.WriteLine("Instructions");
                     break;
                 default:
                     displayMenu();
