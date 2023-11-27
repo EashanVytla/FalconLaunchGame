@@ -12,7 +12,7 @@ const int w_width = 329;
 const int menu_x_split = 155;
 const int menu_y_split = 115;
 
-const int back_menu_x = 249;
+const int back_menu_x = 229;
 const int back_menu_y = 219;
 
 bool prev_touch = false;
