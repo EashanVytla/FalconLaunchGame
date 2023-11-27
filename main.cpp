@@ -3,6 +3,7 @@
 void displayMenu();
 void displayLeaderBoard();
 void displayCredits();
+void displayInstructions();
 
 bool detectButtonClick(int *x, int *y);
 
@@ -69,7 +70,6 @@ int main()
                     displayCredits();
                     break;
                 case 3:
-                    LCD.WriteLine("Instructions");
                     break;
                 default:
                     displayMenu();
@@ -92,6 +92,16 @@ void displayLeaderBoard(){
     for(int i = 0; i < 10; i++){
         LCD.WriteLine(leaderboard[i]);
     }
+}
+
+void displayInstructions(){ 
+    LCD.WriteLine("Instructions");
+    LCD.WriteLine("1) Click Launch to Launch the Rocket.");
+    LCD.WriteLine("2) Let the rocket reach it's maximum test altitude.");
+    LCD.WriteLine("3) As the rocket is falling, drag it around the x axis to pick up fuel canisters.");
+    LCD.WriteLine("4) Make sure you maintain > 0% fuel to keep your thrusters running and prevent freefall");
+    LCD.WriteLine("5) When the launch pad is in frame, start lining up the rocket onto the launchpad");
+    LCD.WriteLine("6) If the rocket succesffuly lands on the launch pad, then you won and can put your fuel level on the leaderboard!");
 }
 
 void displayCredits(){
