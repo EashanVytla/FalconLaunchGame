@@ -1,9 +1,17 @@
 #include "FEHLCD.h"
 
-void makeMenue();
+void displayMenue();
+void displayLeaderBoard();
+void displayCredits();
+
+bool detectButtonClick(int *x, int *y);
 
 const int w_height = 239;
 const int w_width = 329;
+
+bool prev_touch = false;
+
+char leaderboard[10][21] = {"Eashan - 10%", "Allen - 9%", "Joe - 8%", "Stephanie - 7%", "Aidan - 6%", "Josh - 5%", "Marvin - 4%", "Charlie - 3%", "Gavin - 2%", "Sid - 1%"};
 
 //0 - Game
 //1 - Leaderboard
@@ -13,18 +21,65 @@ int menu_state = 0;
 
 int main()
 {
+    int press_x = 0;
+    int press_y = 0;
+
     //make the menue from function
     makeMenue();
     while (1) {
-        switch(menu_state){
-            case 0:
-                LCD.WriteAt("Play game here", w_height/2, w_width/2);
+        bool button_press = detectButtonClick(&press_x, &press_y);
+        if(button_press){
+            LCD.Clear();
+            menu_state = 0;
+
+            switch(menu_state){
+                case 0:
+                    LCD.WriteAt("Play game here", w_width/2, w_height/2);
+                    break;
+                case 1:
+                    displayLeaderBoard();
+                    break;
+                case 2:
+                    displayCredits();
+                    break;
+                case 3:
+                    LCD.WriteAt("Instructions", w_width/2, 10);
+                    break;
+                default:
+                    makeMenue();
+                    break;
+            }
         }
 
         LCD.Update();
-        // Never end
     }
     return 0;
+}
+
+void displayLeaderBoard(){
+    LCD.WriteLine("Leaderboard");
+    
+    for(int i = 0; i < 10; i++){
+        LCD.WriteLine(leaderboard[i]);
+    }
+}
+
+void displayCredits(){
+    LCD.WriteLine("Credits");
+    LCD.WriteLine("Developers:");
+    LCD.WriteLine("Eashan Vytla");
+    LCD.WriteLine("Allen Thomas");
+}
+
+//Run in loop
+bool detectButtonClick(int *x, int *y){
+    bool touch = LCD.Touch(x, y);
+
+    bool val = touch == true && touch != prev_touch;
+
+    prev_touch = touch;
+
+    return val;
 }
 
 void makeMenue(){
