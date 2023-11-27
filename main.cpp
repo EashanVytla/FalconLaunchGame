@@ -70,6 +70,7 @@ int main()
                     displayCredits();
                     break;
                 case 3:
+                    displayInstructions();
                     break;
                 default:
                     displayMenu();
