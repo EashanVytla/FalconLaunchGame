@@ -32,17 +32,16 @@ int main()
         if(button_press){
             LCD.Clear();
 
-            LCD.WriteLine("Press anywhere to go back to menu.");
-
             if(menu_state == 4){
+                LCD.WriteLine("Press anywhere to go back to menu.");
                 if(press_x < 155){
-                    if(press_y > 115){
+                    if(press_y < 115){
                         menu_state = 0;
                     }else{
                         menu_state = 2;
                     }
                 }else{
-                    if(press_y > 115){
+                    if(press_y < 115){
                         menu_state = 1;
                     }else{
                         menu_state = 3;
