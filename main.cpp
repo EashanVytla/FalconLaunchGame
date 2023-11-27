@@ -1,6 +1,6 @@
 #include "FEHLCD.h"
 
-void displayMenue();
+void displayMenu();
 void displayLeaderBoard();
 void displayCredits();
 
@@ -25,7 +25,7 @@ int main()
     int press_y = 0;
 
     //make the menue from function
-    makeMenue();
+    displayMenu();
     while (1) {
         bool button_press = detectButtonClick(&press_x, &press_y);
         if(button_press){
@@ -46,7 +46,7 @@ int main()
                     LCD.WriteAt("Instructions", w_width/2, 10);
                     break;
                 default:
-                    makeMenue();
+                    displayMenu();
                     break;
             }
         }
@@ -82,7 +82,7 @@ bool detectButtonClick(int *x, int *y){
     return val;
 }
 
-void makeMenue(){
+void displayMenu(){
     //Draw the dividing borders of the menue screen
     LCD.SetFontColor(LIGHTGOLDENRODYELLOW);
     LCD.FillRectangle(155,0,10,239);
