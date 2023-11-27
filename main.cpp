@@ -12,7 +12,7 @@ int main()
     //Write leaderboard to the top right section of the menue
     LCD.WriteAt("Leaderboard",180,50);
     //Write Credits to the bottom left section of the menue
-    LCD.WriteAt("Leaderboard",180,50);
+    LCD.WriteAt("Credits",180,160);
 
     while (1) {
         LCD.Update();
