@@ -9,6 +9,12 @@ bool detectButtonClick(int *x, int *y);
 const int w_height = 239;
 const int w_width = 329;
 
+const int menu_x_split = 155;
+const int menu_y_split = 115;
+
+const int back_menu_x = 329;
+const int back_menu_y = 219;
+
 bool prev_touch = false;
 
 char leaderboard[10][21] = {"Eashan - 10%", "Allen - 9%", "Joe - 8%", "Stephanie - 7%", "Aidan - 6%", "Josh - 5%", "Marvin - 4%", "Charlie - 3%", "Gavin - 2%", "Sid - 1%"};
@@ -33,22 +39,23 @@ int main()
             LCD.Clear();
 
             if(menu_state == 4){
-                LCD.WriteLine("Press anywhere to go back to menu.");
-                if(press_x < 155){
-                    if(press_y < 115){
+                if(press_x < menu_x_split){
+                    if(press_y < menu_y_split){
                         menu_state = 0;
                     }else{
                         menu_state = 2;
                     }
                 }else{
-                    if(press_y < 115){
+                    if(press_y < menu_y_split){
                         menu_state = 1;
                     }else{
                         menu_state = 3;
                     }
                 }
             }else{
-                menu_state = 4;
+                if(press_x > back_menu_x && press_y > back_menu_y){
+                    menu_state = 4;
+                }
             }
 
             switch(menu_state){
@@ -67,6 +74,10 @@ int main()
                 default:
                     displayMenu();
                     break;
+            }
+
+            if(menu_state < 4){
+                LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
             }
         }
 
