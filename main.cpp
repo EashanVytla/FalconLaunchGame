@@ -12,6 +12,8 @@ void displayCredits();
 void displayInstructions();
 //Draws rocket at specified x and y
 void drawRocket(int x, int y);
+//Draws launchpad
+void drawLaunchpad();
 
 //Returns true if a button is clicked and sets x and y variables to the position of the click
 //Ignores a button hold! If the button is held only the first loop cycle is counted
@@ -92,7 +94,7 @@ int main()
                 case 0:
                     //This is a placeholder for the actual gameplay
                     LCD.WriteLine("Play game here");
-                    drawRocket(w_width/2,w_height/1.5);
+                    drawRocket(w_width/2,w_height-80);
                     break;
                 case 1:
                     //Displaying the leaderboard
@@ -193,4 +195,14 @@ void drawRocket(int x, int y){
     Rocket.Draw(x, y);
     // Close the image
     Rocket.Close();
+}
+void drawLaunchPad(){
+     // Declares an image for a Rocket
+    FEHImage launchPad;
+    // Open the image
+    launchPad.Open("LaunchPadFEH.pic");
+    // Draw a Rocket in the top left corner
+    launchPad.Draw(w_width, w_height-80);
+    // Close the image
+    launchPad.Close();
 }
