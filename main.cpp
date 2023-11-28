@@ -18,6 +18,9 @@ void drawLaunchPad();
 void drawFuel(int x, int y);
 //Draws star at specified x and y
 void drawStar(int x, int y);
+//Draws background
+void drawbackground();
+
 
 //Returns true if a button is clicked and sets x and y variables to the position of the click
 //Ignores a button hold! If the button is held only the first loop cycle is counted
@@ -98,6 +101,7 @@ int main()
                 case 0:
                     //This is a placeholder for the actual gameplay
                     LCD.WriteLine("Play game here");
+                    drawBackground();
                     drawLaunchPad();
                     drawRocket(w_width/2-5,w_height-100);
                     drawFuel(w_width/2,w_height/2);
@@ -206,9 +210,9 @@ void drawRocket(int x, int y){
 }
 void drawLaunchPad(){
     //width: 64 Height: 80
-    // Declares an image for a Rocket
     int width = 64;
     int height = 80;
+    // Declares an image for a Rocket
     FEHImage launchPad;
     // Open the image
     launchPad.Open("LaunchPadFEH.pic");
@@ -218,7 +222,7 @@ void drawLaunchPad(){
     launchPad.Close();
 }
 void drawFuel(int x, int y){
-    //Width:  Height: 
+    //Width: 13 Height: 13
      // Declares an image for a fuel
     FEHImage fuel;
     // Open the image
@@ -229,7 +233,7 @@ void drawFuel(int x, int y){
     fuel.Close();
 }
 void drawStar(int x, int y){
-    //Width:  Height: 
+    //Width: 7 Height: 7
      // Declares an image for a star
     FEHImage star;
     // Open the image
@@ -238,4 +242,15 @@ void drawStar(int x, int y){
     star.Draw(x, y);
     // Close the image
     star.Close();
+}
+void drawBackground(){
+    //width:  Height: 
+    // Declares an image for a background
+    FEHImage launchPad;
+    // Open the image
+    launchPad.Open("BackgroundFEH.pic");
+    // Draw a pad in the top left corner
+    launchPad.Draw(0,0);
+    // Close the image
+    launchPad.Close();
 }
