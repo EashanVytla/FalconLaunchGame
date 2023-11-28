@@ -20,6 +20,8 @@ void drawFuel(int x, int y);
 void drawStar(int x, int y);
 //Draws background
 void drawBackground();
+//move background one pixel
+void moveBackground();
 
 //background x and y
 int background_x = 0;
@@ -105,6 +107,7 @@ int main()
                     //This is a placeholder for the actual gameplay
                     LCD.WriteLine("Play game here");
                     drawBackground();
+                    moveBackground();
                     drawLaunchPad();
                     drawRocket(w_width/2-5,w_height-100);
                     drawFuel(w_width/2,w_height/2);
@@ -256,4 +259,8 @@ void drawBackground(){
     launchPad.Draw(background_x,background_y);
     // Close the image
     launchPad.Close();
+}
+void moveBackground(){
+    background_x++;
+    background_y++;
 }
