@@ -21,6 +21,9 @@ void drawStar(int x, int y);
 //Draws background
 void drawBackground();
 
+//background x and y
+int background_x = 0;
+int background_y = 0;
 
 //Returns true if a button is clicked and sets x and y variables to the position of the click
 //Ignores a button hold! If the button is held only the first loop cycle is counted
@@ -250,7 +253,7 @@ void drawBackground(){
     // Open the image
     launchPad.Open("BackgroundFEH.pic");
     // Draw a pad in the top left corner
-    launchPad.Draw(0,0);
+    launchPad.Draw(background_x,background_y);
     // Close the image
     launchPad.Close();
 }
