@@ -1,4 +1,5 @@
 #include "FEHLCD.h"
+#include <FEHImages.h>
 
 //Function prototypes
 //Displays the menu
@@ -178,4 +179,15 @@ void displayMenu(){
     LCD.WriteAt("Credit",40,170);
     //Write instructions at the bottom right section of the menue
     LCD.WriteAt("Instructions",170,170);
+}
+
+void drawRocket(int x, int y){
+     // Declares an image for a Rocket
+    FEHImage Rocket;
+    // Open the image
+    Rocket.Open("RocketFEH.pic");
+    // Draw a Rocket in the top left corner
+    Rocket.Draw(w_width, w_height);
+    // Close the image
+    Rocket.Close();
 }
