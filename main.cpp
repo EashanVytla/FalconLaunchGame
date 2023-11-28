@@ -14,6 +14,8 @@ void displayInstructions();
 void drawRocket(int x, int y);
 //Draws launchpad
 void drawLaunchPad();
+//Draws fuel at specified x and y
+void drawFuel();
 
 //Returns true if a button is clicked and sets x and y variables to the position of the click
 //Ignores a button hold! If the button is held only the first loop cycle is counted
@@ -96,6 +98,7 @@ int main()
                     LCD.WriteLine("Play game here");
                     drawLaunchPad();
                     drawRocket(w_width/2-5,w_height-100);
+                    drawFuel(w_width/2,w_height/2);
                     break;
                 case 1:
                     //Displaying the leaderboard
@@ -206,8 +209,19 @@ void drawLaunchPad(){
     FEHImage launchPad;
     // Open the image
     launchPad.Open("LaunchPadFEH.pic");
-    // Draw a Rocket in the top left corner
+    // Draw a pad in the top left corner
     launchPad.Draw(w_width/2 - (width/4), w_height - height);
     // Close the image
     launchPad.Close();
+}
+void drawFuel(int x, int y){
+    //Width:  Height: 
+     // Declares an image for a fuel
+    FEHImage fuel;
+    // Open the image
+    fuel.Open("FuelFEH.pic");
+    // Draw a fuel in the top left corner
+    fuel.Draw(x, y);
+    // Close the image
+    fuel.Close();
 }
