@@ -97,11 +97,11 @@ void displayLeaderBoard(){
 
 void displayInstructions(){ 
     LCD.WriteLine("Instructions");
-    LCD.WriteLine("Click Launch.");
-    LCD.WriteLine("Wait till rocket gets max alt");
-    LCD.WriteLine("Drag on x axis to collect fuel");
-    LCD.WriteLine("Maintain > 0% fuel");
-    LCD.WriteLine("At end, land rocket");
+    LCD.WriteLine("1) Click Launch");
+    LCD.WriteLine("2) Wait till rocket gets max alt");
+    LCD.WriteLine("3) Drag on x axis to collect fuel");
+    LCD.WriteLine("4) Maintain > 0% fuel");
+    LCD.WriteLine("5) At end, land rocket");
 }
 
 void displayCredits(){
