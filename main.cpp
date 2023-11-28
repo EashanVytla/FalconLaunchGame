@@ -90,6 +90,7 @@ int main()
                 case 0:
                     //This is a placeholder for the actual gameplay
                     LCD.WriteLine("Play game here");
+                    drawRocket(w_width,w_height);
                     break;
                 case 1:
                     //Displaying the leaderboard
@@ -187,7 +188,7 @@ void drawRocket(int x, int y){
     // Open the image
     Rocket.Open("RocketFEH.pic");
     // Draw a Rocket in the top left corner
-    Rocket.Draw(w_width, w_height);
+    Rocket.Draw(x, y);
     // Close the image
     Rocket.Close();
 }
