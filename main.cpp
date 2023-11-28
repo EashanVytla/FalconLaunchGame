@@ -19,7 +19,7 @@ void drawFuel(int x, int y);
 //Draws star at specified x and y
 void drawStar(int x, int y);
 //Draws background
-void drawbackground();
+void drawBackground();
 
 
 //Returns true if a button is clicked and sets x and y variables to the position of the click
