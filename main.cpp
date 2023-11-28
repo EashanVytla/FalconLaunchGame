@@ -166,10 +166,10 @@ bool detectButtonClick(int *x, int *y){
 
 void displayMenu(){
     //Draw the dividing borders of the menue screen
-    LCD.SetFontColor(0xA7A9AC);
+    LCD.SetFontColor(0x005288);
     LCD.FillRectangle(155,0,10,239);
     LCD.FillRectangle(0,115,319,10);
-    LCD.SetFontColor(0x005288);
+    LCD.SetFontColor(0xA7A9AC);
     //Write Launch to the top left section of the menue
     LCD.WriteAt("Start",40,50);
     //Write leaderboard to the top right section of the menue
