@@ -265,4 +265,5 @@ void drawBackground(){
 }
 void moveBackground(){
     background_y+=4;
+    background_x +=2;
 }
