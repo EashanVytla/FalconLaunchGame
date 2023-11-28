@@ -16,6 +16,8 @@ void drawRocket(int x, int y);
 void drawLaunchPad();
 //Draws fuel at specified x and y
 void drawFuel(int x, int y);
+//Draws star at specified x and y
+void drawStar(int x, int y);
 
 //Returns true if a button is clicked and sets x and y variables to the position of the click
 //Ignores a button hold! If the button is held only the first loop cycle is counted
@@ -99,6 +101,7 @@ int main()
                     drawLaunchPad();
                     drawRocket(w_width/2-5,w_height-100);
                     drawFuel(w_width/2,w_height/2);
+                    drawStar(w_width/2,w_height/3);
                     break;
                 case 1:
                     //Displaying the leaderboard
@@ -224,4 +227,15 @@ void drawFuel(int x, int y){
     fuel.Draw(x, y);
     // Close the image
     fuel.Close();
+}
+void drawStar(int x, int y){
+    //Width:  Height: 
+     // Declares an image for a star
+    FEHImage star;
+    // Open the image
+    star.Open("StarFEH.pic");
+    // Draw a fuel in the top left corner
+    star.Draw(x, y);
+    // Close the image
+    star.Close();
 }
