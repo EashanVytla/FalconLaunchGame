@@ -113,7 +113,7 @@ int main()
                     //This is a placeholder for the actual gameplay
                     LCD.WriteLine("Play game here");
                     drawBackground();
-                    moveBackground();
+                    //moveBackground();
                     drawLaunchPad();
                     drawRocket(w_width/2-5,w_height-100);
                     drawFuel(w_width/2,w_height/2);
