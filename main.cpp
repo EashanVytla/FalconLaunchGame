@@ -97,12 +97,11 @@ void displayLeaderBoard(){
 
 void displayInstructions(){ 
     LCD.WriteLine("Instructions");
-    LCD.WriteLine("1) Click Launch to Launch the Rocket.");
-    LCD.WriteLine("2) Let the rocket reach it's maximum test altitude.");
-    LCD.WriteLine("3) As the rocket is falling, drag it around the x axis to pick up fuel canisters.");
-    LCD.WriteLine("4) Make sure you maintain > 0% fuel to keep your thrusters running and prevent freefall");
-    LCD.WriteLine("5) When the launch pad is in frame, start lining up the rocket onto the launchpad");
-    LCD.WriteLine("6) If the rocket succesffuly lands on the launch pad, then you won and can put your fuel level on the leaderboard!");
+    LCD.WriteLine("Click Launch.");
+    LCD.WriteLine("Wait for rocket to reach max alt");
+    LCD.WriteLine("As rocket falls, drag on x axis to collect fuel");
+    LCD.WriteLine("Maintain > 0% fuel to keep thrusters online");
+    LCD.WriteLine("When the launchpad is in frame, line up rocket");
 }
 
 void displayCredits(){
