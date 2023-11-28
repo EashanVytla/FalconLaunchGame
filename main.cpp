@@ -201,11 +201,13 @@ void drawRocket(int x, int y){
 void drawLaunchPad(){
     //width: 64 Height: 80
     // Declares an image for a Rocket
+    int width = 64;
+    int height = 80;
     FEHImage launchPad;
     // Open the image
     launchPad.Open("LaunchPadFEH.pic");
     // Draw a Rocket in the top left corner
-    launchPad.Draw(w_width/2 - 16, w_height-80);
+    launchPad.Draw(w_width/2 - (width/4), w_height - height);
     // Close the image
     launchPad.Close();
 }
