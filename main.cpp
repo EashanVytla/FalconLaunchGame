@@ -95,6 +95,7 @@ int main()
                     //This is a placeholder for the actual gameplay
                     LCD.WriteLine("Play game here");
                     drawRocket(w_width/2,w_height-80);
+                    drawLaunchPad();
                     break;
                 case 1:
                     //Displaying the leaderboard
