@@ -203,7 +203,7 @@ void drawLaunchPad(){
     // Open the image
     launchPad.Open("LaunchPadFEH.pic");
     // Draw a Rocket in the top left corner
-    launchPad.Draw(w_width, w_height-80);
+    launchPad.Draw(w_width/2, w_height-80);
     // Close the image
     launchPad.Close();
 }
