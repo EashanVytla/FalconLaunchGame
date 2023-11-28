@@ -166,7 +166,7 @@ bool detectButtonClick(int *x, int *y){
 
 void displayMenu(){
     //Draw the dividing borders of the menue screen
-    LCD.SetFontColor(GRAY);
+    LCD.SetFontColor(0xA7A9AC);
     LCD.FillRectangle(155,0,10,239);
     LCD.FillRectangle(0,115,319,10);
     LCD.SetFontColor(0x005288);
