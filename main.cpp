@@ -102,7 +102,13 @@ int main()
                 }
             }
 
-            switch(menu_state){
+            //If the menu state is anything other than the menu, draw a back to menu option on the screen
+            if(menu_state < 4){
+                LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
+            }
+        }
+
+        switch(menu_state){
                 case 0:
                     //This is a placeholder for the actual gameplay
                     LCD.WriteLine("Play game here");
@@ -130,12 +136,6 @@ int main()
                     displayMenu();
                     break;
             }
-
-            //If the menu state is anything other than the menu, draw a back to menu option on the screen
-            if(menu_state < 4){
-                LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
-            }
-        }
 
         //Update the screen
         LCD.Update();
@@ -261,6 +261,5 @@ void drawBackground(){
     launchPad.Close();
 }
 void moveBackground(){
-    background_x++;
-    background_y++;
+    background_y+=4;
 }
