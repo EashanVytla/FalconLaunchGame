@@ -169,7 +169,7 @@ void displayMenu(){
     LCD.SetFontColor(GRAY);
     LCD.FillRectangle(155,0,10,239);
     LCD.FillRectangle(0,115,319,10);
-    LCD.SetFontColor(BLUE);
+    LCD.SetFontColor(0x005288);
     //Write Launch to the top left section of the menue
     LCD.WriteAt("Start",40,50);
     //Write leaderboard to the top right section of the menue
