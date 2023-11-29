@@ -37,5 +37,5 @@ void Rocket::move(int dy){
     y -= dy;
 }
 int Rocket::getAltitude(int background_y){
-    return (background_y + y - 100);
+    return (background_y + y - height);
 }
