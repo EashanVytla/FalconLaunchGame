@@ -133,6 +133,7 @@ int main()
             //This is a placeholder for the actual gameplay
             LCD.WriteLine("Play game here");
             drawBackground();
+            LCD.SetFontColor(0xA7A9AC);
             LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
             moveBackground();
             drawLaunchPad();
