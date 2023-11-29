@@ -155,9 +155,10 @@ int main()
 
             if(star.collision(rocket.getX(), rocket.getY())){
                 std::cout << "HERE" << std::endl;
+            }else{
+                star.draw();
             }
 
-            star.draw();
             rocket.draw();
         }
 
