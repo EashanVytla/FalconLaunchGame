@@ -149,9 +149,8 @@ int main()
                 moveBackground();
             }
 
-            star.move(1);
+            star.move(-1);
             star.setX(w_width/2);
-            star.setY(w_height/2);
 
             if(star.collision(rocket.getX(), rocket.getY())){
                 std::cout << "HERE" << std::endl;
