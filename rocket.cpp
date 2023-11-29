@@ -34,5 +34,5 @@ int Rocket::getY(){
 }
 
 void Rocket::move(int dy){
-    x += dy;
+    y += dy;
 }

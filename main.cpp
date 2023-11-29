@@ -128,15 +128,16 @@ int main()
         if(menu_state == 0){
             //Gameplay
             LCD.WriteLine("Play game here");
-            drawBackground();
-            moveBackground();
             
             if(rocket.getY() > Window::w_height/2){
                 rocket.move(1);
                 launchpad.draw();
+            }else{
+                moveBackground();
             }
 
             rocket.draw();
+            drawBackground();
         }
 
         //Update the screen
