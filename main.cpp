@@ -5,6 +5,7 @@
 #include "launchpad.h"
 #include "star.h"
 #include <stdio.h>
+#include "fuel.h"
 
 //Function prototypes
 //Displays the menu
@@ -71,6 +72,7 @@ int main()
     Rocket rocket;
     Launchpad launchpad;
     Star star;
+    Fuel fuel;
 
     //make the menue from function
     displayMenu();
@@ -149,8 +151,8 @@ int main()
                 moveBackground();
             }
 
-            star.move(1);
-            star.setX(w_width/2);
+            fuel.move(1);
+            fuel.setX(w_width/2);
 
             if(star.collision(rocket.getX(), rocket.getY())){
                 std::cout << "HERE" << std::endl;
