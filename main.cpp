@@ -3,6 +3,8 @@
 #include "rocket.h"
 #include <window.h>
 #include "launchpad.h"
+#include "star.h"
+#include <stdio.h>
 
 //Function prototypes
 //Displays the menu
@@ -58,6 +60,7 @@ int main()
 
     Rocket rocket;
     Launchpad launchpad;
+    Star star;
 
     //make the menue from function
     displayMenu();
@@ -127,7 +130,7 @@ int main()
 
         if(menu_state == 0){
             //Gameplay
-            LCD.WriteLine("Play game here");
+            drawBackground();
             
             if(rocket.getY() > Window::w_height/2){
                 rocket.move(1);
@@ -136,7 +139,13 @@ int main()
                 moveBackground();
             }
 
-            drawBackground();
+            //star.move(1);
+
+            if(star.collision(rocket.getX(), rocket.getY())){
+                std::cout << "HERE" << std::endl;
+            }
+
+            star.draw();
             rocket.draw();
         }
 

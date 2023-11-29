@@ -1,5 +1,6 @@
 #include "star.h"
 #include <FEHImages.h>
+#include <rocket.h>
 
 Star::Star(){
     setRandomPos();
@@ -17,7 +18,12 @@ void Star::draw(){
     star.Close();
 }
 
-bool Star::collision(int x, int y, int width, int height){
+bool Star::collision(int x, int y){
     //Allen implement code here
-    return true;
+    bool collided = false;
+    if (getX() + width > x && getX() < x + Rocket::width &&
+        getY() + height > y && getY() < y + Rocket::height) {
+        collided = true;
+    }
+    return collided;
 }
