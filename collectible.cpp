@@ -1,4 +1,4 @@
-#include "Collectible.h"
+#include "collectible.h"
 #include <FEHRandom.h>
 
 int Collectible::getX(){

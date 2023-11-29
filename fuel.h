@@ -1,4 +1,6 @@
+#ifndef COLLECTIBLE_H
 #include "collectible.h"
+#endif
 
 class Fuel : public Collectible{
     private:
