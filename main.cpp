@@ -154,7 +154,7 @@ int main()
             fuel.move(1);
             fuel.setX(w_width/2);
 
-            if(star.collision(rocket.getX(), rocket.getY())){
+            if(fuel.collision(rocket.getX(), rocket.getY())){
                 std::cout << "HERE" << std::endl;
             }else{
                 fuel.draw();
