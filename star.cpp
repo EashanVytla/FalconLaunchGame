@@ -22,8 +22,8 @@ void Star::draw(){
 bool Star::collision(int x, int y){
     //Allen implement code here
     bool collided = false;
-    if (getX() + 7 > x && getX() < x + Rocket::width &&
-        getY() + 7 > y && getY() < y + Rocket::height) {
+    if (getX() + width > x && getX() < x + Rocket::width &&
+        getY() + height > y && getY() < y + Rocket::height) {
         collided = true;
     }
     return collided;

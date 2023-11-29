@@ -10,7 +10,7 @@ int Collectible::getY(){
 }
 
 void Collectible::setRandomPos(){
-    x = Random.RandInt()
+    x = Random.RandInt();
     y = 0;
 }
 
