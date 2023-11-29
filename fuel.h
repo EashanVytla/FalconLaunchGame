@@ -1,4 +1,4 @@
-#include "Collectible.h"
+#include "collectible.h"
 
 class Fuel : public Collectible{
     private:
