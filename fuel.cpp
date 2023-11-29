@@ -1,6 +1,10 @@
 #include <FEHImages.h>
 #include "fuel.h"
 #include "Rocket.h"
+
+Fuel::Fuel(){
+    setRandomPos();
+}
 void Fuel::draw(){
     //Width: 13 Height: 13
      // Declares an image for a fuel
