@@ -1,4 +1,5 @@
 #include "FEHLCD.h"
+#include <FEHImages.h>
 
 //Function prototypes
 //Displays the menu
@@ -9,6 +10,22 @@ void displayLeaderBoard();
 void displayCredits();
 //Displays the instructions of the game
 void displayInstructions();
+//Draws rocket at specified x and y
+void drawRocket(int x, int y);
+//Draws launchpad
+void drawLaunchPad();
+//Draws fuel at specified x and y
+void drawFuel(int x, int y);
+//Draws star at specified x and y
+void drawStar(int x, int y);
+//Draws background
+void drawBackground();
+//move background one pixel
+void moveBackground();
+
+//background x and y
+int background_x = 0;
+int background_y = 0;
 
 //Returns true if a button is clicked and sets x and y variables to the position of the click
 //Ignores a button hold! If the button is held only the first loop cycle is counted
@@ -87,8 +104,6 @@ int main()
 
             switch(menu_state){
                 case 0:
-                    //This is a placeholder for the actual gameplay
-                    LCD.WriteLine("Play game here");
                     break;
                 case 1:
                     //Displaying the leaderboard
@@ -112,6 +127,17 @@ int main()
             if(menu_state < 4){
                 LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
             }
+        }
+
+        if(menu_state == 0 ){
+            //This is a placeholder for the actual gameplay
+            LCD.WriteLine("Play game here");
+            drawBackground();
+            moveBackground();
+            drawLaunchPad();
+            drawRocket(w_width/2-5,w_height-100);
+            drawFuel(w_width/2,w_height/2);
+            drawStar(w_width/2,w_height/3);
         }
 
         //Update the screen
@@ -166,10 +192,10 @@ bool detectButtonClick(int *x, int *y){
 
 void displayMenu(){
     //Draw the dividing borders of the menue screen
-    LCD.SetFontColor(LIGHTGOLDENRODYELLOW);
+    LCD.SetFontColor(0x005288);
     LCD.FillRectangle(155,0,10,239);
     LCD.FillRectangle(0,115,319,10);
-
+    LCD.SetFontColor(0xA7A9AC);
     //Write Launch to the top left section of the menue
     LCD.WriteAt("Start",40,50);
     //Write leaderboard to the top right section of the menue
@@ -178,4 +204,66 @@ void displayMenu(){
     LCD.WriteAt("Credit",40,170);
     //Write instructions at the bottom right section of the menue
     LCD.WriteAt("Instructions",170,170);
+}
+
+void drawRocket(int x, int y){
+    //Width: 13 Height: 80
+     // Declares an image for a Rocket
+    FEHImage Rocket;
+    // Open the image
+    Rocket.Open("RocketFEH.pic");
+    // Draw a Rocket in the top left corner
+    Rocket.Draw(x, y);
+    // Close the image
+    Rocket.Close();
+}
+void drawLaunchPad(){
+    //width: 64 Height: 80
+    int width = 64;
+    int height = 80;
+    // Declares an image for a Rocket
+    FEHImage launchPad;
+    // Open the image
+    launchPad.Open("LaunchPadFEH.pic");
+    // Draw a pad in the top left corner
+    launchPad.Draw(w_width/2 - (width/4), w_height - height);
+    // Close the image
+    launchPad.Close();
+}
+void drawFuel(int x, int y){
+    //Width: 13 Height: 13
+     // Declares an image for a fuel
+    FEHImage fuel;
+    // Open the image
+    fuel.Open("FuelFEH.pic");
+    // Draw a fuel in the top left corner
+    fuel.Draw(x, y);
+    // Close the image
+    fuel.Close();
+}
+void drawStar(int x, int y){
+    //Width: 7 Height: 7
+     // Declares an image for a star
+    FEHImage star;
+    // Open the image
+    star.Open("StarFEH.pic");
+    // Draw a fuel in the top left corner
+    star.Draw(x, y);
+    // Close the image
+    star.Close();
+}
+void drawBackground(){
+    //width:  Height: 
+    // Declares an image for a background
+    FEHImage launchPad;
+    // Open the image
+    launchPad.Open("BackgroundFEH.pic");
+    // Draw a pad in the top left corner
+    launchPad.Draw(background_x,background_y);
+    // Close the image
+    launchPad.Close();
+}
+void moveBackground(){
+    background_y+=2;
+
 }
