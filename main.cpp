@@ -1,7 +1,7 @@
 #include "FEHLCD.h"
 #include <FEHImages.h>
 #include "rocket.h"
-#include <window.h>
+#include "window.h"
 #include "launchpad.h"
 #include "star.h"
 #include <stdio.h>
