@@ -131,7 +131,11 @@ int main()
             drawBackground();
             moveBackground();
             
-            launchpad.draw();
+            if(rocket.getY() > Window::w_height/2){
+                rocket.move(1);
+                launchpad.draw();
+            }
+
             rocket.draw();
         }
 
