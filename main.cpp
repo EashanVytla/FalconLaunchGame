@@ -15,12 +15,18 @@ void displayLeaderBoard();
 void displayCredits();
 //Displays the instructions of the game
 void displayInstructions();
+//Draws rocket at specified x and y
+void drawRocket(int x, int y);
+//Draws launchpad
+void drawLaunchPad();
+//Draws fuel at specified x and y
+void drawFuel(int x, int y);
+//Draws star at specified x and y
+void drawStar(int x, int y);
 //Draws background
 void drawBackground();
 //move background one pixel
 void moveBackground();
-
-void gameUpdate();
 
 //background x and y
 int background_x = 0;
@@ -29,6 +35,10 @@ int background_y = 0;
 //Returns true if a button is clicked and sets x and y variables to the position of the click
 //Ignores a button hold! If the button is held only the first loop cycle is counted
 bool detectButtonClick(int *x, int *y);
+
+//Setting the window height and width as constants
+const int w_height = 239;
+const int w_width = 329;
 
 //Storing the middle of the menu as constants
 const int menu_x_split = 155;
@@ -215,6 +225,52 @@ void displayMenu(){
     LCD.WriteAt("Instructions",170,170);
 }
 
+void drawRocket(int x, int y){
+    //Width: 13 Height: 80
+     // Declares an image for a Rocket
+    FEHImage Rocket;
+    // Open the image
+    Rocket.Open("RocketFEH.pic");
+    // Draw a Rocket in the top left corner
+    Rocket.Draw(x, y);
+    // Close the image
+    Rocket.Close();
+}
+void drawLaunchPad(){
+    //width: 64 Height: 80
+    int width = 64;
+    int height = 80;
+    // Declares an image for a Rocket
+    FEHImage launchPad;
+    // Open the image
+    launchPad.Open("LaunchPadFEH.pic");
+    // Draw a pad in the top left corner
+    launchPad.Draw(w_width/2 - (width/4), w_height - height);
+    // Close the image
+    launchPad.Close();
+}
+void drawFuel(int x, int y){
+    //Width: 13 Height: 13
+     // Declares an image for a fuel
+    FEHImage fuel;
+    // Open the image
+    fuel.Open("FuelFEH.pic");
+    // Draw a fuel in the top left corner
+    fuel.Draw(x, y);
+    // Close the image
+    fuel.Close();
+}
+void drawStar(int x, int y){
+    //Width: 7 Height: 7
+     // Declares an image for a star
+    FEHImage star;
+    // Open the image
+    star.Open("StarFEH.pic");
+    // Draw a fuel in the top left corner
+    star.Draw(x, y);
+    // Close the image
+    star.Close();
+}
 void drawBackground(){
     //width:  Height: 
     // Declares an image for a background
@@ -226,7 +282,7 @@ void drawBackground(){
     // Close the image
     launchPad.Close();
 }
-
 void moveBackground(){
     background_y+=2;
+
 }
