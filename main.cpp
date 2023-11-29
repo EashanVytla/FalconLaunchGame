@@ -136,8 +136,8 @@ int main()
                 moveBackground();
             }
 
-            rocket.draw();
             drawBackground();
+            rocket.draw();
         }
 
         //Update the screen
