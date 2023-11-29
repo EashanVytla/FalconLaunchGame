@@ -143,6 +143,7 @@ int main()
         if(menu_state == 0){
             //Gameplay
             drawBackground();
+            LCD.WriteAt(rocket.getAltitude(background_y),0,0);
             
             if(rocket.getY() > Window::w_height/2){
                 rocket.move(1);
