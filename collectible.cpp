@@ -23,5 +23,5 @@ void Collectible::setY(int y){
 }
 
 void Collectible::move(int dy){
-    y -= dy;
+    y += dy;
 }
