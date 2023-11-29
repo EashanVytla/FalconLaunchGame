@@ -9,6 +9,6 @@ class Collectible{
         void setX(int x);
         void setY(int y);
         virtual void draw() = 0;
-        virtual bool collision(int x, int y, int width, int height) = 0;
+        virtual bool collision(int x, int y) = 0;
         void move(int dy);
 };

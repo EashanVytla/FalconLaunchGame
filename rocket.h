@@ -8,4 +8,6 @@ class Rocket{
         Rocket();
         void draw();
         void move(int dy);
+        int getX();
+        int getY();
 };

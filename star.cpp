@@ -2,7 +2,6 @@
 #include <FEHImages.h>
 #include "Rocket.h"
 
-
 Star::Star(){
     setRandomPos();
 }

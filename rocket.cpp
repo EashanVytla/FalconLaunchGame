@@ -25,6 +25,14 @@ void Rocket::draw(){
     Rocket.Close();
 }
 
+int Rocket::getX(){
+    return x;
+}
+
+int Rocket::getY(){
+    return y;
+}
+
 void Rocket::move(int dy){
-    x += dy;
+    y -= dy;
 }

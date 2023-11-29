@@ -1,5 +1,10 @@
 #include "FEHLCD.h"
 #include <FEHImages.h>
+#include "rocket.h"
+#include <window.h>
+#include "launchpad.h"
+#include "star.h"
+#include <stdio.h>
 
 //Function prototypes
 //Displays the menu
@@ -62,6 +67,10 @@ int main()
     //Initializing the x and y position of the screen press to 0
     int press_x = 0;
     int press_y = 0;
+
+    Rocket rocket;
+    Launchpad launchpad;
+    Star star;
 
     //make the menue from function
     displayMenu();
@@ -129,16 +138,25 @@ int main()
             }
         }
 
-        if(menu_state == 0 ){
-            //This is a placeholder for the actual gameplay
-            LCD.WriteLine("Play game here");
+        if(menu_state == 0){
+            //Gameplay
             drawBackground();
-            LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
-            moveBackground();
-            drawLaunchPad();
-            drawRocket(w_width/2-5,w_height-100);
-            drawFuel(w_width/2,w_height/2);
-            drawStar(w_width/2,w_height/3);
+            
+            if(rocket.getY() > Window::w_height/2){
+                rocket.move(1);
+                launchpad.draw();
+            }else{
+                moveBackground();
+            }
+
+            //star.move(1);
+
+            if(star.collision(rocket.getX(), rocket.getY())){
+                std::cout << "HERE" << std::endl;
+            }
+
+            star.draw();
+            rocket.draw();
         }
 
         //Update the screen
