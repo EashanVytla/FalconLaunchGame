@@ -177,6 +177,7 @@ int main()
             collectibles.generate(gameTime, rocket.getAltitude());
             collectibles.update();
             collectibles.draw();
+            
             rocket.draw();
         }
 

@@ -12,7 +12,7 @@ int Collectible::getY(){
 
 void Collectible::setRandomPos(){
     x = Random.RandInt()/100;
-    y = Window::w_height;
+    y = Window::w_height - getHeight();
 }
 
 void Collectible::setX(int x){
