@@ -148,6 +148,7 @@ int main()
                     if(press_x > 0 && press_y > Window::w_height-20){
                         game_state = 0;
                         background_y = 0;
+                        fuelLevel = 0;
                     }
                     break;
                 case 4:
@@ -283,11 +284,20 @@ void drawBackground(){
 
 void moveBackgroundUp(int alt){
     //move the background by 2 pixels
-    background_y-=2;
+    background_y+=2;
+    
 }
 void moveBackgroundDown(int alt){
     //move the background by 2 pixels
-    background_y+=2;
+    int dy = 2;
+
+    if(alt > 400){
+        dy = (Rocket::max_altitude - alt) * .01;
+    }else{
+        dy = 2;
+        
+    }
+    background_y-=dy;
 }
 void drawProgressBar(double barWidth){
     LCD.SetFontColor(0x005288);
