@@ -58,6 +58,10 @@ int main()
     int press_x = 0;
     int press_y = 0;
 
+    //Initialize prev x and y to calculate the user mouse drag
+    int prev_x = 0;
+    int prev_y = 0;
+
     Rocket rocket;
     Launchpad launchpad;
     Star star;
@@ -133,7 +137,7 @@ int main()
             drawBackground();
             
             if(rocket.getY() > Window::w_height/2){
-                rocket.move(1);
+                rocket.move(press_x - prev_x);
                 launchpad.draw();
             }else{
                 moveBackground();
@@ -148,6 +152,9 @@ int main()
             star.draw();
             rocket.draw();
         }
+
+        prev_x = press_x;
+        prev_y = press_y; 
 
         //Update the screen
         LCD.Update();
