@@ -176,7 +176,7 @@ int main()
             }
             if(rocket.reachedMaxHeight(rocket.getAltitude(background_y))){
                 LCD.SetFontColor(0x005288);
-                LCD.WriteAt("Reached",0,0);
+                LCD.WriteAt("Returning",0,0);
             }
             rocket.draw();
         }
