@@ -176,7 +176,7 @@ int main()
                 rocket.moveY(1);
                 launchpad.draw();
             }else{
-                moveBackgroundUp();
+                moveBackgroundDown();
             }
 
             fuel.move(1);
