@@ -62,6 +62,7 @@ char leaderboard[10][21] = {"Eashan - 10%", "Allen - 9%", "Joe - 8%", "Stephanie
 //2 - Credit
 //3 - Instructions
 //4 - Menu
+//TEST
 int menu_state = 4;
 
 int main()
