@@ -183,6 +183,7 @@ int main()
             }else{
                 if(landing){
                     moveBackgroundUp(rocket.getAltitude(background_y));
+                    std::cout << "HERE" << std::endl;
                 }else{
 
                     moveBackgroundDown(rocket.getAltitude(background_y));
