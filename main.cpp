@@ -87,7 +87,7 @@ int main()
                 if(press_x < menu_x_split){
                     if(press_y < menu_y_split){
                         //If Play Game is pressed
-                        game_state = 5;
+                        game_state = 0;
                     }else{
                         //If the Credits is pressed
                         game_state = 2;
