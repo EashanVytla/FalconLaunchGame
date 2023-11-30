@@ -316,7 +316,7 @@ void moveBackgroundDown(int alt){
     if (alt >= Rocket::buffer_altitude) {
         // Calculate changeInY based on the rocket's altitude
         // Linear interpolation between Rocket::max_up_speed and 0 based on the difference between the current altitude and buffer altitude
-        changeInY = Rocket::max_up_speed - ((alt - Rocket::buffer_altitude) / 200.0);
+        changeInY = Rocket::max_up_speed - ((alt - Rocket::buffer_altitude) / 300.0);
 
         // Check if the altitude is close to the maximum altitude (within the last 20 units)
         if (alt > Rocket::max_altitude - 20) {
