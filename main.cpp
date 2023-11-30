@@ -78,6 +78,8 @@ int main()
 
     //Infinite loop for gameplay
     while (1) {
+        LCD.Clear();
+
         std::cout << game_state << std::endl;
         //Keeping track of user click and position of the click
         bool button_press = detectButtonClick(&press_x, &press_y);
@@ -88,9 +90,6 @@ int main()
 
         //If the user clicked the screen (Only first loop cycle of click is counted)
         if(button_press){
-            //Clear the screen 
-            LCD.Clear();
-
             //If the menu state is menu, go to the selected state
             if(game_state == 4){
                 if(press_x < menu_x_split){
