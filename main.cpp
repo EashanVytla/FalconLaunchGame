@@ -285,6 +285,11 @@ void drawBackground(){
 
 void moveBackgroundUp(int alt){
     //move the background by 2 pixels
+    
+    background_y-=2;
+}
+void moveBackgroundDown(int alt){
+    //move the background by 2 pixels
     int dy = 2;
 
     if(alt > 400){
@@ -293,11 +298,7 @@ void moveBackgroundUp(int alt){
         dy = 2;
         
     }
-    background_y-=dy;
-}
-void moveBackgroundDown(int alt){
-    //move the background by 2 pixels
-    background_y+=2;
+    background_y+=dy;
 }
 void drawProgressBar(double barWidth){
     LCD.SetFontColor(0x005288);
