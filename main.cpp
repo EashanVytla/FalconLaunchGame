@@ -313,7 +313,7 @@ void moveBackgroundDown(int alt){
         // Calculate the linear decrease in changeInY as altitude increases from 400 to 500
         // Linearly decrease from 2 to 0 over 100 units of altitude
         changeInY = Rocket::max_up_speed - ((alt - Rocket::buffer_altitude) / 200.0);  
-        if(alt>Rocket::buffer_altitude){
+        if(alt>Rocket::max_altitude-20){
             changeInY = .4;
         }
     }
