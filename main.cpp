@@ -20,6 +20,8 @@ void displayInstructions();
 void drawBackground();
 //move background one pixel
 void moveBackground();
+//draw fuel level bar
+void drawProgressBar(int barWidth);
 
 void gameUpdate();
 
