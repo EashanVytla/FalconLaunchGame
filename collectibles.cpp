@@ -25,7 +25,6 @@ void Collectibles::generate(float time, int altitude){
 }
 
 void Collectibles::update(){
-    generate();
     int index = 0;
     for (const std::unique_ptr<Collectible>& ptr : objects) {
         ptr->move(1);

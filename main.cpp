@@ -9,6 +9,7 @@
 #include <vector>
 #include <csignal>
 #include "Collectibles.h"
+#include <FEHUtility.h>
 
 //Function prototypes
 //Displays the menu
@@ -88,6 +89,8 @@ int main()
     displayMenu();
 
     while (!sigintReceived) {
+        float t_now = TimeNow();
+        std::cout << t_now;
         //Keeping track of user click and position of the click
         bool button_press = detectButtonClick(&press_x, &press_y);
 
@@ -168,6 +171,7 @@ int main()
                 moveBackground();
             }
 
+            //collectibles.generate()
             collectibles.update();
             collectibles.draw();
             rocket.draw();
