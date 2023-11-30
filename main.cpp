@@ -53,6 +53,9 @@ double fuelLevel = 100;
 //In the final version this would be read from a file
 char leaderboard[10][21] = {"Eashan - 10%", "Allen - 9%", "Joe - 8%", "Stephanie - 7%", "Aidan - 6%", "Josh - 5%", "Marvin - 4%", "Charlie - 3%", "Gavin - 2%", "Sid - 1%"};
 
+// if the Rocket is on the way donw
+bool landing = false;
+
 //0 - Game
 //1 - Leaderboard
 //2 - Credit
@@ -169,6 +172,7 @@ int main()
             if(rocket.reachedMaxHeight(rocket.getAltitude(background_y))){
                 LCD.SetFontColor(0x005288);
                 LCD.WriteAt("Landing",Window::w_width/2-50,0);
+                landing = true;
             }
             drawProgressBar(fuelLevel);
             fuelLevel -=.05;
@@ -176,7 +180,12 @@ int main()
                 rocket.moveY(1);
                 launchpad.draw();
             }else{
+                if(landing){
+                    moveBackgroundUp();
+                }else{
+
                 moveBackgroundDown();
+                }
             }
 
             fuel.move(1);
