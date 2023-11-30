@@ -4,7 +4,7 @@
 #include "window.h"
 #include "launchpad.h"
 #include "star.h"
-#include <stdio.h>
+#include <iostream>
 #include "fuel.h"
 #include <vector>
 #include <csignal>
@@ -161,6 +161,7 @@ int main()
         }
 
         if(game_state == 0){
+            std::cout << "Staring game..." << std::endl;
             float gameTime = TimeNow() - initialTime;
             //Gameplay
             drawBackground();
@@ -174,6 +175,7 @@ int main()
                 moveBackground();
             }
 
+            std::cout << "Creating collectibles..." << std::endl;
             collectibles.generate(gameTime, rocket.getAltitude());
             collectibles.update();
             collectibles.draw();
