@@ -289,13 +289,13 @@ void moveBackgroundUp(int alt){
 }
 void moveBackgroundDown(int alt){
     // Define a variable to store the change in background_y
-    int changeInY = 2;
+    float changeInY = 2;
 
     // Check if altitude is greater than or equal to 400
     if (alt >= 400) {
         // Calculate the linear decrease in changeInY as altitude increases from 400 to 500
         changeInY = 2 - ((alt - 400) / 100.0);  // Linearly decrease from 2 to 0 over 100 units of altitude
-        changeInY = std::max(changeInY, 0);  // Ensure changeInY is not negative
+        //changeInY = std::max(changeInY, 0);  // Ensure changeInY is not negative
     }
 
     // Move the background by the calculated change in Y
