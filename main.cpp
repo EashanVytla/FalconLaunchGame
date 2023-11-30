@@ -154,6 +154,7 @@ int main()
 
         if(game_state == 0){
             //Gameplay
+            background_y = 0;
             drawBackground();
             LCD.SetFontColor(0x005288);
             LCD.WriteAt(rocket.getAltitude(background_y),0,0);
