@@ -6,6 +6,8 @@
 #include "star.h"
 #include <stdio.h>
 #include "fuel.h"
+#include <vector>
+#include <csignal>
 
 //Function prototypes
 //Displays the menu
@@ -22,6 +24,8 @@ void drawBackground();
 void moveBackground();
 
 void gameUpdate();
+
+void handleSigInt(int signum);
 
 //background x and y
 int background_x = 0;
@@ -54,8 +58,15 @@ char leaderboard[10][21] = {"Eashan - 10%", "Allen - 9%", "Joe - 8%", "Stephanie
 //5 - IDLE Game
 int game_state = 4;
 
+//Global variable to handle when the SIGINT is recieved.
+//This is volatile to be accessed accross threads.
+volatile bool sigintReceived = false;
+
 int main()
 {
+    //Registering SIGINT handler for proper destruction of our collectible pointers
+    std::signal(SIGINT, handleSigInt);
+
     //Initializing the x and y position of the screen press to 0
     int press_x = 0;
     int press_y = 0;
@@ -76,11 +87,7 @@ int main()
     //make the menue from function
     displayMenu();
 
-    //Infinite loop for gameplay
-    while (1) {
-        LCD.Clear();
-
-        std::cout << game_state << std::endl;
+    while (!sigintReceived) {
         //Keeping track of user click and position of the click
         bool button_press = detectButtonClick(&press_x, &press_y);
 
@@ -90,6 +97,7 @@ int main()
 
         //If the user clicked the screen (Only first loop cycle of click is counted)
         if(button_press){
+            LCD.Clear();
             //If the menu state is menu, go to the selected state
             if(game_state == 4){
                 if(press_x < menu_x_split){
@@ -112,7 +120,7 @@ int main()
             }else{
                 //Allen: Check the location of the button press for launch button
             }
-
+    
             switch(game_state){
                 case 0:
                     break;
@@ -143,47 +151,15 @@ int main()
 
             //If the menu state is anything other than the menu, draw a back to menu option on the screen
             if(game_state != 4){
-                //If the menu state is any of the others, bring it back to the menu
-                if(press_x > back_menu_x && press_y > back_menu_y){
-                    game_state = 4;
-                }
-
                 LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
             }
-        }
-
-        switch(game_state){
-            case 0:
-                break;
-            case 1:
-                //Displaying the leaderboard
-                displayLeaderBoard();
-                break;
-            case 2:
-                //Displaying the credits
-                displayCredits();
-                break;
-            case 3:
-                //Displaying the instructions
-                displayInstructions();
-                break;
-            case 5:
-                //Allen:
-                //Display the launch button
-                //Display logo
-                //Display rocket and launchpad
-                //If the Launch button is pressed, then set game_state to 0
-                break;
-            case 4:
-                //Displaying the menu
-                displayMenu();
-                break;
         }
 
         if(game_state == 0){
             //Gameplay
             drawBackground();
-            LCD.WriteAt(rocket.getAltitude(background_y),0,0);
+            rocket.setAltitude(background_y);
+            LCD.WriteAt(rocket.getAltitude(),0,0);
             
             if(rocket.getY() > Window::w_height/2){
                 rocket.moveY(1);
@@ -210,7 +186,15 @@ int main()
         //Update the screen
         LCD.Update();
     }
+
+    std::cout << "HERE" << std::endl;
+    
     return 0;
+}
+
+void handleSigInt(int signum) {
+    std::cout << "SIGINT received. Cleaning up and exiting.\n" << std::endl;
+    sigintReceived = true;
 }
 
 void displayLeaderBoard(){
@@ -221,6 +205,12 @@ void displayLeaderBoard(){
     for(int i = 0; i < 10; i++){
         LCD.WriteLine(leaderboard[i]);
     }
+}
+
+bool checkCollectibleCollision(std::vector<Collectible*> collectibles, Rocket rocket){
+    int rate = rocket.getAltitude();
+
+    return true;
 }
 
 void displayInstructions(){ 
