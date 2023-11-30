@@ -134,7 +134,7 @@ int main()
             }
 
             //If the menu state is anything other than the menu, draw a back to menu option on the screen
-            if(game_state < 4){
+            if(game_state != 4){
                 LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
             }
         }
