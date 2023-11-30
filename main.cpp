@@ -310,13 +310,13 @@ void moveBackgroundUp(int alt){
 
 void moveBackgroundDown(int alt){
     // Define a variable to store the change in background_y
-    float changeInY = Rocket::max_up_speed; // Default change in Y, initially set to the maximum upward speed of the rocket
+    float changeInY = Rocket::max_up_speed; 
 
     // Check if the altitude is greater than or equal to the buffer altitude
     if (alt >= Rocket::buffer_altitude) {
         // Calculate changeInY based on the rocket's altitude
         // Linear interpolation between Rocket::max_up_speed and 0 based on the difference between the current altitude and buffer altitude
-        changeInY = Rocket::max_up_speed - ((alt - Rocket::buffer_altitude) / 300.0);
+        changeInY = Rocket::max_up_speed - ((alt - Rocket::buffer_altitude) / 200.0);
 
         // Check if the altitude is close to the maximum altitude (within the last 20 units)
         if (alt > Rocket::max_altitude - 20) {
@@ -329,5 +329,6 @@ void moveBackgroundDown(int alt){
 }
 void drawProgressBar(double barWidth){
     LCD.SetFontColor(0x005288);
+    //create rectangle based of input width
     LCD.FillRectangle(Window::w_width-110,0,barWidth,10);
 }
