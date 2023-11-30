@@ -21,7 +21,7 @@ void drawBackground();
 //move background one pixel
 void moveBackground();
 //draw fuel level bar
-void drawProgressBar(int barWidth);
+void drawProgressBar(double barWidth);
 
 void gameUpdate();
 
@@ -45,7 +45,7 @@ const int back_menu_y = 219;
 bool prev_touch = false;
 
 //Progess bar width/ Fuel level
-int fuelLevel = 100;
+double fuelLevel = 100;
 
 //Initializing a temporary placeholder for the leaderboard
 //In the final version this would be read from a file
@@ -274,7 +274,7 @@ void moveBackground(){
     //move the background by 2 pixels
     background_y+=2;
 }
-void drawProgressBar(int barWidth){
+void drawProgressBar(double barWidth){
     LCD.SetFontColor(0x005288);
     LCD.FillRectangle(Window::w_width-100,0,barWidth,10);
 }
