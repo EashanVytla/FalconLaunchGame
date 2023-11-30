@@ -16,19 +16,12 @@ void displayLeaderBoard();
 void displayCredits();
 //Displays the instructions of the game
 void displayInstructions();
-//Draws rocket at specified x and y
-void drawRocket(int x, int y);
-//Draws launchpad
-void drawLaunchPad();
-//Draws fuel at specified x and y
-void drawFuel(int x, int y);
-//Draws star at specified x and y
-void drawStar(int x, int y);
 //Draws background
 void drawBackground();
 //move background one pixel
 void moveBackground();
 
+void gameUpdate();
 
 //background x and y
 int background_x = 0;
@@ -37,10 +30,6 @@ int background_y = 0;
 //Returns true if a button is clicked and sets x and y variables to the position of the click
 //Ignores a button hold! If the button is held only the first loop cycle is counted
 bool detectButtonClick(int *x, int *y);
-
-//Setting the window height and width as constants
-const int w_height = 239;
-const int w_width = 329;
 
 //Storing the middle of the menu as constants
 const int menu_x_split = 155;
@@ -62,14 +51,18 @@ char leaderboard[10][21] = {"Eashan - 10%", "Allen - 9%", "Joe - 8%", "Stephanie
 //2 - Credit
 //3 - Instructions
 //4 - Menu
-//TEST
-int menu_state = 4;
+//5 - IDLE Game
+int game_state = 4;
 
 int main()
 {
     //Initializing the x and y position of the screen press to 0
     int press_x = 0;
     int press_y = 0;
+
+    //Initialize prev x and y to calculate the user mouse drag
+    int prev_x = 0;
+    int prev_y = 0;
 
     Rocket rocket;
     Launchpad launchpad;
@@ -90,33 +83,34 @@ int main()
             LCD.Clear();
 
             //If the menu state is menu, go to the selected state
-            if(menu_state == 4){
+            if(game_state == 4){
                 if(press_x < menu_x_split){
                     if(press_y < menu_y_split){
                         //If Play Game is pressed
-                        menu_state = 0;
+                        game_state = 5;
                     }else{
                         //If the Credits is pressed
-                        menu_state = 2;
+                        game_state = 2;
                     }
                 }else{
                     if(press_y < menu_y_split){
                         //If the Leaderboard is pressed
-                        menu_state = 1;
+                        game_state = 1;
                     }else{
                         //If the Instructions is pressed
-                        menu_state = 3;
+                        game_state = 3;
                     }
                 }
-            }else{
+            }else if(game_state != 4){
                 //If the menu state is any of the others, bring it back to the menu
                 if(press_x > back_menu_x && press_y > back_menu_y){
-                    menu_state = 4;
+                    game_state = 4;
                 }
             }
 
-            switch(menu_state){
+            switch(game_state){
                 case 0:
+                    rocket.moveX(press_x - prev_x);
                     break;
                 case 1:
                     //Displaying the leaderboard
@@ -130,22 +124,45 @@ int main()
                     //Displaying the instructions
                     displayInstructions();
                     break;
-                default:
+                case 5:
+                    //Allen:
+                    //Display the launch button
+                    LCD.SetFontColor(0x005288);
+                    LCD.WriteAt("LAUNCH", 0,Window::w_height-20);
+                    //Display logo
+
+                    //Display rocket and launchpad
+                    rocket.draw();
+                    launchpad.draw();
+                    //If the Launch button is pressed, then set game_state to 0       
+                    if(press_x > 0 && press_y > Window::w_height-20){
+                        game_state = 0;
+                        background_y = 0;
+                    }
+                    break;
+                case 4:
                     //Displaying the menu
                     displayMenu();
                     break;
             }
 
             //If the menu state is anything other than the menu, draw a back to menu option on the screen
-            if(menu_state < 4){
+            if(game_state != 4){
+                LCD.SetFontColor(0x005288);
                 LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
             }
         }
 
-        if(menu_state == 0){
+        if(game_state == 0){
             //Gameplay
             drawBackground();
+            LCD.SetFontColor(0x005288);
             LCD.WriteAt(rocket.getAltitude(background_y),0,0);
+            LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
+            if(rocket.reachedMaxHeight(rocket.getAltitude(background_y))){
+                LCD.SetFontColor(0x005288);
+                LCD.WriteAt("Returning",0,0);
+            }
             
             if(rocket.getY() > Window::w_height/2){
                 rocket.moveY(1);
@@ -155,16 +172,18 @@ int main()
             }
 
             fuel.move(1);
-            fuel.setX(w_width/2);
+            fuel.setX(Window::w_width/2);
 
             if(fuel.collision(rocket.getX(), rocket.getY())){
                 std::cout << "HERE" << std::endl;
             }else{
                 fuel.draw();
             }
-
             rocket.draw();
         }
+
+        prev_x = press_x;
+        prev_y = press_y; 
 
         //Update the screen
         LCD.Update();
@@ -232,52 +251,6 @@ void displayMenu(){
     LCD.WriteAt("Instructions",170,170);
 }
 
-void drawRocket(int x, int y){
-    //Width: 13 Height: 80
-     // Declares an image for a Rocket
-    FEHImage Rocket;
-    // Open the image
-    Rocket.Open("RocketFEH.pic");
-    // Draw a Rocket in the top left corner
-    Rocket.Draw(x, y);
-    // Close the image
-    Rocket.Close();
-}
-void drawLaunchPad(){
-    //width: 64 Height: 80
-    int width = 64;
-    int height = 80;
-    // Declares an image for a Rocket
-    FEHImage launchPad;
-    // Open the image
-    launchPad.Open("LaunchPadFEH.pic");
-    // Draw a pad in the top left corner
-    launchPad.Draw(w_width/2 - (width/4), w_height - height);
-    // Close the image
-    launchPad.Close();
-}
-void drawFuel(int x, int y){
-    //Width: 13 Height: 13
-     // Declares an image for a fuel
-    FEHImage fuel;
-    // Open the image
-    fuel.Open("FuelFEH.pic");
-    // Draw a fuel in the top left corner
-    fuel.Draw(x, y);
-    // Close the image
-    fuel.Close();
-}
-void drawStar(int x, int y){
-    //Width: 7 Height: 7
-     // Declares an image for a star
-    FEHImage star;
-    // Open the image
-    star.Open("StarFEH.pic");
-    // Draw a fuel in the top left corner
-    star.Draw(x, y);
-    // Close the image
-    star.Close();
-}
 void drawBackground(){
     //width:  Height: 
     // Declares an image for a background
@@ -289,8 +262,8 @@ void drawBackground(){
     // Close the image
     launchPad.Close();
 }
+
 void moveBackground(){
     //move the background by 2 pixels
     background_y+=2;
-
 }
