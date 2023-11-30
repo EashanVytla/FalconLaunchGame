@@ -3,20 +3,21 @@
 #include <memory>
 #include <FEHRandom.h>
 #include <iostream>
+#include <math.h>
 
 Collectibles::Collectibles(){
     generate_rate = 1;
 }
 
 void Collectibles::generate(float time, int altitude){
-    generate_rate = (1.0 - (float)altitude/Rocket::max_altitude) * 100.0;
+    generate_rate = sqrt((1.0 - (float)altitude/Rocket::max_altitude) * 100.0);
     int every = 60 / generate_rate;
 
     //75% of the collectibles will be Fuel and 25% will be Stars
     //Completely random selection process
     int whichCol = Random.RandInt()/24575;
 
-    std::cout << "Time: " << time << std::endl;
+    std::cout << "Every: " << generate_rate << std::endl;
 
     if((int)time % every == 0){
         std::cout << "Creating new collectible..." << std::endl; 
