@@ -2,7 +2,7 @@
 #include "rocket.h"
 #include <memory>
 #include <FEHRandom.h>
-#include <stdio.h>
+#include <iostream>
 
 Collectibles::Collectibles(){
     generate_rate = 1;
