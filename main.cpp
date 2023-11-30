@@ -60,9 +60,13 @@ int main()
     int press_x = 0;
     int press_y = 0;
 
+    //Initialize drag x and y to calculate the user mouse drag
+    int drag_x = 0;
+    int drag_y = 0;
+
     //Initialize prev x and y to calculate the user mouse drag
-    int prev_x = 0;
-    int prev_y = 0;
+    int drag_prev_x = 0;
+    int drag_prev_y = 0;
 
     Rocket rocket;
     Launchpad launchpad;
@@ -76,6 +80,10 @@ int main()
     while (1) {
         //Keeping track of user click and position of the click
         bool button_press = detectButtonClick(&press_x, &press_y);
+
+        if(LCD.Touch(&drag_x, &drag_y)){
+            rocket.moveX(drag_x - drag_prev_x);
+        }
 
         //If the user clicked the screen (Only first loop cycle of click is counted)
         if(button_press){
@@ -112,7 +120,6 @@ int main()
 
             switch(game_state){
                 case 0:
-                    rocket.moveX(press_x - prev_x);
                     break;
                 case 1:
                     //Displaying the leaderboard
@@ -169,8 +176,8 @@ int main()
             rocket.draw();
         }
 
-        prev_x = press_x;
-        prev_y = press_y; 
+        drag_prev_x = drag_x;
+        drag_prev_y = drag_y;
 
         //Update the screen
         LCD.Update();
