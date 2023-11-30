@@ -169,7 +169,7 @@ int main()
                 LCD.WriteAt("Landing",Window::w_width-125,0);
             }
             drawProgressBar(fuelLevel);
-            fuelLevel--;
+            fuelLevel -=.1;
             if(rocket.getY() > Window::w_height/2){
                 rocket.moveY(1);
                 launchpad.draw();
@@ -275,5 +275,5 @@ void moveBackground(){
 }
 void drawProgressBar(int barWidth){
     LCD.SetFontColor(0x005288);
-    LCD.FillRectangle(0,0,barWidth,10);
+    LCD.FillRectangle(Window::w_width-100,0,barWidth,10);
 }
