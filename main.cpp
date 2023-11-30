@@ -19,9 +19,9 @@ void displayInstructions();
 //Draws background
 void drawBackground();
 //move background pixel
-void moveBackgroundUp();
+void moveBackgroundUp(int alt);
 //move background pixel
-void moveBackgroundDown();
+void moveBackgroundDown(int alt);
 //draw fuel level bar
 void drawProgressBar(double barWidth);
 
@@ -181,10 +181,10 @@ int main()
                 launchpad.draw();
             }else{
                 if(landing){
-                    moveBackgroundUp();
+                    moveBackgroundUp(rocket.getAltitude(background_y));
                 }else{
 
-                moveBackgroundDown();
+                    moveBackgroundDown(rocket.getAltitude(background_y));
                 }
             }
 
@@ -281,11 +281,11 @@ void drawBackground(){
     launchPad.Close();
 }
 
-void moveBackgroundUp(){
+void moveBackgroundUp(int alt){
     //move the background by 2 pixels
     background_y-=2;
 }
-void moveBackgroundDown(){
+void moveBackgroundDown(int alt){
     //move the background by 2 pixels
     background_y+=2;
 }
