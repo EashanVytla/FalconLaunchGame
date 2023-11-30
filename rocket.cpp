@@ -33,6 +33,10 @@ int Rocket::getY(){
     return y;
 }
 
-void Rocket::move(int dy){
+void Rocket::moveY(int dy){
     y -= dy;
+}
+
+void Rocket::moveX(int dx){
+    x += dx;
 }

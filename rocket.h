@@ -7,7 +7,8 @@ class Rocket{
         Rocket(int x, int y);
         Rocket();
         void draw();
-        void move(int dy);
+        void moveY(int dy);
+        void moveX(int dx);
         int getX();
         int getY();
 };
