@@ -16,7 +16,7 @@ void Collectibles::generate(float time, int altitude){
     //Completely random selection process
     int whichCol = Random.RandInt()/24575;
 
-    std::cout << "WHICH COL: " << whichCol << std::endl;
+    std::cout << "Time: " << time << std::endl;
 
     if((int)time % every == 0){
         std::cout << "Creating new collectible..." << std::endl; 
