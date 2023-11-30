@@ -132,7 +132,7 @@ int main()
                     //Allen:
                     //Display the launch button
                     LCD.SetFontColor(0xA7A9AC);
-                    LCD.WriteAt("LAUNCH", 0,Window::w_height);
+                    LCD.WriteAt("LAUNCH", 0,Window::w_height-100);
                     //Display logo
                     //Display rocket and launchpad
                     //If the Launch button is pressed, then set game_state to 0
