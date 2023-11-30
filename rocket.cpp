@@ -49,7 +49,7 @@ void Rocket::moveX(int dx){
 bool Rocket::reachedMaxHeight(int altitude){
     //check if the rocket has reached an altitude of 1000
     bool reached = false;
-    if(altitude > 500 && altitude < 700){
+    if(altitude > Rocket::max_altitude && altitude < Rocket::max_altitude +200){
         reached = true;
     }
     return reached;
