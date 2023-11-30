@@ -40,7 +40,7 @@ void Rocket::moveY(int dy){
 int Rocket::getAltitude(int background_y){
     //use the moving backgrounds position to output the rockets theoretical position
     //add the y of the rocket and subtract the ieght to get the bottom 
-    return (background_y + y - height);
+    return (background_y + y - height-50);
 }
 
 void Rocket::moveX(int dx){
