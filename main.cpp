@@ -300,7 +300,7 @@ void moveBackgroundDown(int alt){
     int deltaY = static_cast<int>(2 * progress);  // Linear interpolation from 0 to 2
 
     // Update background_y
-    background_y += deltaY;
+    background_y -= deltaY;
 }
 void drawProgressBar(double barWidth){
     LCD.SetFontColor(0x005288);
