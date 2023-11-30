@@ -1,3 +1,5 @@
+#ifndef STAR_H
+#define STAR_H
 #ifndef COLLECTIBLE_H
 #include "collectible.h"
 #endif
@@ -13,4 +15,7 @@ class Star : public Collectible{
         void draw();
         bool collision(int x, int y);
         bool isAtBottom();
+        int getWidth();
+        int getHeight();
 };
+#endif

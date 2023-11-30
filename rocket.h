@@ -1,3 +1,5 @@
+#ifndef ROCKET_H
+#define ROCKET_H
 class Rocket{
     private:
         int x, y;
@@ -15,3 +17,4 @@ class Rocket{
         void setAltitude(int background_y);
         int getAltitude();
 };
+#endif

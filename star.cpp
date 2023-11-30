@@ -18,6 +18,14 @@ void Star::draw(){
     star.Close();
 }
 
+int Star::getWidth(){
+    return width;
+}
+
+int Star::getHeight(){
+    return height;
+}
+
 bool Star::collision(int x, int y){
     //Allen implement code here
     bool collided = false;

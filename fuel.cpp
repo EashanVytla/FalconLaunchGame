@@ -17,6 +17,14 @@ void Fuel::draw(){
     fuel.Close();
 }
 
+int Fuel::getWidth(){
+    return width;
+}
+
+int Fuel::getHeight(){
+    return height;
+}
+
 bool Fuel::collision(int x, int y){
     bool collided = false;
     if (getX() + width > x && getX() < x + Rocket::width &&

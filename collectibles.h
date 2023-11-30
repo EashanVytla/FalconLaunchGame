@@ -1,3 +1,5 @@
+#ifndef COLLECTIBLES_H
+#define COLLECTIBLES_H
 #include <vector>
 #include "star.h"
 #include "fuel.h"
@@ -18,3 +20,4 @@ class Collectibles{
         void remove(int i);
         bool checkCollectibleCollision(Rocket rocket);
 };
+#endif
