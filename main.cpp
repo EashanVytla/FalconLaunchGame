@@ -289,16 +289,18 @@ void moveBackgroundUp(int alt){
     background_y-=2;
 }
 void moveBackgroundDown(int alt){
-    //move the background by 2 pixels
-    int dy = 2;
+    // Define the altitude thresholds
+    const int startAltitude = 400;
+    const int endAltitude = 500;
 
-    if(alt > 400){
-        dy = (Rocket::max_altitude - alt) * .01;
-    }else{
-        dy = 2;
-        
-    }
-    background_y+=dy;
+    // Calculate the percentage of altitude progress
+    double progress = (alt - startAltitude) / static_cast<double>(endAltitude - startAltitude);
+
+    // Interpolate the change in background_y
+    int deltaY = static_cast<int>(2 * progress);  // Linear interpolation from 0 to 2
+
+    // Update background_y
+    background_y += deltaY;
 }
 void drawProgressBar(double barWidth){
     LCD.SetFontColor(0x005288);
