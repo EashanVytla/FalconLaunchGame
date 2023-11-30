@@ -289,18 +289,18 @@ void moveBackgroundUp(int alt){
     background_y-=2;
 }
 void moveBackgroundDown(int alt){
-    // Define the altitude thresholds
-    const int startAltitude = 400;
-    const int endAltitude = 500;
+    // Define a variable to store the change in background_y
+    int changeInY = 2;
 
-    // Calculate the percentage of altitude progress
-    double progress = (alt - startAltitude) / static_cast<double>(endAltitude - startAltitude);
+    // Check if altitude is greater than or equal to 400
+    if (alt >= 400) {
+        // Calculate the linear decrease in changeInY as altitude increases from 400 to 500
+        changeInY = 2 - ((alt - 400) / 100.0);  // Linearly decrease from 2 to 0 over 100 units of altitude
+        changeInY = std::max(changeInY, 0);  // Ensure changeInY is not negative
+    }
 
-    // Interpolate the change in background_y
-    int deltaY = static_cast<int>(2 * progress);  // Linear interpolation from 0 to 2
-
-    // Update background_y
-    background_y -= deltaY;
+    // Move the background by the calculated change in Y
+    background_y += changeInY;
 }
 void drawProgressBar(double barWidth){
     LCD.SetFontColor(0x005288);
