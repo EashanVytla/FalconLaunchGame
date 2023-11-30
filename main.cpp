@@ -135,7 +135,7 @@ int main()
                     //Display logo
 
                     //Display rocket and launchpad
-                    Rocket.draw();
+                    rocket.draw();
                     launchpad.draw();
                     //If the Launch button is pressed, then set game_state to 0
                     LCD.WriteAt("LAUNCH", 0,Window::w_height-20);
