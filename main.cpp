@@ -101,11 +101,13 @@ int main()
                         game_state = 3;
                     }
                 }
-            }else{
+            }else if(game_state < 4){
                 //If the menu state is any of the others, bring it back to the menu
                 if(press_x > back_menu_x && press_y > back_menu_y){
                     game_state = 4;
                 }
+            }else{
+                //Allen: Check the location of the button press for launch button
             }
 
             switch(game_state){
@@ -125,8 +127,11 @@ int main()
                     displayInstructions();
                     break;
                 case 5:
+                    //Allen:
                     //Display the launch button
-                    //If the Launch button is pressed, then 
+                    //Display logo
+                    //Display rocket and launchpad
+                    //If the Launch button is pressed, then set game_state to 0
                     break;
                 case 4:
                     //Displaying the menu
