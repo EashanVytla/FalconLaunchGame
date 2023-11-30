@@ -78,6 +78,7 @@ int main()
 
     //Infinite loop for gameplay
     while (1) {
+        std::cout << game_state << std::endl;
         //Keeping track of user click and position of the click
         bool button_press = detectButtonClick(&press_x, &press_y);
 
