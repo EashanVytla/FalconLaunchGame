@@ -36,7 +36,7 @@ void Collectibles::update(){
     int index = 0;
     for (const std::unique_ptr<Collectible>& ptr : objects) {
         ptr->move(1);
-        if(ptr->getY() < ptr->getWidth()){
+        if(ptr->getY() < ptr->getHeight()){
             std::cout << "removing index " << index << std::endl;
             remove(index);
         }
