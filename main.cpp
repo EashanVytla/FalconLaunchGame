@@ -182,6 +182,7 @@ int main()
 
             if(fuel.collision(rocket.getX(), rocket.getY())){
                 std::cout << "HERE" << std::endl;
+                fuelLevel += 25;
             }else{
                 fuel.draw();
             }
