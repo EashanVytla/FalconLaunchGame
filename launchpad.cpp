@@ -1,6 +1,8 @@
 #include "launchpad.h"
 #include <FEHImages.h>
 #include "window.h"
+#include "rocket.h"
+
 
 Launchpad::Launchpad(int x, int y){
     this->x = x;
@@ -28,4 +30,14 @@ void Launchpad::draw(){
 
 void Launchpad::move(int dy){
     y += dy;
+}
+
+bool Launchpad::landed(int rocketX){
+    int left = rocketX;
+    int right = rocketX + Rocket::width;
+    bool inBetween = false;
+    if(rocketX > left && rocketX < right){
+        inBetween = true;
+    }
+    return inBetween;
 }

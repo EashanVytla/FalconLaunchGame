@@ -1,4 +1,6 @@
-#include "Collectible.h"
+#ifndef COLLECTIBLE_H
+#include "collectible.h"
+#endif
 
 class Fuel : public Collectible{
     private:
@@ -7,5 +9,5 @@ class Fuel : public Collectible{
     public:
         Fuel();
         void draw();
-        bool collision(int x, int y, int width, int height);
+        bool collision(int x, int y);
 };

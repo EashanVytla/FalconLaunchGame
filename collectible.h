@@ -1,3 +1,5 @@
+#ifndef COLLECTIBLE_H
+#define COLLECTIBLE_H
 class Collectible{
     private:
         int x;
@@ -12,3 +14,4 @@ class Collectible{
         virtual bool collision(int x, int y) = 0;
         void move(int dy);
 };
+#endif

@@ -1,10 +1,11 @@
 #include "FEHLCD.h"
 #include <FEHImages.h>
 #include "rocket.h"
-#include <window.h>
+#include "window.h"
 #include "launchpad.h"
 #include "star.h"
 #include <stdio.h>
+#include "fuel.h"
 
 //Function prototypes
 //Displays the menu
@@ -65,6 +66,7 @@ int main()
     Rocket rocket;
     Launchpad launchpad;
     Star star;
+    Fuel fuel;
 
     //make the menue from function
     displayMenu();
@@ -135,6 +137,7 @@ int main()
         if(menu_state == 0){
             //Gameplay
             drawBackground();
+            LCD.WriteAt(rocket.getAltitude(background_y),0,0);
             
             if(rocket.getY() > Window::w_height/2){
                 rocket.moveY(1);
@@ -144,13 +147,15 @@ int main()
                 moveBackground();
             }
 
-            //star.move(1);
+            fuel.move(1);
+            fuel.setX(w_width/2);
 
-            if(star.collision(rocket.getX(), rocket.getY())){
+            if(fuel.collision(rocket.getX(), rocket.getY())){
                 std::cout << "HERE" << std::endl;
+            }else{
+                fuel.draw();
             }
 
-            star.draw();
             rocket.draw();
         }
 
@@ -236,5 +241,6 @@ void drawBackground(){
 }
 
 void moveBackground(){
+    //move the background by 2 pixels
     background_y+=2;
 }

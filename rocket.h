@@ -11,4 +11,5 @@ class Rocket{
         void moveX(int dx);
         int getX();
         int getY();
+        int getAltitude(int background_y);
 };

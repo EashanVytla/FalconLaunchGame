@@ -1,6 +1,10 @@
 #include <FEHImages.h>
 #include "fuel.h"
+#include "Rocket.h"
 
+Fuel::Fuel(){
+    setRandomPos();
+}
 void Fuel::draw(){
     //Width: 13 Height: 13
      // Declares an image for a fuel
@@ -13,7 +17,11 @@ void Fuel::draw(){
     fuel.Close();
 }
 
-bool Fuel::collision(int x, int y, int width, int height){
-    //Allen implement the code for this
-    return true;
+bool Fuel::collision(int x, int y){
+    bool collided = false;
+    if (getX() + width > x && getX() < x + Rocket::width &&
+        getY() + height > y && getY() < y + Rocket::height) {
+        collided = true;
+    }
+    return collided;
 }
