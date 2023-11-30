@@ -107,10 +107,6 @@ int main()
                     game_state = 4;
                 }
             }
-            if(game_state == 5){
-                //Allen: Check the location of the button press for launch button
-
-            }
 
             switch(game_state){
                 case 0:
@@ -178,7 +174,10 @@ int main()
             }else{
                 fuel.draw();
             }
-
+            if(rocket.reachedMaxHeight(rocket.getAltitude(background_y))){
+                LCD.SetFontColor(0x005288);
+                LCD.WriteAt("Reached",0,0);
+            }
             rocket.draw();
         }
 
