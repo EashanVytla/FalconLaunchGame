@@ -83,28 +83,10 @@ int main()
             LCD.Clear();
 
             //If the menu state is menu, go to the selected state
-            if(game_state == 4){
+            if(game_state != 4){
                 //If the menu state is any of the others, bring it back to the menu
                 if(press_x > back_menu_x && press_y > back_menu_y){
                     game_state = 4;
-                }
-            }else{
-                if(press_x < menu_x_split){
-                    if(press_y < menu_y_split){
-                        //If Play Game is pressed
-                        game_state = 5;
-                    }else{
-                        //If the Credits is pressed
-                        game_state = 2;
-                    }
-                }else{
-                    if(press_y < menu_y_split){
-                        //If the Leaderboard is pressed
-                        game_state = 1;
-                    }else{
-                        //If the Instructions is pressed
-                        game_state = 3;
-                    }
                 }
             }
 
@@ -127,9 +109,27 @@ int main()
                 case 5:
                     //Display the launch button
                     //If the Launch button is pressed, then 
+                    break;
                 case 4:
                     //Displaying the menu
                     displayMenu();
+                    if(press_x < menu_x_split){
+                        if(press_y < menu_y_split){
+                            //If Play Game is pressed
+                            game_state = 5;
+                        }else{
+                            //If the Credits is pressed
+                            game_state = 2;
+                        }
+                    }else{
+                        if(press_y < menu_y_split){
+                            //If the Leaderboard is pressed
+                            game_state = 1;
+                        }else{
+                            //If the Instructions is pressed
+                            game_state = 3;
+                        }
+                    }
                     break;
             }
 
