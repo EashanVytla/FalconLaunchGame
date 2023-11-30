@@ -8,6 +8,7 @@
 #include "fuel.h"
 #include <vector>
 #include <csignal>
+#include "Collectibles.h"
 
 //Function prototypes
 //Displays the menu
@@ -81,8 +82,7 @@ int main()
 
     Rocket rocket;
     Launchpad launchpad;
-    Star star;
-    Fuel fuel;
+    Collectibles collectibles;
 
     //make the menue from function
     displayMenu();
@@ -168,15 +168,8 @@ int main()
                 moveBackground();
             }
 
-            fuel.move(1);
-            fuel.setX(Window::w_width/2);
-
-            if(fuel.collision(rocket.getX(), rocket.getY())){
-                std::cout << "HERE" << std::endl;
-            }else{
-                fuel.draw();
-            }
-
+            collectibles.update();
+            collectibles.draw();
             rocket.draw();
         }
 
@@ -187,8 +180,6 @@ int main()
         LCD.Update();
     }
 
-    std::cout << "HERE" << std::endl;
-    
     return 0;
 }
 

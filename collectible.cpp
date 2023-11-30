@@ -1,5 +1,6 @@
 #include "collectible.h"
 #include <FEHRandom.h>
+#include "window.h"
 
 int Collectible::getX(){
     return x;
@@ -10,8 +11,8 @@ int Collectible::getY(){
 }
 
 void Collectible::setRandomPos(){
-    x = Random.RandInt();
-    y = 0;
+    x = Random.RandInt()/100;
+    y = Window::w_height;
 }
 
 void Collectible::setX(int x){
@@ -23,5 +24,5 @@ void Collectible::setY(int y){
 }
 
 void Collectible::move(int dy){
-    y -= dy;
+    y += dy;
 }

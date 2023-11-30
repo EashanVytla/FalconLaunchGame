@@ -6,11 +6,11 @@
 //Ask Dr. Tony if we are allowed to have the .cpp and .h framework since we didn't learn in class
 
 class Star : public Collectible{
-    private:
+    public:
         const int width = 7;
         const int height = 7;
-    public:
         Star();
         void draw();
         bool collision(int x, int y);
+        bool isAtBottom();
 };
