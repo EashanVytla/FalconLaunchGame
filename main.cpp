@@ -101,13 +101,15 @@ int main()
                         game_state = 3;
                     }
                 }
-            }else if(game_state < 4){
+            }else if(game_state != 4){
                 //If the menu state is any of the others, bring it back to the menu
                 if(press_x > back_menu_x && press_y > back_menu_y){
                     game_state = 4;
                 }
-            }else{
+            }
+            if(game_state == 5){
                 //Allen: Check the location of the button press for launch button
+
             }
 
             switch(game_state){
@@ -130,7 +132,7 @@ int main()
                     //Allen:
                     //Display the launch button
                     LCD.SetFontColor(0xA7A9AC);
-                    LCD.WriteAt("LAUNCH", 0,Window::w_height / 1.5);
+                    LCD.WriteAt("LAUNCH", 0,Window::w_height);
                     //Display logo
                     //Display rocket and launchpad
                     //If the Launch button is pressed, then set game_state to 0
