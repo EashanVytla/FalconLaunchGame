@@ -52,7 +52,7 @@ char leaderboard[10][21] = {"Eashan - 10%", "Allen - 9%", "Joe - 8%", "Stephanie
 //3 - Instructions
 //4 - Menu
 //5 - IDLE Game
-int game_state = 5;
+int game_state = 4;
 
 int main()
 {
