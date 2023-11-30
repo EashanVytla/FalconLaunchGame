@@ -88,9 +88,9 @@ int main()
     //make the menue from function
     displayMenu();
 
+    float initialTime = 0;
+
     while (!sigintReceived) {
-        float t_now = TimeNow();
-        std::cout << t_now;
         //Keeping track of user click and position of the click
         bool button_press = detectButtonClick(&press_x, &press_y);
 
@@ -106,6 +106,8 @@ int main()
                 if(press_x < menu_x_split){
                     if(press_y < menu_y_split){
                         //If Play Game is pressed
+                        //TODO: After merging with Allen's branch make sure this is associated with the game_state = 0;
+                        initialTime = TimeNow();
                         game_state = 0;
                     }else{
                         //If the Credits is pressed
@@ -159,6 +161,7 @@ int main()
         }
 
         if(game_state == 0){
+            float gameTime = TimeNow() - initialTime;
             //Gameplay
             drawBackground();
             rocket.setAltitude(background_y);
@@ -171,7 +174,7 @@ int main()
                 moveBackground();
             }
 
-            //collectibles.generate()
+            collectibles.generate(gameTime, rocket.getAltitude());
             collectibles.update();
             collectibles.draw();
             rocket.draw();
