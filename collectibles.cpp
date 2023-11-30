@@ -26,7 +26,7 @@ void Collectibles::generate(float time, int altitude){
 
 void Collectibles::update(){
     int index = 0;
-    for (const std::unique_ptr<Collectible> ptr : objects) {
+    for (const std::unique_ptr<Collectible>& ptr : objects) {
         ptr->move(1);
         if(ptr->getY() < ptr->width){
             remove(index);
@@ -40,7 +40,7 @@ void Collectibles::remove(int i){
 }
 
 void Collectibles::draw(){
-    for (const std::unique_ptr<Collectible> ptr : objects) {
+    for (const std::unique_ptr<Collectible>& ptr : objects) {
         ptr->draw();
     }
 }
