@@ -133,6 +133,9 @@ int main()
                     //Display the launch button
                     LCD.SetFontColor(0xA7A9AC);
                     LCD.WriteAt("LAUNCH", 0,Window::w_height-20);
+                    if(press_x > 0 && press_y > Window::w_height-20){
+                        game_state = 0;
+                    }
                     //Display logo
                     //Display rocket and launchpad
                     //If the Launch button is pressed, then set game_state to 0
