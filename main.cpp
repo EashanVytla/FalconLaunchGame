@@ -62,7 +62,8 @@ char leaderboard[10][21] = {"Eashan - 10%", "Allen - 9%", "Joe - 8%", "Stephanie
 //2 - Credit
 //3 - Instructions
 //4 - Menu
-int menu_state = 4;
+//5 - IDLE Game
+int game_state = 5;
 
 int main()
 {
@@ -89,33 +90,36 @@ int main()
             LCD.Clear();
 
             //If the menu state is menu, go to the selected state
-            if(menu_state == 4){
+            if(game_state == 4){
                 if(press_x < menu_x_split){
                     if(press_y < menu_y_split){
                         //If Play Game is pressed
-                        menu_state = 0;
+                        game_state = 5;
                     }else{
                         //If the Credits is pressed
-                        menu_state = 2;
+                        game_state = 2;
                     }
                 }else{
                     if(press_y < menu_y_split){
                         //If the Leaderboard is pressed
-                        menu_state = 1;
+                        game_state = 1;
                     }else{
                         //If the Instructions is pressed
-                        menu_state = 3;
+                        game_state = 3;
                     }
                 }
-            }else{
+            }else if(game_state < 4){
                 //If the menu state is any of the others, bring it back to the menu
                 if(press_x > back_menu_x && press_y > back_menu_y){
-                    menu_state = 4;
+                    game_state = 4;
                 }
+            }else{
+                //Allen: Check the location of the button press for launch button
             }
 
-            switch(menu_state){
+            switch(game_state){
                 case 0:
+                    rocket.moveX(press_x - prev_x);
                     break;
                 case 1:
                     //Displaying the leaderboard
@@ -129,19 +133,26 @@ int main()
                     //Displaying the instructions
                     displayInstructions();
                     break;
-                default:
+                case 5:
+                    //Allen:
+                    //Display the launch button
+                    //Display logo
+                    //Display rocket and launchpad
+                    //If the Launch button is pressed, then set game_state to 0
+                    break;
+                case 4:
                     //Displaying the menu
                     displayMenu();
                     break;
             }
 
             //If the menu state is anything other than the menu, draw a back to menu option on the screen
-            if(menu_state < 4){
+            if(game_state != 4){
                 LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
             }
         }
 
-        if(menu_state == 0){
+        if(game_state == 0){
             //Gameplay
             drawBackground();
             LCD.WriteAt(rocket.getAltitude(background_y),0,0);
@@ -154,7 +165,7 @@ int main()
             }
 
             fuel.move(1);
-            fuel.setX(w_width/2);
+            fuel.setX(Window::w_width/2);
 
             if(fuel.collision(rocket.getX(), rocket.getY())){
                 std::cout << "HERE" << std::endl;
