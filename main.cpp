@@ -288,6 +288,7 @@ void drawBackground(){
     launchPad.Close();
 }
 void moveBackground(){
+    //move the background by 2 pixels
     background_y+=2;
 
 }

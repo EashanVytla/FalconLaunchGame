@@ -8,4 +8,5 @@ class Launchpad{
         Launchpad();
         void draw();
         void move(int dy);
+        bool landed(int rocketX);
 };
