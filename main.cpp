@@ -194,7 +194,6 @@ int main()
             fuel.setX(Window::w_width/2);
 
             if(fuel.collision(rocket.getX(), rocket.getY())){
-                //std::cout << "collided" << std::endl;
                 fuelLevel += 25;
             }else{
                 fuel.draw();
@@ -328,5 +327,6 @@ void moveBackgroundDown(int alt){
 void drawProgressBar(double barWidth){
     LCD.SetFontColor(0x005288);
     //create rectangle based of input width
+    
     LCD.FillRectangle(Window::w_width-110,0,barWidth,10);
 }
