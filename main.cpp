@@ -151,6 +151,7 @@ int main()
 
             //If the menu state is anything other than the menu, draw a back to menu option on the screen
             if(game_state != 4){
+                LCD.SetFontColor(0x005288);
                 LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
             }
         }
@@ -158,6 +159,7 @@ int main()
         if(game_state == 0){
             //Gameplay
             drawBackground();
+            LCD.SetFontColor(0x005288);
             LCD.WriteAt(rocket.getAltitude(background_y),0,0);
             
             if(rocket.getY() > Window::w_height/2){
