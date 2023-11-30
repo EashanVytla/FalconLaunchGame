@@ -153,6 +153,34 @@ int main()
             }
         }
 
+        switch(game_state){
+            case 0:
+                break;
+            case 1:
+                //Displaying the leaderboard
+                displayLeaderBoard();
+                break;
+            case 2:
+                //Displaying the credits
+                displayCredits();
+                break;
+            case 3:
+                //Displaying the instructions
+                displayInstructions();
+                break;
+            case 5:
+                //Allen:
+                //Display the launch button
+                //Display logo
+                //Display rocket and launchpad
+                //If the Launch button is pressed, then set game_state to 0
+                break;
+            case 4:
+                //Displaying the menu
+                displayMenu();
+                break;
+        }
+
         if(game_state == 0){
             //Gameplay
             drawBackground();
