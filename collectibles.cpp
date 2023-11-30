@@ -16,10 +16,13 @@ void Collectibles::generate(float time, int altitude){
     int whichCol = Random.RandInt()/24575;
 
     if((int)time % every == 0){
+        std::cout << "Creating new collectible..." << endl; 
         if(whichCol == 0){
             objects.push_back(std::make_unique<Fuel>());
+            std::cout << "Created new Fuel!" << endl; 
         }else{
             objects.push_back(std::make_unique<Star>());
+            std::cout << "Created new Fuel!" << endl; 
         }
     }
 }
