@@ -2,6 +2,7 @@
 #include "rocket.h"
 #include <memory>
 #include <FEHRandom.h>
+#include <stdio.h>
 
 Collectibles::Collectibles(){
     generate_rate = 1;
@@ -19,10 +20,10 @@ void Collectibles::generate(float time, int altitude){
         std::cout << "Creating new collectible..." << endl; 
         if(whichCol == 0){
             objects.push_back(std::make_unique<Fuel>());
-            std::cout << "Created new Fuel!" << endl; 
+            std::cout << "Created new Fuel!" << std::endl; 
         }else{
             objects.push_back(std::make_unique<Star>());
-            std::cout << "Created new Fuel!" << endl; 
+            std::cout << "Created new Fuel!" << std::endl; 
         }
     }
 }
