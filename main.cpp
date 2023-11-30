@@ -183,7 +183,7 @@ int main()
             }else{
                 if(landing){
                     moveBackgroundUp(rocket.getAltitude(background_y));
-                    //std::cout << "Collided" << std::endl;
+                    std::cout << "switch" << std::endl;
                 }else{
 
                     moveBackgroundDown(rocket.getAltitude(background_y));
@@ -194,7 +194,7 @@ int main()
             fuel.setX(Window::w_width/2);
 
             if(fuel.collision(rocket.getX(), rocket.getY())){
-                std::cout << "switch" << std::endl;
+                //std::cout << "collided" << std::endl;
                 fuelLevel += 25;
             }else{
                 fuel.draw();
