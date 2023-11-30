@@ -163,6 +163,7 @@ int main()
         if(game_state == 0){
             std::cout << "Staring game..." << std::endl;
             float gameTime = TimeNow() - initialTime;
+            std::cout << "Game Time: " << gameTime << std::endl;
             //Gameplay
             drawBackground();
             rocket.setAltitude(background_y);
