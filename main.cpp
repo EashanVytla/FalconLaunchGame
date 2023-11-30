@@ -53,7 +53,7 @@ double fuelLevel = 100;
 //In the final version this would be read from a file
 char leaderboard[10][21] = {"Eashan - 10%", "Allen - 9%", "Joe - 8%", "Stephanie - 7%", "Aidan - 6%", "Josh - 5%", "Marvin - 4%", "Charlie - 3%", "Gavin - 2%", "Sid - 1%"};
 
-// if the Rocket is on the way donw
+// if the Rocket is on the way down
 bool landing = false;
 
 //0 - Game
@@ -290,18 +290,24 @@ void moveBackgroundUp(int alt){
     float finalChangeInY = Rocket::max_down_speed;
     float changeInY = .4;
 
-    if (alt >= Rocket::buffer_altitude && alt <= Rocket::max_altitude +50) {
+        
+    // Check if the altitude is within the specified range
+    if (alt >= Rocket::buffer_altitude && alt <= Rocket::max_altitude + 50) {
+        // Calculate changeInY based on altitude
+        // Linear interpolation between initialChangeInY and finalChangeInY based on the rocket's altitude
+        changeInY = initialChangeInY + ((Rocket::max_altitude - alt) / 100.0) * (finalChangeInY - initialChangeInY);
 
-        float changeInY = initialChangeInY + ((Rocket::max_altitude - alt) / 100.0) * (finalChangeInY - initialChangeInY);
+        // Update the background position based on the calculated changeInY
         background_y -= changeInY;
-
-
     }
-    if (alt < Rocket::buffer_altitude) {
 
+    // Check if the altitude is below the buffer altitude
+    if (alt < Rocket::buffer_altitude) {
+        // If below buffer altitude, update the background position using the maximum downward speed
         background_y -= Rocket::max_down_speed;
     }
 }
+
 void moveBackgroundDown(int alt){
     // Define a variable to store the change in background_y
     float changeInY = Rocket::max_up_speed;
