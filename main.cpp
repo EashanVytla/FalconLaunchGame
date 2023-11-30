@@ -109,11 +109,6 @@ int main()
                         game_state = 3;
                     }
                 }
-            }else if(game_state < 4){
-                //If the menu state is any of the others, bring it back to the menu
-                if(press_x > back_menu_x && press_y > back_menu_y){
-                    game_state = 4;
-                }
             }else{
                 //Allen: Check the location of the button press for launch button
             }
@@ -148,6 +143,11 @@ int main()
 
             //If the menu state is anything other than the menu, draw a back to menu option on the screen
             if(game_state != 4){
+                //If the menu state is any of the others, bring it back to the menu
+                if(press_x > back_menu_x && press_y > back_menu_y){
+                    game_state = 4;
+                }
+
                 LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
             }
         }
