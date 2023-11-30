@@ -34,6 +34,7 @@ void Collectibles::generate(float time, int altitude){
 
 void Collectibles::update(){
     int index = 0;
+    std::cout << objects[0]->getY() << std::endl;
     for (const std::unique_ptr<Collectible>& ptr : objects) {
         ptr->move(1);
         if(ptr->getY() < ptr->getHeight()){
