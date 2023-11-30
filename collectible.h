@@ -12,7 +12,6 @@ class Collectible{
         void setY(int y);
         virtual void draw() = 0;
         virtual bool collision(int x, int y) = 0;
-        virtual bool isAtBottom();
         virtual int getWidth();
         virtual int getHeight();
         void move(int dy);
