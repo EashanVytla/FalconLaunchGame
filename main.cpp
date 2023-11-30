@@ -52,7 +52,7 @@ char leaderboard[10][21] = {"Eashan - 10%", "Allen - 9%", "Joe - 8%", "Stephanie
 //3 - Instructions
 //4 - Menu
 //5 - IDLE Game
-int game_state = 5;
+int game_state = 4;
 
 int main()
 {
@@ -129,6 +129,8 @@ int main()
                 case 5:
                     //Allen:
                     //Display the launch button
+                    LCD.SetFontColor(0xA7A9AC);
+                    LCD.WriteAt("LAUNCH", 0,Window::w_height / 1.5);
                     //Display logo
                     //Display rocket and launchpad
                     //If the Launch button is pressed, then set game_state to 0
