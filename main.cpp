@@ -310,13 +310,17 @@ void moveBackgroundUp(int alt){
 
 void moveBackgroundDown(int alt){
     // Define a variable to store the change in background_y
-    float changeInY = Rocket::max_up_speed;
+    float changeInY = Rocket::max_up_speed; // Default change in Y, initially set to the maximum upward speed of the rocket
 
+    // Check if the altitude is greater than or equal to the buffer altitude
     if (alt >= Rocket::buffer_altitude) {
+        // Calculate changeInY based on the rocket's altitude
+        // Linear interpolation between Rocket::max_up_speed and 0 based on the difference between the current altitude and buffer altitude
+        changeInY = Rocket::max_up_speed - ((alt - Rocket::buffer_altitude) / 200.0);
 
-        changeInY = Rocket::max_up_speed - ((alt - Rocket::buffer_altitude) / 200.0);  
-        if(alt>Rocket::max_altitude-20){
-            changeInY = .4;
+        // Check if the altitude is close to the maximum altitude (within the last 20 units)
+        if (alt > Rocket::max_altitude - 20) {
+            changeInY = 0.4; // If close to the maximum altitude, set changeInY to a constant value of 0.4
         }
     }
 
