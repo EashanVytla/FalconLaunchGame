@@ -287,7 +287,7 @@ void moveBackgroundUp(int alt){
 
     // Define variables to store the initial and final values for changeInY
     float initialChangeInY = 0.4;
-    float finalChangeInY = 2;
+    float finalChangeInY = Rocket::max_down_speed;
     float changeInY = .4;
 
     // Check if altitude is between 300 and 500
@@ -301,19 +301,19 @@ void moveBackgroundUp(int alt){
     }
     if (alt < Rocket::buffer_altitude) {
         // If altitude is less than 300, set changeInY to the final value
-        background_y -= 2;
+        background_y -= Rocket::max_down_speed;
     }
 }
 void moveBackgroundDown(int alt){
     // Define a variable to store the change in background_y
-    float changeInY = 2;
+    float changeInY = Rocket::max_up_speed;
 
     // Check if altitude is greater than or equal to 400
     if (alt >= Rocket::buffer_altitude) {
         // Calculate the linear decrease in changeInY as altitude increases from 400 to 500
         // Linearly decrease from 2 to 0 over 100 units of altitude
-        changeInY = 2 - ((alt - Rocket::buffer_altitude) / 100.0);  
-        if(alt>Rocket::max_altitude-50){
+        changeInY = Rocket::max_up_speed - ((alt - Rocket::buffer_altitude) / 100.0);  
+        if(alt>Rocket::max_altitude){
             changeInY = .4;
         }
     }

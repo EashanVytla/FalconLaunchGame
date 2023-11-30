@@ -5,6 +5,7 @@ class Rocket{
     public:
         static const int width = 13, height = 80;
         static const int max_altitude = 500, buffer_altitude = 300;
+        static const float max_up_speed = 5, max_down_speed = 2;
         
         Rocket(int x, int y);
         Rocket();
