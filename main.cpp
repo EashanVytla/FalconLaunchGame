@@ -161,6 +161,7 @@ int main()
             drawBackground();
             LCD.SetFontColor(0x005288);
             LCD.WriteAt(rocket.getAltitude(background_y),0,0);
+            LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
             
             if(rocket.getY() > Window::w_height/2){
                 rocket.moveY(1);
