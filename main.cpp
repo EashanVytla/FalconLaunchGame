@@ -314,7 +314,7 @@ void moveBackgroundDown(int alt){
         // Linearly decrease from 2 to 0 over 100 units of altitude
         changeInY = 2 - ((alt - 300) / 100.0);  
         if(alt>450){
-            changeInY = .35;
+            changeInY = .4;
         }
     }
 
