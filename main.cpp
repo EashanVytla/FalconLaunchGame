@@ -175,7 +175,7 @@ int main()
                 LCD.WriteAt("Landing",Window::w_width/2-50,0);
                 landing = true;
             }
-            //drawProgressBar(fuelLevel);
+            drawProgressBar(fuelLevel);
             fuelLevel -=.05;
             if(rocket.getY() > Window::w_height/2){
                 rocket.moveY(1);
