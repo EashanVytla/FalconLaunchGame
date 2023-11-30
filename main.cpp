@@ -42,6 +42,9 @@ const int back_menu_y = 219;
 //Initializing the previous touch boolean to false
 bool prev_touch = false;
 
+//Progess bar width/ Fuel level
+int fuelLevel = 100;
+
 //Initializing a temporary placeholder for the leaderboard
 //In the final version this would be read from a file
 char leaderboard[10][21] = {"Eashan - 10%", "Allen - 9%", "Joe - 8%", "Stephanie - 7%", "Aidan - 6%", "Josh - 5%", "Marvin - 4%", "Charlie - 3%", "Gavin - 2%", "Sid - 1%"};
@@ -163,7 +166,8 @@ int main()
                 LCD.SetFontColor(0x005288);
                 LCD.WriteAt("Landing",Window::w_width-125,0);
             }
-            
+            drawProgressBar(fuelLevel);
+            fuelLevel--;
             if(rocket.getY() > Window::w_height/2){
                 rocket.moveY(1);
                 launchpad.draw();
@@ -266,4 +270,8 @@ void drawBackground(){
 void moveBackground(){
     //move the background by 2 pixels
     background_y+=2;
+}
+void drawProgressBar(int barWidth){
+    LCD.SetFontColor(0x005288);
+    LCD.FillRectangle(0,0,barWidth,10);
 }
