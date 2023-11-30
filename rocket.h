@@ -3,7 +3,7 @@ class Rocket{
         int x, y;
         int fuelLevel;
     public:
-        static const int width = 13, height = 80, max_altitude = 1000, buffer_altitude = 800;
+        static const int width = 13, height = 80, max_altitude = 2000, buffer_altitude = max_altitude - 200;
         static const float max_up_speed = 5, max_down_speed = 2.5;
         
         Rocket(int x, int y);

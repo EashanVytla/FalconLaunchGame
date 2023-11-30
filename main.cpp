@@ -296,7 +296,6 @@ void moveBackgroundUp(int alt){
         // Calculate changeInY based on altitude
         // Linear interpolation between initialChangeInY and finalChangeInY based on the rocket's altitude
         changeInY = initialChangeInY + ((Rocket::max_altitude - alt) / 150.0) * (finalChangeInY - initialChangeInY);
-        std::cout << changeInY << std::endl;
         // Update the background position based on the calculated changeInY
         background_y -= changeInY;
     }
