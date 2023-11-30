@@ -12,7 +12,6 @@ class Fuel : public Collectible{
         Fuel();
         void draw();
         bool collision(int x, int y);
-        bool isAtBottom();
         int getWidth();
         int getHeight();
 };

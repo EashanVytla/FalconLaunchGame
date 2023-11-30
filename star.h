@@ -14,7 +14,6 @@ class Star : public Collectible{
         Star();
         void draw();
         bool collision(int x, int y);
-        bool isAtBottom();
         int getWidth();
         int getHeight();
 };
