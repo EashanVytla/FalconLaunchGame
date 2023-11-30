@@ -170,6 +170,7 @@ int main()
             }
             drawProgressBar(fuelLevel);
             fuelLevel -=.000001;
+            std::cout << fuelLevel;
             if(rocket.getY() > Window::w_height/2){
                 rocket.moveY(1);
                 launchpad.draw();
