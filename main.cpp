@@ -296,8 +296,8 @@ void moveBackgroundDown(int alt){
         // Calculate the linear decrease in changeInY as altitude increases from 400 to 500
         changeInY = 2 - ((alt - 300) / 100.0);  // Linearly decrease from 2 to 0 over 100 units of altitude
         //changeInY = std::max(changeInY, 0);  // Ensure changeInY is not negative
-        if(alt>480){
-            changeInY = .25;
+        if(alt>450){
+            changeInY = .35;
         }
     }
 
