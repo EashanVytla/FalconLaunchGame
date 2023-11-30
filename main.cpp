@@ -166,10 +166,10 @@ int main()
             LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
             if(rocket.reachedMaxHeight(rocket.getAltitude(background_y))){
                 LCD.SetFontColor(0x005288);
-                LCD.WriteAt("Landing",Window::w_width-125,0);
+                LCD.WriteAt("Landing",Window::w_width/2+75,0);
             }
             drawProgressBar(fuelLevel);
-            fuelLevel -=.1;
+            fuelLevel -=.05;
             if(rocket.getY() > Window::w_height/2){
                 rocket.moveY(1);
                 launchpad.draw();
@@ -275,5 +275,5 @@ void moveBackground(){
 }
 void drawProgressBar(double barWidth){
     LCD.SetFontColor(0x005288);
-    LCD.FillRectangle(Window::w_width-100,0,barWidth,10);
+    LCD.FillRectangle(Window::w_width-110,0,barWidth,10);
 }
