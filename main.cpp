@@ -137,6 +137,7 @@ int main()
                     //If the Launch button is pressed, then set game_state to 0       
                     if(press_x > 0 && press_y > Window::w_height-20){
                         game_state = 0;
+                        background_y = 0;
                     }
                     break;
                 case 4:
@@ -154,7 +155,6 @@ int main()
 
         if(game_state == 0){
             //Gameplay
-            background_y = 0;
             drawBackground();
             LCD.SetFontColor(0x005288);
             LCD.WriteAt(rocket.getAltitude(background_y),0,0);
