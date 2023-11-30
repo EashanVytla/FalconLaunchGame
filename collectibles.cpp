@@ -12,7 +12,7 @@ Collectibles::Collectibles(){
 int prev_time = 0;
 
 void Collectibles::generate(float time, int altitude){
-    generate_rate = 3 * sqrt((1.0 - (float)altitude/Rocket::max_altitude) * 100.0);
+    generate_rate = sqrt((1.0 - (float)altitude/Rocket::max_altitude) * 100.0);
     int every = 60 / generate_rate;
 
     //75% of the collectibles will be Fuel and 25% will be Stars
@@ -34,9 +34,6 @@ void Collectibles::generate(float time, int altitude){
 
 void Collectibles::update(){
     int index = 0;
-    if(objects.size() > 0){
-        std::cout << objects[0]->getY() << std::endl;
-    }
     for (const std::unique_ptr<Collectible>& ptr : objects) {
         ptr->move(1);
         if(ptr->getY() < ptr->getHeight()){
