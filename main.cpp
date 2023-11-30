@@ -110,8 +110,6 @@ int main()
                     //Display the launch button
                     //If the Launch button is pressed, then 
                 case 4:
-                    //Displaying the menu
-                    displayMenu();
                     if(press_x < menu_x_split){
                         if(press_y < menu_y_split){
                             //If Play Game is pressed
@@ -129,6 +127,8 @@ int main()
                             game_state = 3;
                         }
                     }
+                    //Displaying the menu
+                    displayMenu();
                     break;
             }
 
