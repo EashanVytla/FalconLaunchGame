@@ -18,8 +18,10 @@ void displayCredits();
 void displayInstructions();
 //Draws background
 void drawBackground();
-//move background one pixel
-void moveBackground();
+//move background pixel
+void moveBackgroundUp();
+//move background pixel
+void moveBackgroundDown();
 //draw fuel level bar
 void drawProgressBar(double barWidth);
 
@@ -174,7 +176,7 @@ int main()
                 rocket.moveY(1);
                 launchpad.draw();
             }else{
-                moveBackground();
+                moveBackgroundUp();
             }
 
             fuel.move(1);
@@ -270,7 +272,11 @@ void drawBackground(){
     launchPad.Close();
 }
 
-void moveBackground(){
+void moveBackgroundUp(){
+    //move the background by 2 pixels
+    background_y-=2;
+}
+void moveBackgroundDown(){
     //move the background by 2 pixels
     background_y+=2;
 }
