@@ -9,6 +9,8 @@ Collectibles::Collectibles(){
     generate_rate = 1;
 }
 
+int prev_time = 0;
+
 void Collectibles::generate(float time, int altitude){
     generate_rate = sqrt((1.0 - (float)altitude/Rocket::max_altitude) * 100.0);
     int every = 60 / generate_rate;
@@ -17,17 +19,14 @@ void Collectibles::generate(float time, int altitude){
     //Completely random selection process
     int whichCol = Random.RandInt()/24575;
 
-    std::cout << "Every: " << generate_rate << std::endl;
-
-    if((int)time % every == 0){
-        std::cout << "Creating new collectible..." << std::endl; 
+    if(time - prev_time > every){
         if(whichCol == 0){
             objects.push_back(std::make_unique<Fuel>());
-            std::cout << "Created new Fuel!" << std::endl; 
         }else{
             objects.push_back(std::make_unique<Star>());
-            std::cout << "Created new Fuel!" << std::endl; 
         }
+
+        prev_time = time;
     }
 }
 
