@@ -291,7 +291,7 @@ void moveBackgroundUp(int alt){
     float changeInY = .4;
 
     // Check if altitude is between 300 and 500
-    if (alt >= Rocket::buffer_altitude && alt <= Rocket::max_altitude +1) {
+    if (alt >= Rocket::buffer_altitude && alt <= Rocket::max_altitude +50) {
         // Calculate the linear decrease in changeInY as altitude increases from 300 to 500
         // Linearly decrease from 0.35 to 2 over 200 units of altitude
         float changeInY = initialChangeInY + ((Rocket::max_altitude - alt) / 100.0) * (finalChangeInY - initialChangeInY);
