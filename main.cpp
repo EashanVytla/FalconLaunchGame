@@ -166,7 +166,7 @@ int main()
             LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
             if(rocket.reachedMaxHeight(rocket.getAltitude(background_y))){
                 LCD.SetFontColor(0x005288);
-                LCD.WriteAt("Landing",Window::w_width/2+75,0);
+                LCD.WriteAt("Landing",Window::w_width/2,0);
             }
             drawProgressBar(fuelLevel);
             fuelLevel -=.05;
