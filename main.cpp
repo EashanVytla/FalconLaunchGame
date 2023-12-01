@@ -168,6 +168,7 @@ int main()
                         game_state = 0;
                         background_y = 0;
                         fuelLevel = 100;
+                        landing = false;
                         rocket.reset();
                         
                     }
