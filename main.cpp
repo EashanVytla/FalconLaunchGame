@@ -161,8 +161,8 @@ int main()
                     //Display logo
 
                     //Display rocket and launchpad
-                    rocket.draw();
                     launchpad.draw();
+                    rocket.draw();
                     //If the Launch button is pressed, then set game_state to 0       
                     if(press_x > 0 && press_y > Window::w_height-20){
                         game_state = 0;
