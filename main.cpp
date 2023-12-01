@@ -4,8 +4,12 @@
 #include "window.h"
 #include "launchpad.h"
 #include "star.h"
-#include <stdio.h>
+#include <iostream>
 #include "fuel.h"
+#include <vector>
+#include <csignal>
+#include "Collectibles.h"
+#include <FEHUtility.h>
 
 //Function prototypes
 //Displays the menu
@@ -26,6 +30,8 @@ void moveBackgroundDown(int alt);
 void drawProgressBar(double barWidth);
 
 void gameUpdate();
+
+void handleSigInt(int signum);
 
 //background x and y
 float background_x = 0;
@@ -63,41 +69,55 @@ bool landing = false;
 //4 - Menu
 //5 - IDLE Game
 int game_state = 4;
+//Global variable to handle when the SIGINT is recieved.
+//This is volatile to be accessed accross threads.
+volatile bool sigintReceived = false;
 
 int main()
 {
+    //Registering SIGINT handler for proper destruction of our collectible pointers
+    std::signal(SIGINT, handleSigInt);
+
     //Initializing the x and y position of the screen press to 0
     int press_x = 0;
     int press_y = 0;
 
+    //Initialize drag x and y to calculate the user mouse drag
+    int drag_x = 0;
+    int drag_y = 0;
+
     //Initialize prev x and y to calculate the user mouse drag
-    int prev_x = 0;
-    int prev_y = 0;
+    int drag_prev_x = 0;
+    int drag_prev_y = 0;
 
     Rocket rocket;
     Launchpad launchpad;
-    Star star;
-    Fuel fuel;
+    Collectibles collectibles;
 
     //make the menue from function
     displayMenu();
 
-    //Infinite loop for gameplay
-    while (1) {
+    float initialTime = 0;
+
+    while (!sigintReceived) {
         //Keeping track of user click and position of the click
         bool button_press = detectButtonClick(&press_x, &press_y);
 
+        if(LCD.Touch(&drag_x, &drag_y)){
+            rocket.moveX(drag_x - drag_prev_x);
+        }
+
         //If the user clicked the screen (Only first loop cycle of click is counted)
         if(button_press){
-            //Clear the screen 
             LCD.Clear();
-
             //If the menu state is menu, go to the selected state
             if(game_state == 4){
                 if(press_x < menu_x_split){
                     if(press_y < menu_y_split){
                         //If Play Game is pressed
-                        game_state = 5;
+                        //TODO: After merging with Allen's branch make sure this is associated with the game_state = 0;
+                        initialTime = TimeNow();
+                        game_state = 0;
                     }else{
                         //If the Credits is pressed
                         game_state = 2;
@@ -117,10 +137,9 @@ int main()
                     game_state = 4;
                 }
             }
-
+    
             switch(game_state){
                 case 0:
-                    rocket.moveX(press_x - prev_x);
                     break;
                 case 1:
                     //Displaying the leaderboard
@@ -165,18 +184,21 @@ int main()
         }
 
         if(game_state == 0){
+            float gameTime = TimeNow() - initialTime;
             //Gameplay
             drawBackground();
+
+            rocket.setAltitude(background_y);
             LCD.SetFontColor(0x005288);
-            LCD.WriteAt(rocket.getAltitude(background_y),0,0);
+            LCD.WriteAt(rocket.getAltitude(),0,0);
             LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
-            if(rocket.reachedMaxHeight(rocket.getAltitude(background_y))){
+            if(rocket.reachedMaxHeight(rocket.getAltitude())){
                 LCD.SetFontColor(0x005288);
                 LCD.WriteAt("Landing",Window::w_width/2-50,0);
                 landing = true;
             }
             drawProgressBar(fuelLevel);
-            fuelLevel -=.05;
+ 
             if(rocket.getY() > Window::w_height/2){
                 rocket.moveY(1);
                 launchpad.draw();
@@ -190,24 +212,26 @@ int main()
                 }
             }
 
-            fuel.move(1);
-            fuel.setX(Window::w_width/2);
-
-            if(fuel.collision(rocket.getX(), rocket.getY())){
-                fuelLevel += 25;
-            }else{
-                fuel.draw();
-            }
+            collectibles.generate(gameTime, rocket.getAltitude());
+            collectibles.update();
+            collectibles.draw();
+            
             rocket.draw();
         }
 
-        prev_x = press_x;
-        prev_y = press_y; 
+        drag_prev_x = drag_x;
+        drag_prev_y = drag_y;
 
         //Update the screen
         LCD.Update();
     }
+
     return 0;
+}
+
+void handleSigInt(int signum) {
+    std::cout << "SIGINT received. Cleaning up and exiting.\n" << std::endl;
+    sigintReceived = true;
 }
 
 void displayLeaderBoard(){
@@ -218,6 +242,12 @@ void displayLeaderBoard(){
     for(int i = 0; i < 10; i++){
         LCD.WriteLine(leaderboard[i]);
     }
+}
+
+bool checkCollectibleCollision(std::vector<Collectible*> collectibles, Rocket rocket){
+    int rate = rocket.getAltitude();
+
+    return true;
 }
 
 void displayInstructions(){ 

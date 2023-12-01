@@ -1,7 +1,10 @@
+#ifndef ROCKET_H
+#define ROCKET_H
 class Rocket{
     private:
         int x, y;
         int fuelLevel;
+        int altitude;
     public:
         static const int width = 13, height = 80, max_altitude = 2000, buffer_altitude = max_altitude - 200;
         static const float max_up_speed = 7, max_down_speed = 2.5;
@@ -13,6 +16,8 @@ class Rocket{
         void moveX(int dx);
         int getX();
         int getY();
-        int getAltitude(int background_y);
         bool reachedMaxHeight(int altitude);
+        void setAltitude(int background_y);
+        int getAltitude();
 };
+#endif

@@ -5,6 +5,7 @@
 Fuel::Fuel(){
     setRandomPos();
 }
+
 void Fuel::draw(){
     //Width: 13 Height: 13
      // Declares an image for a fuel
@@ -15,6 +16,14 @@ void Fuel::draw(){
     fuel.Draw(getX(), getY());
     // Close the image
     fuel.Close();
+}
+
+int Fuel::getWidth(){
+    return width;
+}
+
+int Fuel::getHeight(){
+    return height;
 }
 
 bool Fuel::collision(int x, int y){

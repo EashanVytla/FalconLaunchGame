@@ -1,3 +1,5 @@
+#ifndef FUEL_H
+#define FUEL_H
 #ifndef COLLECTIBLE_H
 #include "collectible.h"
 #endif
@@ -10,4 +12,7 @@ class Fuel : public Collectible{
         Fuel();
         void draw();
         bool collision(int x, int y);
+        int getWidth();
+        int getHeight();
 };
+#endif
