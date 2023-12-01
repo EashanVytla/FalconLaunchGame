@@ -6,7 +6,8 @@ class Rocket{
         int x, y;
         int fuelLevel;
         int altitude;
-        const int initialY = Window::w_height-100;
+        const int initialY = Window::w_width/2-5;
+        const int initialX = Window::w_height-100;
     public:
         static const int width = 13, height = 80, max_altitude = 2000, buffer_altitude = max_altitude - 200;
         static const float max_up_speed = 7, max_down_speed = 2.5;
