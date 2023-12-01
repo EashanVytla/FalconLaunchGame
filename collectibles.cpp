@@ -37,7 +37,7 @@ void Collectibles::update(Rocket* rocket){
 
     while(index < objects.size()) {
         bool collision = false;
-        Collision* ptr = objects[index];
+        Collectible* ptr = objects[index];
         ptr->move(2);
 
         if(ptr->collision(rocket->getX(), rocket->getY())){
