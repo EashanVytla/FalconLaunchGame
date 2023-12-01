@@ -14,7 +14,7 @@ class Collectibles{
     public:
         Collectibles();
         void update();
-        void generate(int altitude);
+        void generate(float time, int altitude);
         void draw();
         void remove(int i);
         void clean();
