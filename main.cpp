@@ -97,7 +97,7 @@ int main()
     //make the menue from function
     displayMenu();
 
-    float initialTime = 0;
+    //float initialTime = 0;
 
     while (!sigintReceived) {
         //Keeping track of user click and position of the click
@@ -116,7 +116,8 @@ int main()
                     if(press_y < menu_y_split){
                         //If Play Game is pressed
                         //TODO: After merging with Allen's branch make sure this is associated with the game_state = 0;
-                        initialTime = TimeNow();
+
+                        //initialTime = TimeNow();
                         game_state = 5;
                         rocket.reset();
                     }else{
@@ -230,7 +231,9 @@ int main()
         //Update the screen
         LCD.Update();
     }
+
     collectibles.clean();
+
     return 0;
 }
 

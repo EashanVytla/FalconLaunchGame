@@ -19,7 +19,7 @@ void Collectibles::generate(float time, int altitude){
     //Completely random selection process
     int whichCol = Random.RandInt()/24575;
 
-    std::cout << every << std::endl;
+    std::cout << time - prev_time << std::endl;
 
     if(time - prev_time > every){
         if(whichCol == 0){
@@ -59,6 +59,6 @@ void Collectibles::remove(int i){
 
 void Collectibles::draw(){
     for (Collectible* ptr : objects) {
-        ptr ->draw();
+        ptr->draw();
     }
 }
