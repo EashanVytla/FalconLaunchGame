@@ -13,7 +13,7 @@ class Collectibles{
 
     public:
         Collectibles();
-        void update(int, int);
+        void update(Rocket* rocket);
         void generate(float time, int altitude);
         void draw();
         void remove(int i);
