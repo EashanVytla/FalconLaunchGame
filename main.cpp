@@ -226,6 +226,8 @@ int main()
         LCD.Update();
     }
 
+    collectibles.clean();
+
     return 0;
 }
 
