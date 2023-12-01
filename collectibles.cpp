@@ -63,7 +63,7 @@ void Collectibles::clean(){
 }
 
 void Collectibles::remove(int i){
-    if (i <= 0 || i > v.size())
+    if (i <= 0 || i > objects.size())
         return;
     delete objects[i];
     objects.erase(objects.begin() + i);
