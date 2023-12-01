@@ -167,8 +167,8 @@ int main()
                     if(press_x > 0 && press_y > Window::w_height-20){
                         game_state = 0;
                         background_y = 0;
-                        fuelLevel = 0;
-                        //rocket.reset();
+                        fuelLevel = 100;
+                        rocket.reset();
                         
                     }
                     break;
