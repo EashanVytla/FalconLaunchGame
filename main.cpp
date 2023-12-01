@@ -10,6 +10,7 @@
 #include <csignal>
 #include "Collectibles.h"
 #include <FEHUtility.h>
+#include <FEHSD.h>
 
 //Function prototypes
 //Displays the menu
@@ -244,11 +245,24 @@ void handleSigInt(int signum) {
 void displayLeaderBoard(){
     //Write Leaderboard as a title
     LCD.WriteLine("Leaderboard");
+
+
+    FEHFile *leaderboardFile = SD.FOpen("leaderboard.txt", "r");
     
     //Loop through all top ten scores and display them
     for(int i = 0; i < 10; i++){
-        LCD.WriteLine(leaderboard[i]);
+        //LCD.WriteLine(leaderboard[i]);
     }
+    if (leaderboardFile == nullptr) {
+        std::cerr << "Error opening leaderboard file for writing." << std::endl;
+    }
+    char playerName[50];
+    int score;
+    while (SD.FScanf(leaderboardFile, "%s %d", playerName, &score) != EOF) {
+        LCD.WriteLine(playerName);
+    }
+    SD.FClose(leaderboardFile);
+
 }
 
 bool checkCollectibleCollision(std::vector<Collectible*> collectibles, Rocket rocket){
