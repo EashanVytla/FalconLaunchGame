@@ -97,7 +97,7 @@ int main()
     //make the menue from function
     displayMenu();
 
-    float initialTime = 0;
+    //float initialTime = 0;
 
     while (!sigintReceived) {
         //Keeping track of user click and position of the click
@@ -116,8 +116,10 @@ int main()
                     if(press_y < menu_y_split){
                         //If Play Game is pressed
                         //TODO: After merging with Allen's branch make sure this is associated with the game_state = 0;
+
                         //initialTime = TimeNow();
                         game_state = 5;
+                        rocket.reset();
                     }else{
                         //If the Credits is pressed
                         game_state = 2;
@@ -161,13 +163,16 @@ int main()
                     //Display logo
 
                     //Display rocket and launchpad
-                    rocket.draw();
                     launchpad.draw();
+                    rocket.draw();
                     //If the Launch button is pressed, then set game_state to 0       
                     if(press_x > 0 && press_y > Window::w_height-20){
                         game_state = 0;
                         background_y = 0;
-                        fuelLevel = 0;
+                        fuelLevel = 100;
+                        landing = false;
+                        rocket.reset();
+                        
                     }
                     break;
                 case 4:
@@ -198,6 +203,7 @@ int main()
                 landing = true;
             }
             drawProgressBar(fuelLevel);
+            fuelLevel -=.25;
  
             if(rocket.getY() > Window::w_height/2){
                 rocket.moveY(1);

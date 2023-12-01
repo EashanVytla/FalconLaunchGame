@@ -63,3 +63,9 @@ bool Rocket::reachedMaxHeight(int altitude){
     }
     return reached;
 }
+
+void Rocket::reset(){
+    altitude = 0;
+    y =Window::w_height-100;
+    x = Window::w_width/2-5;
+}
