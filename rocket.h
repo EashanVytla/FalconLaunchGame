@@ -18,6 +18,7 @@ class Rocket{
         int getY();
         bool reachedMaxHeight(int altitude);
         void setAltitude(int background_y);
+        void reset();
         int getAltitude();
 };
 #endif
