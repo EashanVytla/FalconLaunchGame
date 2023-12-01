@@ -1,6 +1,6 @@
 #include "collectibles.h"
 #include "rocket.h"
-#include <memory>
+#include <memory.h>
 #include <FEHRandom.h>
 #include <iostream>
 #include <math.h>

@@ -5,7 +5,7 @@
 #include "fuel.h"
 #include "Collectible.h"
 #include "rocket.h"
-#include <memory>
+#include <memory.h>
 class Collectibles{
     private:
         std::vector<std::unique_ptr<Collectible> > objects;
