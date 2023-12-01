@@ -61,6 +61,6 @@ bool Rocket::reachedMaxHeight(int altitude){
 
 void Rocket::reset(){
     altitude = 0;
-    y =initialY;
+    y =initialY+5;
     x = initialX+20;
 }
