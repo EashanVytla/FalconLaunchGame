@@ -39,8 +39,10 @@ void Collectibles::update(Rocket* rocket){
         if(ptr->collision(rocket->getX(), rocket->getY())){
             std::cout << "removing index " << index << std::endl;
             if(ptr->getHeight() == Star::height){
+                //Add 20% to fuel level
                 rocket->setFuelLevel(rocket->getFuelLevel() + 20);
             }else{
+                //Add 10% to fuel level
                 rocket->setFuelLevel(rocket->getFuelLevel() + 10);
             }
             remove(index);
