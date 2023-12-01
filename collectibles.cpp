@@ -32,12 +32,12 @@ void Collectibles::generate(float time, int altitude){
     }
 }
 
-void Collectibles::update(Rocket* rocket, int speed){
+void Collectibles::update(Rocket* rocket){
     int index = 0;
 
     while(index < objects.size()) {
         bool collision = false;
-        ptr->move(speed);
+        ptr->move(2);
 
         if(ptr->collision(rocket->getX(), rocket->getY())){
             std::cout << "removing index " << index << std::endl;
