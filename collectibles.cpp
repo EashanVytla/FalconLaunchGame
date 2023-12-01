@@ -46,6 +46,12 @@ void Collectibles::update(){
     }
 }
 
+void Collectibles::clean(){
+    for (Collectible* ptr : objects) {
+        delete ptr;
+    }
+}
+
 void Collectibles::remove(int i){
     delete objects[i];
     objects.erase(objects.begin() + i);
