@@ -1,6 +1,5 @@
 #ifndef ROCKET_H
 #define ROCKET_H
-#include "window.h"
 class Rocket{
     private:
         int x, y;
