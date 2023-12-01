@@ -214,7 +214,7 @@ int main()
                 rocket.moveY(1);
                 launchpad.draw();
             }else{
-                if(descent){
+                if(descent && !landing){
                     moveBackgroundUp(rocket.getAltitude());
                     collectibles.generate(gameTime,rocket.getAltitude());
                     collectibles.update(&rocket);
