@@ -17,7 +17,6 @@ void Collectibles::generate(float time, int altitude){
     //TODO: Make sure this is designed for when the rocket is going down NOT UP
     generate_rate = sqrt((1.0 - (float)altitude/Rocket::max_altitude) * 30.0);
     int every = 60 / generate_rate;
-
     //75% of the collectibles will be Fuel and 25% will be Stars
     //Completely random selection process
     int whichCol = Random.RandInt()/24575;
