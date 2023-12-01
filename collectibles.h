@@ -8,7 +8,7 @@
 #include <memory>
 class Collectibles{
     private:
-        std::vector<std::unique_ptr<Collectible>> objects;
+        std::vector<std::unique_ptr<Collectible> > objects;
         int generate_rate; //Collectibles generated per second
 
     public:
