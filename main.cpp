@@ -227,6 +227,9 @@ int main()
                 }
                 if(landing){
                     launchpad.draw();
+                    while(rocket.getY() < Window::w_height-20 ){
+                        rocket.moveY(-1);
+                    }
                 }
             }
             
