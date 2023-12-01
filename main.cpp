@@ -198,6 +198,7 @@ int main()
                 landing = true;
             }
             drawProgressBar(fuelLevel);
+            fuelLevel--;
  
             if(rocket.getY() > Window::w_height/2){
                 rocket.moveY(1);
