@@ -169,7 +169,7 @@ int main()
                     if(press_x > 0 && press_y > Window::w_height-20){
                         game_state = 0;
                         background_y = 0;
-                        fuelLevel = 100;
+                        rocket.setFuelLevel(100.0);
                         landing = false;
                         rocket.reset();
                         
@@ -202,8 +202,8 @@ int main()
                 LCD.WriteAt("Landing",Window::w_width/2-50,0);
                 landing = true;
             }
-            drawProgressBar(fuelLevel);
-            fuelLevel -=.25;
+            drawProgressBar(rocket.getFuelLevel());
+            rocket.setFuelLevel(-.25);
  
             if(rocket.getY() > Window::w_height/2){
                 rocket.moveY(1);

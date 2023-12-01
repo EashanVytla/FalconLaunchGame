@@ -32,6 +32,12 @@ int Rocket::getX(){
 int Rocket::getY(){
     return y;
 }
+double Rocket::getFuelLevel(){
+    return fuelLevel;
+}
+void Rocket::setFuelLevel(int newFuel){
+    fuelLevel += newFuel;
+}
 
 void Rocket::moveY(int dy){
     y -= dy;

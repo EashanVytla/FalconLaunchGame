@@ -4,7 +4,7 @@
 class Rocket{
     private:
         int x, y;
-        int fuelLevel;
+        double fuelLevel;
         int altitude;
     public:
         static const int width = 13, height = 80, max_altitude = 2000, buffer_altitude = max_altitude - 200;
@@ -19,6 +19,8 @@ class Rocket{
         bool reachedMaxHeight(int altitude);
         void setAltitude(int background_y);
         void reset();
+        double getFuelLevel();
+        void setFuelLevel(int newFuel);
         int getAltitude();
 };
 #endif
