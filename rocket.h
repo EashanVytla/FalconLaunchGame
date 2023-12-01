@@ -4,11 +4,11 @@
 class Rocket{
     private:
         int x, y;
-        int fuelLevel;
+        double fuelLevel;
         int altitude;
     public:
         static const int width = 13, height = 80, max_altitude = 2000, buffer_altitude = max_altitude - 200;
-        static constexpr float max_up_speed = 7.0f, max_down_speed = 2.5f;
+        static const float max_up_speed = 7.0f, max_down_speed = 2.5f;
         Rocket(int x, int y);
         Rocket();
         void draw();
@@ -19,6 +19,8 @@ class Rocket{
         bool reachedMaxHeight(int altitude);
         void setAltitude(int background_y);
         void reset();
+        double getFuelLevel();
+        void setFuelLevel(double newFuel);
         int getAltitude();
 };
 #endif
