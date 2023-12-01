@@ -202,10 +202,9 @@ int main()
                 LCD.WriteAt("Landing",Window::w_width/2-50,0);
                 landing = true;
             }
-            std::cout << rocket.getFuelLevel() << std::endl;
+
             drawProgressBar(rocket.getFuelLevel());
-            std::cout << rocket.getFuelLevel() << std::endl;
-            rocket.setFuelLevel(-.25);
+            rocket.setFuelLevel(rocket.getFuelLevel() - .25);
  
             if(rocket.getY() > Window::w_height/2){
                 rocket.moveY(1);

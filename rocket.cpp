@@ -36,8 +36,9 @@ double Rocket::getFuelLevel(){
     return fuelLevel;
 }
 void Rocket::setFuelLevel(int newFuel){
-    fuelLevel += newFuel;
+    fuelLevel = newFuel;
 }
+
 
 void Rocket::moveY(int dy){
     y -= dy;
