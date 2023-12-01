@@ -61,6 +61,8 @@ double fuelLevel = 100;
 char leaderboard[10][21] = {"Eashan - 10%", "Allen - 9%", "Joe - 8%", "Stephanie - 7%", "Aidan - 6%", "Josh - 5%", "Marvin - 4%", "Charlie - 3%", "Gavin - 2%", "Sid - 1%"};
 
 // if the Rocket is on the way down
+bool descent = false;
+//if rocket is near lanch pad
 bool landing = false;
 
 //0 - Game
@@ -173,7 +175,7 @@ int main()
                         game_state = 0;
                         background_y = 0;
                         rocket.setFuelLevel(100.0);
-                        landing = false;
+                        descent = false;
                         rocket.reset();
                         
                     }
@@ -201,8 +203,9 @@ int main()
             LCD.WriteAt(rocket.getAltitude(),0,0);
             LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
             if(rocket.reachedMaxHeight(rocket.getAltitude())){
-                LCD.SetFontColor(0x005288);
-                LCD.WriteAt("Landing",Window::w_width/2-50,0);
+                descent = true;
+            }
+            if(rocket.getAltitude() < 200){
                 landing = true;
             }
 
@@ -211,7 +214,7 @@ int main()
                 rocket.moveY(1);
                 launchpad.draw();
             }else{
-                if(landing){
+                if(descent){
                     moveBackgroundUp(rocket.getAltitude());
                     collectibles.generate(gameTime,rocket.getAltitude());
                     collectibles.update(&rocket);
@@ -221,6 +224,9 @@ int main()
                 }else{
 
                     moveBackgroundDown(rocket.getAltitude());
+                }
+                if(landing){
+                    launchpad.draw();
                 }
             }
             
