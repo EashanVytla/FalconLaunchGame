@@ -32,27 +32,33 @@ void Collectibles::generate(float time, int altitude){
     }
 }
 
-void Collectibles::update(Rocket* rocket){
+void Collectibles::update(Rocket* rocket, int speed){
     int index = 0;
-    for (Collectible* ptr : objects) {
-        ptr->move(1);
+
+    while(index < objects.size()) {
+        bool collision = false;
+        ptr->move(speed);
+
         if(ptr->collision(rocket->getX(), rocket->getY())){
             std::cout << "removing index " << index << std::endl;
             if(ptr->getHeight() == Star::height){
-                //Add 20% to fuel level
                 rocket->setFuelLevel(rocket->getFuelLevel() + 20);
             }else{
-                //Add 10% to fuel level
                 rocket->setFuelLevel(rocket->getFuelLevel() + 10);
             }
             remove(index);
+            collision = true;
         }
 
         if(ptr->getY() < ptr->getHeight()){
             std::cout << "removing index " << index << std::endl;
             remove(index);
+            collision = true;
         }
-        index++;
+        
+        if(!collision){
+            index++;
+        }
     }
 }
 
