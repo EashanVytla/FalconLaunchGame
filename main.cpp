@@ -213,7 +213,7 @@ int main()
                 if(landing){
                     moveBackgroundUp(rocket.getAltitude());
                     collectibles.generate(gameTime,rocket.getAltitude());
-                    collectibles.update();
+                    collectibles.update(&rocket);
                     collectibles.draw();
                     
                 }else{
