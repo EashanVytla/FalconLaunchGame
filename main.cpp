@@ -74,6 +74,8 @@ int game_state = 4;
 //This is volatile to be accessed accross threads.
 volatile bool sigintReceived = false;
 
+float changeInY = .4;
+
 int main()
 {
     //Registering SIGINT handler for proper destruction of our collectible pointers
@@ -338,7 +340,6 @@ void moveBackgroundUp(int alt){
     // Define variables to store the initial and final values for changeInY
     float initialChangeInY = 0.4;
     float finalChangeInY = Rocket::max_down_speed;
-    float changeInY = .4;
 
         
     // Check if the altitude is within the specified range

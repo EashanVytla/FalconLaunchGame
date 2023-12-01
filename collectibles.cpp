@@ -19,8 +19,6 @@ void Collectibles::generate(float time, int altitude){
     //Completely random selection process
     int whichCol = Random.RandInt()/24575;
 
-    //std::cout << time - prev_time << std::endl;
-
     if(time - prev_time > every){
         if(whichCol == 0){
             Fuel *fuelPtr = new Fuel();
@@ -42,10 +40,10 @@ void Collectibles::update(Rocket* rocket){
             std::cout << "removing index " << index << std::endl;
             if(ptr->getHeight() == Star::height){
                 //Add 20% to fuel level
-                rocket->setFuelLevel(rocket->getFuelLevel()+20);
+                rocket->setFuelLevel(rocket->getFuelLevel() + 20);
             }else{
                 //Add 10% to fuel level
-                rocket->setFuelLevel(rocket->getFuelLevel()+10);
+                rocket->setFuelLevel(rocket->getFuelLevel() + 10);
             }
             remove(index);
         }
@@ -65,6 +63,8 @@ void Collectibles::clean(){
 }
 
 void Collectibles::remove(int i){
+    if (i <= 0 || i > objects.size())
+        return;
     delete objects[i];
     objects.erase(objects.begin() + i);
 }
