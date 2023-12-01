@@ -34,10 +34,20 @@ void Collectibles::generate(float time, int altitude){
     }
 }
 
-void Collectibles::update(){
+void Collectibles::update(Rocket* rocket){
     int index = 0;
     for (Collectible* ptr : objects) {
         ptr->move(1);
+        if(ptr->collision(rocket->getX(), rocket->getY())){
+            std::cout << "removing index " << index << std::endl;
+            if(ptr->getHeight() == Star::height){
+                //Add 20% to fuel level
+            }else{
+                //Add 10% to fuel level
+            }
+            remove(index);
+        }
+
         if(ptr->getY() < ptr->getHeight()){
             std::cout << "removing index " << index << std::endl;
             remove(index);

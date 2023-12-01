@@ -9,8 +9,8 @@
 
 class Star : public Collectible{
     public:
-        const int width = 7;
-        const int height = 7;
+        static const int width = 7;
+        static const int height = 7;
         Star();
         void draw();
         bool collision(int x, int y);
