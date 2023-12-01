@@ -221,7 +221,7 @@ int main()
                     collectibles.draw();
                     drawProgressBar(rocket.getFuelLevel());
                     rocket.setFuelLevel(rocket.getFuelLevel() - .1);
-                }else{
+                }else if(!descent){
 
                     moveBackgroundDown(rocket.getAltitude());
                 }
