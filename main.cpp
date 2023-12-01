@@ -211,6 +211,9 @@ int main()
             }else{
                 if(landing){
                     moveBackgroundUp(rocket.getAltitude());
+                    collectibles.generate(gameTime,rocket.getAltitude());
+                    collectibles.update();
+                    collectibles.draw();
                     
                 }else{
 
@@ -218,9 +221,6 @@ int main()
                 }
             }
 
-            collectibles.generate(gameTime,rocket.getAltitude());
-            collectibles.update();
-            collectibles.draw();
             
             rocket.draw();
         }
