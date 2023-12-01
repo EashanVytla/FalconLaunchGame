@@ -25,7 +25,7 @@ void Collectibles::generate(float time, int altitude){
 
     if(time - prev_time > every){
         if(whichCol == 0){
-            objects.push_back(std::make_unique<Fuel>());
+            objects.push_back(std::make_unique<Collectible>());
         }else{
             objects.push_back(std::make_unique<Star>());
         }
