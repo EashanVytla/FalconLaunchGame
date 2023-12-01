@@ -221,7 +221,6 @@ int main()
                     moveBackgroundDown(rocket.getAltitude());
                 }
             }
-
             
             rocket.draw();
         }

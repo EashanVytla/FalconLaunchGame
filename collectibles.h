@@ -13,11 +13,10 @@ class Collectibles{
 
     public:
         Collectibles();
-        void update();
+        void update(int, int);
         void generate(float time, int altitude);
         void draw();
         void remove(int i);
         void clean();
-        bool checkCollectibleCollision(Rocket rocket);
 };
 #endif
