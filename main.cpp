@@ -204,11 +204,11 @@ int main()
                 launchpad.draw();
             }else{
                 if(landing){
-                    moveBackgroundUp(rocket.getAltitude(background_y));
+                    moveBackgroundUp(rocket.getAltitude());
                     
                 }else{
 
-                    moveBackgroundDown(rocket.getAltitude(background_y));
+                    moveBackgroundDown(rocket.getAltitude());
                 }
             }
 
