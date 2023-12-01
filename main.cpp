@@ -117,7 +117,7 @@ int main()
                         //If Play Game is pressed
                         //TODO: After merging with Allen's branch make sure this is associated with the game_state = 0;
                         initialTime = TimeNow();
-                        game_state = 0;
+                        game_state = 5;
                     }else{
                         //If the Credits is pressed
                         game_state = 2;
