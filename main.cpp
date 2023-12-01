@@ -22,16 +22,20 @@ void displayCredits();
 void displayInstructions();
 //Draws background
 void drawBackground();
-//move background one pixel
-void moveBackground();
+//move background pixel
+void moveBackgroundUp(int alt);
+//move background pixel
+void moveBackgroundDown(int alt);
+//draw fuel level bar
+void drawProgressBar(double barWidth);
 
 void gameUpdate();
 
 void handleSigInt(int signum);
 
 //background x and y
-int background_x = 0;
-int background_y = 0;
+float background_x = 0;
+float background_y = 0;
 
 //Returns true if a button is clicked and sets x and y variables to the position of the click
 //Ignores a button hold! If the button is held only the first loop cycle is counted
@@ -48,9 +52,15 @@ const int back_menu_y = 219;
 //Initializing the previous touch boolean to false
 bool prev_touch = false;
 
+//Progess bar width/ Fuel level
+double fuelLevel = 100;
+
 //Initializing a temporary placeholder for the leaderboard
 //In the final version this would be read from a file
 char leaderboard[10][21] = {"Eashan - 10%", "Allen - 9%", "Joe - 8%", "Stephanie - 7%", "Aidan - 6%", "Josh - 5%", "Marvin - 4%", "Charlie - 3%", "Gavin - 2%", "Sid - 1%"};
+
+// if the Rocket is on the way down
+bool landing = false;
 
 //0 - Game
 //1 - Leaderboard
@@ -59,7 +69,6 @@ char leaderboard[10][21] = {"Eashan - 10%", "Allen - 9%", "Joe - 8%", "Stephanie
 //4 - Menu
 //5 - IDLE Game
 int game_state = 4;
-
 //Global variable to handle when the SIGINT is recieved.
 //This is volatile to be accessed accross threads.
 volatile bool sigintReceived = false;
@@ -122,8 +131,11 @@ int main()
                         game_state = 3;
                     }
                 }
-            }else{
-                //Allen: Check the location of the button press for launch button
+            }else if(game_state != 4){
+                //If the menu state is any of the others, bring it back to the menu
+                if(press_x > back_menu_x && press_y > back_menu_y){
+                    game_state = 4;
+                }
             }
     
             switch(game_state){
@@ -144,9 +156,19 @@ int main()
                 case 5:
                     //Allen:
                     //Display the launch button
+                    LCD.SetFontColor(0x005288);
+                    LCD.WriteAt("LAUNCH", 0,Window::w_height-20);
                     //Display logo
+
                     //Display rocket and launchpad
-                    //If the Launch button is pressed, then set game_state to 0
+                    rocket.draw();
+                    launchpad.draw();
+                    //If the Launch button is pressed, then set game_state to 0       
+                    if(press_x > 0 && press_y > Window::w_height-20){
+                        game_state = 0;
+                        background_y = 0;
+                        fuelLevel = 0;
+                    }
                     break;
                 case 4:
                     //Displaying the menu
@@ -156,6 +178,7 @@ int main()
 
             //If the menu state is anything other than the menu, draw a back to menu option on the screen
             if(game_state != 4){
+                LCD.SetFontColor(0x005288);
                 LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
             }
         }
@@ -164,14 +187,29 @@ int main()
             float gameTime = TimeNow() - initialTime;
             //Gameplay
             drawBackground();
+
             rocket.setAltitude(background_y);
+            LCD.SetFontColor(0x005288);
             LCD.WriteAt(rocket.getAltitude(),0,0);
-            
+            LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
+            if(rocket.reachedMaxHeight(rocket.getAltitude())){
+                LCD.SetFontColor(0x005288);
+                LCD.WriteAt("Landing",Window::w_width/2-50,0);
+                landing = true;
+            }
+            drawProgressBar(fuelLevel);
+ 
             if(rocket.getY() > Window::w_height/2){
                 rocket.moveY(1);
                 launchpad.draw();
             }else{
-                moveBackground();
+                if(landing){
+                    moveBackgroundUp(rocket.getAltitude(background_y));
+                    
+                }else{
+
+                    moveBackgroundDown(rocket.getAltitude(background_y));
+                }
             }
 
             collectibles.generate(gameTime, rocket.getAltitude());
@@ -274,7 +312,51 @@ void drawBackground(){
     launchPad.Close();
 }
 
-void moveBackground(){
-    //move the background by 2 pixels
-    background_y+=2;
+void moveBackgroundUp(int alt){
+
+    // Define variables to store the initial and final values for changeInY
+    float initialChangeInY = 0.4;
+    float finalChangeInY = Rocket::max_down_speed;
+    float changeInY = .4;
+
+        
+    // Check if the altitude is within the specified range
+    if (alt >= Rocket::buffer_altitude && alt <= Rocket::max_altitude + 50) {
+        // Calculate changeInY based on altitude
+        // Linear interpolation between initialChangeInY and finalChangeInY based on the rocket's altitude
+        changeInY = initialChangeInY + ((Rocket::max_altitude - alt) / 150.0) * (finalChangeInY - initialChangeInY);
+        // Update the background position based on the calculated changeInY
+        background_y -= changeInY;
+    }
+
+    // Check if the altitude is below the buffer altitude
+    if (alt < Rocket::buffer_altitude) {
+        // If below buffer altitude, update the background position using the maximum downward speed
+        background_y -= Rocket::max_down_speed;
+    }
+}
+
+void moveBackgroundDown(int alt){
+    // Define a variable to store the change in background_y
+    float changeInY = Rocket::max_up_speed; 
+
+    // Check if the altitude is greater than or equal to the buffer altitude
+    if (alt >= Rocket::buffer_altitude) {
+        // Calculate changeInY based on the rocket's altitude
+        // Linear interpolation between Rocket::max_up_speed and 0 based on the difference between the current altitude and buffer altitude
+        changeInY = Rocket::max_up_speed - ((alt - Rocket::buffer_altitude) / 50.0);
+        // Check if the altitude is close to the maximum altitude (within the last 20 units)
+        if (alt > Rocket::max_altitude - 20) {
+            changeInY = 0.4; // If close to the maximum altitude, set changeInY to a constant value of 0.4
+        }
+    }
+
+    // Move the background by the calculated change in Y
+    background_y += changeInY;
+}
+void drawProgressBar(double barWidth){
+    LCD.SetFontColor(0x005288);
+    //create rectangle based of input width
+    
+    LCD.FillRectangle(Window::w_width-110,0,barWidth,10);
 }
