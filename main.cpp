@@ -203,6 +203,7 @@ int main()
                 landing = true;
             }
             drawProgressBar(rocket.getFuelLevel());
+            std::cout << rocket.getFuelLevel() << std::endl;
             rocket.setFuelLevel(-.25);
  
             if(rocket.getY() > Window::w_height/2){

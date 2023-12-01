@@ -5,13 +5,13 @@
 Rocket::Rocket(int x, int y){
     this->x = x;
     this->y = y;
-    fuelLevel = 100;
+    fuelLevel = 100.0;
 }
 
 Rocket::Rocket(){
     x = Window::w_width/2-5;
     y = Window::w_height-100;
-    fuelLevel = 100;
+    fuelLevel = 100.0;
 }
 
 void Rocket::draw(){
