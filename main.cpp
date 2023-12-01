@@ -205,7 +205,7 @@ int main()
             if(rocket.reachedMaxHeight(rocket.getAltitude())){
                 descent = true;
             }
-            if(rocket.getAltitude() < 200){
+            if(rocket.getAltitude() < 200 && descent){
                 landing = true;
             }
 
