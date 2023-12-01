@@ -1,7 +1,5 @@
-
 #include "collectibles.h"
 #include "rocket.h"
-#include <memory>
 #include <FEHRandom.h>
 #include <iostream>
 #include <math.h>
@@ -25,9 +23,11 @@ void Collectibles::generate(float time, int altitude){
 
     if(time - prev_time > every){
         if(whichCol == 0){
-            objects.push_back(std::make_unique<Fuel>());
+            Fuel *fuelPtr = new Fuel();
+            objects.push_back(fuelPtr);
         }else{
-            objects.push_back(std::make_unique<Star>());
+            Star *starPtr = new Star();
+            objects.push_back(starPtr);
         }
 
         prev_time = time;
@@ -36,7 +36,7 @@ void Collectibles::generate(float time, int altitude){
 
 void Collectibles::update(){
     int index = 0;
-    for (const std::unique_ptr<Collectible>& ptr : objects) {
+    for (Collectible* ptr : objects) {
         ptr->move(1);
         if(ptr->getY() < ptr->getHeight()){
             std::cout << "removing index " << index << std::endl;
@@ -47,11 +47,12 @@ void Collectibles::update(){
 }
 
 void Collectibles::remove(int i){
+    delete objects[i];
     objects.erase(objects.begin() + i);
 }
 
 void Collectibles::draw(){
-    for (const std::unique_ptr<Collectible>& ptr : objects) {
-        ptr->draw();
+    for (Collectible* ptr : objects) {
+        ptr ->draw();
     }
 }

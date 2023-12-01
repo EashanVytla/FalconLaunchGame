@@ -5,11 +5,10 @@
 #include "fuel.h"
 #include "Collectible.h"
 #include "rocket.h"
-#include <memory>
 
 class Collectibles{
     private:
-        std::vector<std::unique_ptr<Collectible> > objects;
+        std::vector<Collectible*> objects;
         int generate_rate; //Collectibles generated per second
 
     public:
@@ -18,6 +17,7 @@ class Collectibles{
         void generate(float time, int altitude);
         void draw();
         void remove(int i);
+        void clean();
         bool checkCollectibleCollision(Rocket rocket);
 };
 #endif

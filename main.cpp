@@ -225,7 +225,7 @@ int main()
         //Update the screen
         LCD.Update();
     }
-
+    collectibles.clean();
     return 0;
 }
 
