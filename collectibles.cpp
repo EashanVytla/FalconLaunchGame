@@ -41,7 +41,7 @@ void Collectibles::update(Rocket* rocket){
         ptr->move(2);
 
         if(ptr->collision(rocket->getX(), rocket->getY())){
-            std::cout << "removing index " << index << std::endl;
+            std::cout << "Collision: removing index " << index << std::endl;
             if(ptr->getHeight() == Star::height){
                 rocket->setFuelLevel(rocket->getFuelLevel() + 20);
             }else{
@@ -52,7 +52,7 @@ void Collectibles::update(Rocket* rocket){
         }
 
         if(ptr->getY() < ptr->getHeight()){
-            std::cout << "removing index " << index << std::endl;
+            std::cout << "Reached EOS: removing index " << index << std::endl;
             remove(index);
             collision = true;
         }
