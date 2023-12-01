@@ -20,7 +20,7 @@ class Rocket{
         void setAltitude(int background_y);
         void reset();
         double getFuelLevel();
-        void setFuelLevel(int newFuel);
+        void setFuelLevel(double newFuel);
         int getAltitude();
 };
 #endif
