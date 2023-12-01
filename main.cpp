@@ -168,6 +168,7 @@ int main()
                         game_state = 0;
                         background_y = 0;
                         fuelLevel = 0;
+                        rocket.setAltitude(0);
                     }
                     break;
                 case 4:

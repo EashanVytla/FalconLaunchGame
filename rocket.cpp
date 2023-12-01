@@ -58,3 +58,8 @@ bool Rocket::reachedMaxHeight(int altitude){
     }
     return reached;
 }
+
+void Rocket::reset(){
+    altitude = 0;
+    y =0;
+}
