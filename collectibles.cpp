@@ -4,6 +4,8 @@
 #include <FEHRandom.h>
 #include <iostream>
 #include <math.h>
+#include "star.h"
+#include "fuel.h"
 
 Collectibles::Collectibles(){
     generate_rate = 1;
