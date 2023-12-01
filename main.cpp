@@ -203,8 +203,6 @@ int main()
                 landing = true;
             }
 
-            drawProgressBar(rocket.getFuelLevel());
-            rocket.setFuelLevel(rocket.getFuelLevel() - .25);
  
             if(rocket.getY() > Window::w_height/2){
                 rocket.moveY(1);
@@ -215,7 +213,8 @@ int main()
                     collectibles.generate(gameTime,rocket.getAltitude());
                     collectibles.update(&rocket);
                     collectibles.draw();
-                    
+                    drawProgressBar(rocket.getFuelLevel());
+                    rocket.setFuelLevel(rocket.getFuelLevel() - .25);
                 }else{
 
                     moveBackgroundDown(rocket.getAltitude());
