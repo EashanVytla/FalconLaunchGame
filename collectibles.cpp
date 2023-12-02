@@ -20,9 +20,7 @@ void Collectibles::generate(float time, int altitude){
     //Completely random selection process
     int whichCol = Random.RandInt()/4095;
 
-    std::cout << "Time" << time << std::endl; 
     if(time - prev_time > every){
-        std::cout << "Time: " << time << std::endl;
         if(whichCol <= 2){
             Fuel *fuelPtr = new Fuel();
             objects.push_back(fuelPtr);
@@ -72,10 +70,13 @@ void Collectibles::update(Rocket* rocket){
 }
 
 void Collectibles::clean(){
+    std::cout << "Cleaning up all collectibles" << std::endl;
     prev_time = 0;
     while(objects.size() != 0) {
+        std::cout << "POP" << std::endl;
         remove(0);
     }
+    std::cout << "Collectibles size: " << object.size() << std::endl;
 }
 
 void Collectibles::remove(int i){
