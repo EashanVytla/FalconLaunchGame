@@ -6,8 +6,8 @@
 
 class Fuel : public Collectible{
     public:
-        const int width = 13;
-        const int height = 13;
+        static const int width = 13;
+        static const int height = 13;
         Fuel();
         void draw();
         int getWidth();

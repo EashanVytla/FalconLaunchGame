@@ -1,6 +1,7 @@
 #include "collectible.h"
 #include <FEHRandom.h>
 #include "window.h"
+#include "rocket.h"
 
 int Collectible::getX(){
     return x;
@@ -29,8 +30,8 @@ void Collectible::move(int dy){
 
 bool Collectible::collision(int x, int y){
     bool collided = false;
-    if (getX() + width > x && getX() < x + Rocket::width &&
-        getY() + height > y && getY() < y + Rocket::height) {
+    if (getX() + getWidth() > x && getX() < x + Rocket::width &&
+        getY() + getHeight() > y && getY() < y + Rocket::height) {
         collided = true;
     }
     return collided;
