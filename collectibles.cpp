@@ -23,7 +23,7 @@ void Collectibles::generate(float time, int altitude){
         if(whichCol <= 2){
             Fuel *fuelPtr = new Fuel();
             objects.push_back(fuelPtr);
-        }else fi(whichCol > 2 && whichCol <= 5){
+        }else if(whichCol > 2 && whichCol <= 5){
             Asteroid *astPtr = new Astr();
             object.push_back(astrPtr);
         }else{
@@ -47,8 +47,10 @@ void Collectibles::update(Rocket* rocket){
             std::cout << "Collision: removing index " << index << std::endl;
             if(ptr->getHeight() == Star::height){
                 rocket->setFuelLevel(rocket->getFuelLevel() + 20);
-            }else{
+            }else if(ptr->getHeight() == Fuel::height){
                 rocket->setFuelLevel(rocket->getFuelLevel() + 10);
+            }else{
+                rocket->setFuelLevel(rocket->getFuelLevel() - 20);
             }
             remove(index);
             collision = true;
