@@ -254,7 +254,7 @@ int main()
                     }
                     break;
                 case 3:
-                    rocket.moveY(Rocket::max_down_speed);
+                    rocket.moveY(-Rocket::max_down_speed);
                     launchpad.draw();
 
                     if(rocket.getY() >= rocket.getInitialY()){
