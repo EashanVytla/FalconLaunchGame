@@ -197,11 +197,11 @@ int main()
                     break;
                 case 6:
                     game_over = false;
-                    displayGameWon();
+                    displayGameOver();
                     break;
                 case 7:
                     game_over = false;
-                    displayGameOver();
+                    displayGameWon();
                     break;
             }
 
