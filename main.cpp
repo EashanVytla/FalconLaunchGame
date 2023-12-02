@@ -117,10 +117,6 @@ int main()
         //Keeping track of user click and position of the click
         bool button_press = detectButtonClick(&press_x, &press_y);
 
-        if(LCD.Touch(&drag_x, &drag_y)){
-            rocket.moveX(drag_x - drag_prev_x);
-        }
-
         //If the user clicked the screen (Only first loop cycle of click is counted)
         if(button_press){
             LCD.Clear();
@@ -130,7 +126,6 @@ int main()
                     if(press_y < menu_y_split){
                         //If Play Game is pressed
                         //TODO: After merging with Allen's branch make sure this is associated with the game_state = 0;
-
                         initialTime = TimeNow();
                         game_state = 5;
                         rocket.reset();
@@ -150,6 +145,7 @@ int main()
             }else if(game_state != 4){
                 //If the menu state is any of the others, bring it back to the menu
                 if(press_x > back_menu_x && press_y > back_menu_y){
+                    collectibles.clean();
                     game_state = 4;
                 }
             }
@@ -206,6 +202,10 @@ int main()
         }
 
         if(game_state == 0){
+            if(LCD.Touch(&drag_x, &drag_y)){
+                rocket.moveX(drag_x - drag_prev_x);
+            }
+
             float gameTime = TimeNow() - initialTime;
             //Gameplay
             drawBackground();
@@ -254,7 +254,7 @@ int main()
                     }
                     break;
                 case 3:
-                    rocket.moveY(-1);
+                    rocket.moveY(Rocket::max_down_speed);
                     launchpad.draw();
 
                     if(rocket.getY() >= rocket.getInitialY()){
