@@ -120,7 +120,8 @@ int main()
         //Keeping track of user click and position of the click
         bool button_press = detectButtonClick(&press_x, &press_y);
 
-        if(game_state == 0 && LCD.Touch(&drag_x, &drag_y)){
+        if(game_state == 0 && rocket_state == 1 && LCD.Touch(&drag_x, &drag_y)){
+            
             rocket.moveX(drag_x - drag_prev_x);
         }
 
@@ -172,7 +173,6 @@ int main()
                     displayInstructions();
                     break;
                 case 5:
-                    //Allen:
                     //Display the launch button
                     LCD.SetFontColor(0x005288);
                     LCD.WriteAt("LAUNCH", 0,Window::w_height-20);
