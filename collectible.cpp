@@ -33,6 +33,7 @@ bool Collectible::collision(int x, int y){
     if (getX() + getWidth() > x && getX() < x + Rocket::width &&
         getY() + getHeight() > y && getY() < y + Rocket::height) {
         collided = true;
+        std::cout << "Collided" << std::endl;
     }
     return collided;
 }
