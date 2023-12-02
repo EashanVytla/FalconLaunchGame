@@ -53,8 +53,6 @@ const int back_menu_y = 219;
 //Initializing the previous touch boolean to false
 bool prev_touch = false;
 
-//Progess bar width/ Fuel level
-double fuelLevel = 100;
 
 //Initializing a temporary placeholder for the leaderboard
 //In the final version this would be read from a file
@@ -237,7 +235,7 @@ int main()
                         collectibles.update(&rocket);
                         collectibles.draw();
                         drawProgressBar(rocket.getFuelLevel());
-                        rocket.setFuelLevel(rocket.getFuelLevel() - .1);
+                        rocket.setFuelLevel(rocket.getFuelLevel() - .5);
                     }else if(!descent){
                         moveBackgroundDown(rocket.getAltitude());
                     }
