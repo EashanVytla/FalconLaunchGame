@@ -389,7 +389,7 @@ void displayGameOver(){
 
 void displayGameWon(){
     LCD.WriteAt("You Won!",Window::w_width/2-100, Window::w_height/2);
-    LCD.WriteAt("Saved score on leaderboard.", Window::w_width/2-100, Window::w_height/2 + 50);
+    LCD.WriteAt("Your score has been saved", Window::w_width/2-200, Window::w_height/2 + 50);
 }
 
 void drawBackground(){
