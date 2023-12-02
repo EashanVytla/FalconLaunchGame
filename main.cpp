@@ -151,6 +151,7 @@ int main()
                 //If the menu state is any of the others, bring it back to the menu
                 if(press_x > back_menu_x && press_y > back_menu_y){
                     collectibles.clean();
+                    initialTime = TimeNow();
                     rocket_state = 0;
                     game_state = 4;
                 }
