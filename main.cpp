@@ -72,6 +72,12 @@ bool landing = false;
 //4 - Menu
 //5 - IDLE Game
 int game_state = 4;
+
+//0 - Takeoff
+//1 - Coast
+//2 - Land
+int rocket_state = 0;
+
 //Global variable to handle when the SIGINT is recieved.
 //This is volatile to be accessed accross threads.
 volatile bool sigintReceived = false;
@@ -202,35 +208,47 @@ int main()
             LCD.SetFontColor(0x005288);
             LCD.WriteAt(rocket.getAltitude(),0,0);
             LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
-            if(rocket.reachedMaxHeight(rocket.getAltitude())){
-                descent = true;
-            }
-            if(rocket.getAltitude() < 200 && descent){
-                landing = true;
-            }
+            
+            switch(rocket_state){
+                case 0:
+                    //Takeoff
+                    rocket.moveY(1);
+                    launchpad.draw();
 
+                    if(rocket.getY() < Window::w_height/2){
+                        rocket_state = 1;
+                    }
+                    break;
+                case 1:
+                    if(rocket.reachedMaxHeight(rocket.getAltitude())){
+                        descent = true;
+                    }
+                    //Coast
+                    if(descent){
+                        moveBackgroundUp(rocket.getAltitude());
+                        collectibles.generate(gameTime,rocket.getAltitude());
+                        collectibles.update(&rocket);
+                        collectibles.draw();
+                        drawProgressBar(rocket.getFuelLevel());
+                        rocket.setFuelLevel(rocket.getFuelLevel() - .1);
+                    }else if(!descent){
+                        moveBackgroundDown(rocket.getAltitude());
+                    }
+
+                    if(rocket.getAltitude() < 50 && descent){
+                        rocket_state = 2;
+                    }
+                    break;
+                case 2:
+                    //Land
+                    launchpad.draw();
+                    rocket.moveY(-1);
+                    break;
+            }
  
             if(rocket.getY() > Window::w_height/2){
                 rocket.moveY(1);
                 launchpad.draw();
-            }else{
-                if(descent && !landing){
-                    moveBackgroundUp(rocket.getAltitude());
-                    collectibles.generate(gameTime,rocket.getAltitude());
-                    collectibles.update(&rocket);
-                    collectibles.draw();
-                    drawProgressBar(rocket.getFuelLevel());
-                    rocket.setFuelLevel(rocket.getFuelLevel() - .1);
-                }else if(!descent){
-
-                    moveBackgroundDown(rocket.getAltitude());
-                }
-                if(landing){
-                    launchpad.draw();
-                    if(rocket.getY() < Window::w_height-100){
-                        rocket.moveY(-1);
-                    }
-                }
             }
             
             rocket.draw();
