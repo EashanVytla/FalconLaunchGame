@@ -116,7 +116,7 @@ int main()
     float initialTime = 0;
     bool game_over = false;
 
-    while (!sigintReceived) {
+    while (!sigintReceived || !LCD.closed) {
         //Keeping track of user click and position of the click
         bool button_press = detectButtonClick(&press_x, &press_y);
 
@@ -263,7 +263,6 @@ int main()
                     //Pre-Land
                     moveBackgroundUp(rocket.getAltitude(), 0.7);
                     rocket.moveY(Rocket::max_down_speed);
-                    std::cout << rocket.getY() << std::endl;
                     if(rocket.getY() <= 1){
                         rocket_state = 3;
                     }
