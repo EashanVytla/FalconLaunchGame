@@ -26,7 +26,7 @@ void Collectibles::generate(float time, int altitude){
             objects.push_back(fuelPtr);
         }else if(whichCol <= 5){
             Asteroid *astPtr = new Asteroid();
-            objects.push_back(astrPtr);
+            objects.push_back(astPtr);
         }else{
             Star *starPtr = new Star();
             objects.push_back(starPtr);
