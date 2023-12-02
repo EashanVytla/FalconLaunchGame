@@ -26,3 +26,12 @@ void Collectible::setY(int y){
 void Collectible::move(int dy){
     y -= dy;
 }
+
+bool Collectible::collision(int x, int y){
+    bool collided = false;
+    if (getX() + width > x && getX() < x + Rocket::width &&
+        getY() + height > y && getY() < y + Rocket::height) {
+        collided = true;
+    }
+    return collided;
+}

@@ -15,14 +15,17 @@ void Collectibles::generate(float time, int altitude){
     //generate_rate = sqrt((1.0 - (float)altitude/Rocket::max_altitude) * 30.0);
     int every = 60 / generate_rate;
 
-    //75% of the collectibles will be Fuel and 25% will be Stars
+    //37% of the collectibles will be Fuel, 25% will be Stars, 37% will be asteroids
     //Completely random selection process
-    int whichCol = Random.RandInt()/24575;
+    int whichCol = Random.RandInt()/4095;
 
     if(time - prev_time > every){
-        if(whichCol == 0){
+        if(whichCol <= 2){
             Fuel *fuelPtr = new Fuel();
             objects.push_back(fuelPtr);
+        }else fi(whichCol > 2 && whichCol <= 5){
+            Asteroid *astPtr = new Astr();
+            object.push_back(astrPtr);
         }else{
             Star *starPtr = new Star();
             objects.push_back(starPtr);

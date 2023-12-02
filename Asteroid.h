@@ -1,15 +1,15 @@
-#ifndef FUEL_H
-#define FUEL_H
+#ifndef ASTEROID_H
+#define ASTEROID_H
 #ifndef COLLECTIBLE_H
 #include "collectible.h"
 #endif
 
-class Fuel : public Collectible{
+class Asteroid : public Collectible{
     private:
-        const int width = 13;
-        const int height = 13;
+        const int width = 15;
+        const int height = 15;
     public:
-        Fuel();
+        Asteroid();
         void draw();
         int getWidth();
         int getHeight();

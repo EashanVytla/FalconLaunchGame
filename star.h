@@ -13,7 +13,6 @@ class Star : public Collectible{
         static const int height = 7;
         Star();
         void draw();
-        bool collision(int x, int y);
         int getWidth();
         int getHeight();
 };

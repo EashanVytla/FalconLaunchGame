@@ -25,13 +25,3 @@ int Star::getWidth(){
 int Star::getHeight(){
     return height;
 }
-
-bool Star::collision(int x, int y){
-    //Allen implement code here
-    bool collided = false;
-    if (getX() + width > x && getX() < x + Rocket::width &&
-        getY() + height > y && getY() < y + Rocket::height) {
-        collided = true;
-    }
-    return collided;
-}
