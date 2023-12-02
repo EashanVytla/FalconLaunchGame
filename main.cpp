@@ -40,6 +40,8 @@ void displayGameOver();
 float background_x = 0;
 float background_y = 0;
 
+char reasonGameOver[40] = "Game Over";
+
 //Returns true if a button is clicked and sets x and y variables to the position of the click
 //Ignores a button hold! If the button is held only the first loop cycle is counted
 bool detectButtonClick(int *x, int *y);
@@ -54,7 +56,6 @@ const int back_menu_y = 219;
 
 //Initializing the previous touch boolean to false
 bool prev_touch = false;
-
 
 //Initializing a temporary placeholder for the leaderboard
 //In the final version this would be read from a file
@@ -216,6 +217,7 @@ int main()
             if(rocket.getFuelLevel() ==0){
                 game_state = 6;
                 game_over = true;
+                strcpy(reasonGameOver, "Ran out of fuel.");
             }
           
             float gameTime = TimeNow() - initialTime;
@@ -249,7 +251,7 @@ int main()
                         collectibles.update(&rocket);
                         collectibles.draw();
                         drawProgressBar(rocket.getFuelLevel());
-                        rocket.setFuelLevel(rocket.getFuelLevel() - .5);
+                        rocket.setFuelLevel(rocket.getFuelLevel() - .7);
                     }else if(!descent){
                         moveBackgroundDown(rocket.getAltitude());
                     }
@@ -272,7 +274,13 @@ int main()
                     launchpad.draw();
 
                     if(rocket.getY() >= rocket.getInitialY()){
-                        game_state = 7;
+                        game_over = true;
+                        if(launchpad.landed(rocket.getX())){
+                            game_state = 7;
+                        }else{
+                            strcpy(reasonGameOver, "Failed landing.");
+                            game_state = 6;
+                        }
                     }
                     break;
             }
@@ -376,7 +384,7 @@ void displayMenu(){
     LCD.WriteAt("Instructions",170,170);
 }
 void displayGameOver(){
-    LCD.WriteAt("GAME OVER",Window::w_width/2-100, Window::w_height/2);
+    LCD.WriteAt("GAME OVER: " + std::string(reasonGameOver),Window::w_width/2-100, Window::w_height/2);
 }
 
 void drawBackground(){
