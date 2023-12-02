@@ -71,6 +71,7 @@ bool landing = false;
 //3 - Instructions
 //4 - Menu
 //5 - IDLE Game
+//6 - Game Over
 int game_state = 4;
 //Global variable to handle when the SIGINT is recieved.
 //This is volatile to be accessed accross threads.
@@ -185,6 +186,10 @@ int main()
                     //Displaying the menu
                     displayMenu();
                     break;
+                case 6:
+                    game_over = true;
+                    displayGameOver();
+                    break;
             }
 
             //If the menu state is anything other than the menu, draw a back to menu option on the screen
@@ -210,7 +215,10 @@ int main()
                 landing = true;
             }
 
- 
+            if(rocket.getFuelLevel() ==0){
+                game_state = 6;
+                game_over = true;
+            }
             if(rocket.getY() > Window::w_height/2){
                 rocket.moveY(1);
                 launchpad.draw();
@@ -331,6 +339,9 @@ void displayMenu(){
     LCD.WriteAt("Credit",40,170);
     //Write instructions at the bottom right section of the menue
     LCD.WriteAt("Instructions",170,170);
+}
+void displayGameOver(){
+    LCD.WriteAt("GAME OVER",Window::w_width/2-100, Window::w_height/2);
 }
 
 void drawBackground(){
