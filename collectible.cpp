@@ -2,6 +2,7 @@
 #include <FEHRandom.h>
 #include "window.h"
 #include "rocket.h"
+#include <iostream>
 
 int Collectible::getX(){
     return x;
