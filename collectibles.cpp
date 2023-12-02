@@ -1,6 +1,7 @@
 #include "collectibles.h"
 #include "rocket.h"
 #include <FEHRandom.h>
+#include "Asteroid.h"
 #include <iostream>
 #include <math.h>
 
