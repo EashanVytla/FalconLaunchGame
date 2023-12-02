@@ -240,13 +240,11 @@ int main()
                     break;
                 case 1:
                     //Coast
-                    std::cout << "HERE1" << std::endl;
                     if(rocket.reachedMaxHeight(rocket.getAltitude())){
                         descent = true;
                     }
 
                     if(descent){
-                        std::cout << "HERE2" << std::endl;
                         moveBackgroundUp(rocket.getAltitude());
                         collectibles.generate(gameTime,rocket.getAltitude());
                         collectibles.update(&rocket);

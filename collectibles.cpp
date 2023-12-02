@@ -70,8 +70,11 @@ void Collectibles::update(Rocket* rocket){
 }
 
 void Collectibles::clean(){
-    for (Collectible* ptr : objects) {
-        delete ptr;
+    int index = 0;
+
+    while(index < objects.size()) {
+        remove(index);
+        index++;
     }
 }
 
