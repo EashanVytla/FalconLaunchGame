@@ -20,7 +20,7 @@ void Collectibles::generate(float time, int altitude){
     //Completely random selection process
     int whichCol = Random.RandInt()/4095;
 
-    std::cout << "HERE" << std::endl; 
+    std::cout << "Time" << time << std::endl; 
     if(time - prev_time > every){
         std::cout << "Time: " << time << std::endl;
         if(whichCol <= 2){
