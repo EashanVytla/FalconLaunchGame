@@ -34,6 +34,8 @@ void gameUpdate();
 
 void handleSigInt(int signum);
 
+void displayGameOver();
+
 //background x and y
 float background_x = 0;
 float background_y = 0;
@@ -110,6 +112,7 @@ int main()
     displayMenu();
 
     float initialTime = 0;
+    bool game_over = false;
 
     while (!sigintReceived) {
         //Keeping track of user click and position of the click
@@ -192,8 +195,15 @@ int main()
                     //Displaying the menu
                     displayMenu();
                     break;
-                defualt:
-                    LCD.WriteLine("DEFAULT CASE");
+                case 6:
+                    game_over = true;
+                    LCD.Clear();
+                    displayGameOver();
+                    break;
+                case 7:
+                    game_over = true;
+                    LCD.Clear();
+                    displayGameOver();
                     break;
             }
 
@@ -205,6 +215,11 @@ int main()
         }
 
         if(game_state == 0){
+            if(rocket.getFuelLevel() ==0){
+                game_state = 6;
+                game_over = true;
+            }
+          
             float gameTime = TimeNow() - initialTime;
             //Gameplay
             drawBackground();
@@ -361,6 +376,9 @@ void displayMenu(){
     //Write instructions at the bottom right section of the menue
     LCD.WriteAt("Instructions",170,170);
 }
+void displayGameOver(){
+    LCD.WriteAt("GAME OVER",Window::w_width/2-100, Window::w_height/2);
+}
 
 void drawBackground(){
     //width:  Height: 
@@ -416,8 +434,13 @@ void moveBackgroundDown(int alt, float speedScalar){
     background_y += changeInY * speedScalar;
 }
 void drawProgressBar(double barWidth){
-    LCD.SetFontColor(0x005288);
-    //create rectangle based of input width
-    
-    LCD.FillRectangle(Window::w_width-110,0,barWidth,10);
+    if(barWidth < 20){
+         LCD.SetFontColor(RED);
+        LCD.FillRectangle(Window::w_width-110,0,barWidth,10);
+    }else{
+        LCD.SetFontColor(0x005288);
+        LCD.FillRectangle(Window::w_width-110,0,barWidth,10);
+
+    }
+
 }
