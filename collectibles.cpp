@@ -21,6 +21,7 @@ void Collectibles::generate(float time, int altitude){
     int whichCol = Random.RandInt()/4095;
 
     if(time - prev_time > every){
+        std::cout << "Time: " << time << std::endl;
         if(whichCol <= 2){
             Fuel *fuelPtr = new Fuel();
             objects.push_back(fuelPtr);
