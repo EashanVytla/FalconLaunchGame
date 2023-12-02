@@ -47,7 +47,9 @@ void Collectibles::update(Rocket* rocket){
             }else{
                 rocket->setFuelLevel(rocket->getFuelLevel() + 10);
             }
+            std::cout << "Here1" << std::endl;
             remove(index);
+            std::cout << "Here2" << std::endl;
             collision = true;
         }
 
