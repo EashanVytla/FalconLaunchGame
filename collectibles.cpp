@@ -23,8 +23,8 @@ void Collectibles::generate(float time, int altitude){
         if(whichCol <= 2){
             Fuel *fuelPtr = new Fuel();
             objects.push_back(fuelPtr);
-        }else if(whichCol > 2 && whichCol <= 5){
-            Asteroid *astPtr = new Astr();
+        }else if(whichCol <= 5){
+            Asteroid *astPtr = new Asteroid();
             object.push_back(astrPtr);
         }else{
             Star *starPtr = new Star();
