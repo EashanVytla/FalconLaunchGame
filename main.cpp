@@ -24,9 +24,9 @@ void displayInstructions();
 //Draws background
 void drawBackground();
 //move background pixel
-void moveBackgroundUp(int alt);
+void moveBackgroundUp(int alt, float = 1.0);
 //move background pixel
-void moveBackgroundDown(int alt);
+void moveBackgroundDown(int alt, float = 1.0);
 //draw fuel level bar
 void drawProgressBar(double barWidth);
 
@@ -55,8 +55,6 @@ const int back_menu_y = 219;
 //Initializing the previous touch boolean to false
 bool prev_touch = false;
 
-//Progess bar width/ Fuel level
-double fuelLevel = 100;
 
 //Initializing a temporary placeholder for the leaderboard
 //In the final version this would be read from a file
@@ -73,8 +71,16 @@ bool landing = false;
 //3 - Instructions
 //4 - Menu
 //5 - IDLE Game
-//6 - Game Over
+//6 - Loss
+//7 - Won
 int game_state = 4;
+
+//0 - Takeoff
+//1 - Coast
+//2 - Pre-landing
+//3 - Land
+int rocket_state = 0;
+
 //Global variable to handle when the SIGINT is recieved.
 //This is volatile to be accessed accross threads.
 volatile bool sigintReceived = false;
@@ -112,7 +118,7 @@ int main()
         //Keeping track of user click and position of the click
         bool button_press = detectButtonClick(&press_x, &press_y);
 
-        if(LCD.Touch(&drag_x, &drag_y)){
+        if(game_state == 0 && LCD.Touch(&drag_x, &drag_y)){
             rocket.moveX(drag_x - drag_prev_x);
         }
 
@@ -125,7 +131,6 @@ int main()
                     if(press_y < menu_y_split){
                         //If Play Game is pressed
                         //TODO: After merging with Allen's branch make sure this is associated with the game_state = 0;
-
                         initialTime = TimeNow();
                         game_state = 5;
                         rocket.reset();
@@ -145,6 +150,8 @@ int main()
             }else if(game_state != 4){
                 //If the menu state is any of the others, bring it back to the menu
                 if(press_x > back_menu_x && press_y > back_menu_y){
+                    collectibles.clean();
+                    rocket_state = 0;
                     game_state = 4;
                 }
             }
@@ -193,6 +200,11 @@ int main()
                     LCD.Clear();
                     displayGameOver();
                     break;
+                case 7:
+                    game_over = true;
+                    LCD.Clear();
+                    displayGameOver();
+                    break;
             }
 
             //If the menu state is anything other than the menu, draw a back to menu option on the screen
@@ -203,6 +215,11 @@ int main()
         }
 
         if(game_state == 0){
+            if(rocket.getFuelLevel() ==0){
+                game_state = 6;
+                game_over = true;
+            }
+          
             float gameTime = TimeNow() - initialTime;
             //Gameplay
             drawBackground();
@@ -211,38 +228,54 @@ int main()
             LCD.SetFontColor(0x005288);
             LCD.WriteAt(rocket.getAltitude(),0,0);
             LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
-            if(rocket.reachedMaxHeight(rocket.getAltitude())){
-                descent = true;
-            }
-            if(rocket.getAltitude() < 200 && descent){
-                landing = true;
-            }
-
-            if(rocket.getFuelLevel() ==0){
-                game_state = 6;
-                game_over = true;
-            }
-            if(rocket.getY() > Window::w_height/2){
-                rocket.moveY(1);
-                launchpad.draw();
-            }else{
-                if(descent && !landing){
-                    moveBackgroundUp(rocket.getAltitude());
-                    collectibles.generate(gameTime,rocket.getAltitude());
-                    collectibles.update(&rocket);
-                    collectibles.draw();
-                    drawProgressBar(rocket.getFuelLevel());
-                    rocket.setFuelLevel(rocket.getFuelLevel() - .1);
-                }else if(!descent){
-
-                    moveBackgroundDown(rocket.getAltitude());
-                }
-                if(landing){
+            
+            switch(rocket_state){
+                case 0:
+                    //Takeoff
+                    rocket.moveY(1);
                     launchpad.draw();
-                    if(rocket.getAltitude() < 50 && rocket.getAltitude() > Window::w_height-100){
-                        rocket.moveY(-1);
+
+                    if(rocket.getY() < Window::w_height/2){
+                        rocket_state = 1;
                     }
-                }
+                    break;
+                case 1:
+                    if(rocket.reachedMaxHeight(rocket.getAltitude())){
+                        descent = true;
+                    }
+                    //Coast
+                    if(descent){
+                        moveBackgroundUp(rocket.getAltitude());
+                        collectibles.generate(gameTime,rocket.getAltitude());
+                        collectibles.update(&rocket);
+                        collectibles.draw();
+                        drawProgressBar(rocket.getFuelLevel());
+                        rocket.setFuelLevel(rocket.getFuelLevel() - .5);
+                    }else if(!descent){
+                        moveBackgroundDown(rocket.getAltitude());
+                    }
+
+                    if(rocket.getAltitude() < 50 && descent){
+                        rocket_state = 2;
+                    }
+                    break;
+                case 2:
+                    //Pre-Land
+                    moveBackgroundUp(rocket.getAltitude(), 0.7);
+                    rocket.moveY(Rocket::max_down_speed);
+                    std::cout << rocket.getY() << std::endl;
+                    if(rocket.getY() <= 1){
+                        rocket_state = 3;
+                    }
+                    break;
+                case 3:
+                    rocket.moveY(-Rocket::max_down_speed);
+                    launchpad.draw();
+
+                    if(rocket.getY() >= rocket.getInitialY()){
+                        game_state = 7;
+                    }
+                    break;
             }
             
             rocket.draw();
@@ -359,7 +392,7 @@ void drawBackground(){
     launchPad.Close();
 }
 
-void moveBackgroundUp(int alt){
+void moveBackgroundUp(int alt, float speedScalar){
 
     // Define variables to store the initial and final values for changeInY
     float initialChangeInY = 0.4;
@@ -372,17 +405,17 @@ void moveBackgroundUp(int alt){
         // Linear interpolation between initialChangeInY and finalChangeInY based on the rocket's altitude
         changeInY = initialChangeInY + ((Rocket::max_altitude - alt) / 150.0) * (finalChangeInY - initialChangeInY);
         // Update the background position based on the calculated changeInY
-        background_y -= changeInY;
+        background_y -= changeInY * speedScalar;
     }
 
     // Check if the altitude is below the buffer altitude
     if (alt < Rocket::buffer_altitude) {
         // If below buffer altitude, update the background position using the maximum downward speed
-        background_y -= Rocket::max_down_speed;
+        background_y -= Rocket::max_down_speed * speedScalar;
     }
 }
 
-void moveBackgroundDown(int alt){
+void moveBackgroundDown(int alt, float speedScalar){
     // Define a variable to store the change in background_y
     float changeInY = Rocket::max_up_speed; 
 
@@ -398,7 +431,7 @@ void moveBackgroundDown(int alt){
     }
 
     // Move the background by the calculated change in Y
-    background_y += changeInY;
+    background_y += changeInY * speedScalar;
 }
 void drawProgressBar(double barWidth){
     if(barWidth < 20){

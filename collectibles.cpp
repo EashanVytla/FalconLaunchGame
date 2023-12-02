@@ -1,11 +1,12 @@
 #include "collectibles.h"
 #include "rocket.h"
 #include <FEHRandom.h>
+#include "Asteroid.h"
 #include <iostream>
 #include <math.h>
 
 Collectibles::Collectibles(){
-    generate_rate = 30;
+    generate_rate = 40;
 }
 
 int prev_time = 0;
@@ -15,14 +16,17 @@ void Collectibles::generate(float time, int altitude){
     //generate_rate = sqrt((1.0 - (float)altitude/Rocket::max_altitude) * 30.0);
     int every = 60 / generate_rate;
 
-    //75% of the collectibles will be Fuel and 25% will be Stars
+    //37% of the collectibles will be Fuel, 25% will be Stars, 37% will be asteroids
     //Completely random selection process
-    int whichCol = Random.RandInt()/24575;
+    int whichCol = Random.RandInt()/4095;
 
     if(time - prev_time > every){
-        if(whichCol == 0){
+        if(whichCol <= 2){
             Fuel *fuelPtr = new Fuel();
             objects.push_back(fuelPtr);
+        }else if(whichCol <= 5){
+            Asteroid *astPtr = new Asteroid();
+            objects.push_back(astPtr);
         }else{
             Star *starPtr = new Star();
             objects.push_back(starPtr);
@@ -44,8 +48,10 @@ void Collectibles::update(Rocket* rocket){
             std::cout << "Collision: removing index " << index << std::endl;
             if(ptr->getHeight() == Star::height){
                 rocket->setFuelLevel(rocket->getFuelLevel() + 20);
-            }else{
+            }else if(ptr->getHeight() == Fuel::height){
                 rocket->setFuelLevel(rocket->getFuelLevel() + 10);
+            }else{
+                rocket->setFuelLevel(rocket->getFuelLevel() - 20);
             }
             remove(index);
             collision = true;
