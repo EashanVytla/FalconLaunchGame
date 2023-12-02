@@ -70,9 +70,13 @@ void Collectibles::update(Rocket* rocket){
 }
 
 void Collectibles::clean(){
-    for (Collectible* ptr : objects) {
-        delete ptr;
+    std::cout << "Cleaning up all collectibles" << std::endl;
+    prev_time = 0;
+    while(objects.size() != 0) {
+        std::cout << "POP" << std::endl;
+        remove(0);
     }
+    std::cout << "Collectibles size: " << objects.size() << std::endl;
 }
 
 void Collectibles::remove(int i){

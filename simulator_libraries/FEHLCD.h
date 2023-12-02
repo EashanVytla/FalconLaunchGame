@@ -36,6 +36,8 @@ public:
     bool Touch(float *x_pos, float *y_pos);
     bool Touch(int *x_pos, int *y_pos);
 
+    bool closed = false;
+
     void ClearBuffer();
 
     void PrintImage(int x, int y);

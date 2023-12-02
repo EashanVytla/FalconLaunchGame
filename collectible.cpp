@@ -2,6 +2,7 @@
 #include <FEHRandom.h>
 #include "window.h"
 #include "rocket.h"
+#include <iostream>
 
 int Collectible::getX(){
     return x;
@@ -33,6 +34,7 @@ bool Collectible::collision(int x, int y){
     if (getX() + getWidth() > x && getX() < x + Rocket::width &&
         getY() + getHeight() > y && getY() < y + Rocket::height) {
         collided = true;
+        std::cout << "Collided" << std::endl;
     }
     return collided;
 }

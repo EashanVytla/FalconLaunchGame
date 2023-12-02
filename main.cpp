@@ -35,10 +35,13 @@ void gameUpdate();
 void handleSigInt(int signum);
 
 void displayGameOver();
+void displayGameWon();
 
 //background x and y
 float background_x = 0;
 float background_y = 0;
+
+char reasonGameOver[40] = "Game Over";
 
 //Returns true if a button is clicked and sets x and y variables to the position of the click
 //Ignores a button hold! If the button is held only the first loop cycle is counted
@@ -54,7 +57,6 @@ const int back_menu_y = 219;
 
 //Initializing the previous touch boolean to false
 bool prev_touch = false;
-
 
 //Initializing a temporary placeholder for the leaderboard
 //In the final version this would be read from a file
@@ -114,7 +116,7 @@ int main()
     float initialTime = 0;
     bool game_over = false;
 
-    while (!sigintReceived) {
+    while (!sigintReceived && !LCD.closed) {
         //Keeping track of user click and position of the click
         bool button_press = detectButtonClick(&press_x, &press_y);
 
@@ -123,15 +125,13 @@ int main()
         }
 
         //If the user clicked the screen (Only first loop cycle of click is counted)
-        if(button_press){
+        if(button_press || game_over){
             LCD.Clear();
             //If the menu state is menu, go to the selected state
             if(game_state == 4){
                 if(press_x < menu_x_split){
                     if(press_y < menu_y_split){
                         //If Play Game is pressed
-                        //TODO: After merging with Allen's branch make sure this is associated with the game_state = 0;
-                        initialTime = TimeNow();
                         game_state = 5;
                         rocket.reset();
                     }else{
@@ -184,11 +184,11 @@ int main()
                     //If the Launch button is pressed, then set game_state to 0       
                     if(press_x > 0 && press_y > Window::w_height-20){
                         game_state = 0;
+                        initialTime = TimeNow();
                         background_y = 0;
                         rocket.setFuelLevel(100.0);
                         descent = false;
                         rocket.reset();
-                        
                     }
                     break;
                 case 4:
@@ -196,14 +196,12 @@ int main()
                     displayMenu();
                     break;
                 case 6:
-                    game_over = true;
-                    LCD.Clear();
+                    game_over = false;
                     displayGameOver();
                     break;
                 case 7:
-                    game_over = true;
-                    LCD.Clear();
-                    displayGameOver();
+                    game_over = false;
+                    displayGameWon();
                     break;
             }
 
@@ -218,6 +216,7 @@ int main()
             if(rocket.getFuelLevel() ==0){
                 game_state = 6;
                 game_over = true;
+                strcpy(reasonGameOver, "Ran out of fuel.");
             }
           
             float gameTime = TimeNow() - initialTime;
@@ -240,17 +239,18 @@ int main()
                     }
                     break;
                 case 1:
+                    //Coast
                     if(rocket.reachedMaxHeight(rocket.getAltitude())){
                         descent = true;
                     }
-                    //Coast
+
                     if(descent){
                         moveBackgroundUp(rocket.getAltitude());
                         collectibles.generate(gameTime,rocket.getAltitude());
                         collectibles.update(&rocket);
                         collectibles.draw();
                         drawProgressBar(rocket.getFuelLevel());
-                        rocket.setFuelLevel(rocket.getFuelLevel() - .5);
+                        rocket.setFuelLevel(rocket.getFuelLevel() - .6);
                     }else if(!descent){
                         moveBackgroundDown(rocket.getAltitude());
                     }
@@ -263,7 +263,6 @@ int main()
                     //Pre-Land
                     moveBackgroundUp(rocket.getAltitude(), 0.7);
                     rocket.moveY(Rocket::max_down_speed);
-                    std::cout << rocket.getY() << std::endl;
                     if(rocket.getY() <= 1){
                         rocket_state = 3;
                     }
@@ -273,7 +272,13 @@ int main()
                     launchpad.draw();
 
                     if(rocket.getY() >= rocket.getInitialY()){
-                        game_state = 7;
+                        game_over = true;
+                        if(launchpad.landed(rocket.getX())){
+                            game_state = 7;
+                        }else{
+                            strcpy(reasonGameOver, "Failed landing.");
+                            game_state = 6;
+                        }
                     }
                     break;
             }
@@ -376,8 +381,15 @@ void displayMenu(){
     //Write instructions at the bottom right section of the menue
     LCD.WriteAt("Instructions",170,170);
 }
+
 void displayGameOver(){
     LCD.WriteAt("GAME OVER",Window::w_width/2-100, Window::w_height/2);
+    LCD.WriteAt(std::string(reasonGameOver), Window::w_width/2-100, Window::w_height/2 + 50);
+}
+
+void displayGameWon(){
+    LCD.WriteAt("You Won!",Window::w_width/2-100, Window::w_height/2);
+    LCD.WriteAt("Saved score on leaderboard.", Window::w_width/2-100, Window::w_height/2 + 50);
 }
 
 void drawBackground(){
