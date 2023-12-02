@@ -257,6 +257,7 @@ int main()
                     launchpad.draw();
 
                     if(rocket.getY() >= rocket.getInitialY()){
+                        std::cout << "HERE" << std::endl;
                         game_state = 7;
                     }
                     break;
