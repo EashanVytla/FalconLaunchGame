@@ -123,7 +123,7 @@ int main()
         }
 
         //If the user clicked the screen (Only first loop cycle of click is counted)
-        if(button_press){
+        if(button_press || game_over){
             LCD.Clear();
             //If the menu state is menu, go to the selected state
             if(game_state == 4){
@@ -196,12 +196,12 @@ int main()
                     displayMenu();
                     break;
                 case 6:
-                    game_over = true;
+                    game_over = false;
                     LCD.Clear();
                     displayGameOver();
                     break;
                 case 7:
-                    game_over = true;
+                    game_over = false;
                     LCD.Clear();
                     displayGameOver();
                     break;
