@@ -47,13 +47,9 @@ void Collectibles::update(Rocket* rocket){
             }else{
                 rocket->setFuelLevel(rocket->getFuelLevel() + 10);
             }
-            std::cout << "Here1" << std::endl;
             remove(index);
-            std::cout << "Here2" << std::endl;
             collision = true;
-        }
-
-        if(ptr->getY() < ptr->getHeight()){
+        }else if(ptr->getY() < ptr->getHeight()){
             std::cout << "Reached EOS: removing index " << index << std::endl;
             std::cout << "Object Y: " << ptr->getY() << std::endl;
             std::cout << "Vector Size: " << objects.size() << std::endl;
