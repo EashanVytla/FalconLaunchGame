@@ -247,7 +247,7 @@ int main()
                     break;
                 case 2:
                     //Pre-Land
-                    moveBackgroundUp(rocket.getAltitude(), 0.5);
+                    moveBackgroundUp(rocket.getAltitude(), 0.2);
                     rocket.moveY(Rocket::max_down_speed);
                     if(rocket.getY() <= 1){
                         rocket_state = 3;
