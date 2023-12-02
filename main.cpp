@@ -35,6 +35,7 @@ void gameUpdate();
 void handleSigInt(int signum);
 
 void displayGameOver();
+void displayGameWon();
 
 //background x and y
 float background_x = 0;
@@ -196,12 +197,10 @@ int main()
                     break;
                 case 6:
                     game_over = false;
-                    LCD.Clear();
-                    displayGameOver();
+                    displayGameWon();
                     break;
                 case 7:
                     game_over = false;
-                    LCD.Clear();
                     displayGameOver();
                     break;
             }
@@ -383,9 +382,15 @@ void displayMenu(){
     //Write instructions at the bottom right section of the menue
     LCD.WriteAt("Instructions",170,170);
 }
+
 void displayGameOver(){
     LCD.WriteAt("GAME OVER",Window::w_width/2-100, Window::w_height/2);
     LCD.WriteAt(std::string(reasonGameOver), Window::w_width/2-100, Window::w_height/2 + 50);
+}
+
+void displayGameWon(){
+    LCD.WriteAt("You Won!",Window::w_width/2-100, Window::w_height/2);
+    LCD.WriteAt("Saved score on leaderboard.", Window::w_width/2-100, Window::w_height/2 + 50);
 }
 
 void drawBackground(){
