@@ -72,6 +72,7 @@ void Collectibles::update(Rocket* rocket){
 }
 
 void Collectibles::clean(){
+    prev_time = 0;
     while(objects.size() != 0) {
         remove(0);
     }
