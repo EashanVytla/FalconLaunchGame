@@ -6,7 +6,7 @@
 #include <math.h>
 
 Collectibles::Collectibles(){
-    generate_rate = 30;
+    generate_rate = 40;
 }
 
 int prev_time = 0;

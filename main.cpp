@@ -24,9 +24,9 @@ void displayInstructions();
 //Draws background
 void drawBackground();
 //move background pixel
-void moveBackgroundUp(int alt);
+void moveBackgroundUp(int alt, float = 1.0);
 //move background pixel
-void moveBackgroundDown(int alt);
+void moveBackgroundDown(int alt, float = 1.0);
 //draw fuel level bar
 void drawProgressBar(double barWidth);
 
@@ -247,6 +247,7 @@ int main()
                     break;
                 case 2:
                     //Pre-Land
+                    moveBackgroundUp(rocket.getAltitude());
                     rocket.moveY(Rocket::max_down_speed);
                     if(rocket.getY() <= 1){
                         rocket_state = 3;
@@ -373,7 +374,7 @@ void drawBackground(){
     launchPad.Close();
 }
 
-void moveBackgroundUp(int alt){
+void moveBackgroundUp(int alt, float speedScalar){
 
     // Define variables to store the initial and final values for changeInY
     float initialChangeInY = 0.4;
@@ -385,6 +386,7 @@ void moveBackgroundUp(int alt){
         // Calculate changeInY based on altitude
         // Linear interpolation between initialChangeInY and finalChangeInY based on the rocket's altitude
         changeInY = initialChangeInY + ((Rocket::max_altitude - alt) / 150.0) * (finalChangeInY - initialChangeInY);
+        changeInY *= speedScalar;
         // Update the background position based on the calculated changeInY
         background_y -= changeInY;
     }
@@ -396,7 +398,7 @@ void moveBackgroundUp(int alt){
     }
 }
 
-void moveBackgroundDown(int alt){
+void moveBackgroundDown(int alt, float speedScalar){
     // Define a variable to store the change in background_y
     float changeInY = Rocket::max_up_speed; 
 
@@ -405,6 +407,7 @@ void moveBackgroundDown(int alt){
         // Calculate changeInY based on the rocket's altitude
         // Linear interpolation between Rocket::max_up_speed and 0 based on the difference between the current altitude and buffer altitude
         changeInY = Rocket::max_up_speed - ((alt - Rocket::buffer_altitude) / 50.0);
+        changeInY *= speedScalar;
         // Check if the altitude is close to the maximum altitude (within the last 20 units)
         if (alt > Rocket::max_altitude - 20) {
             changeInY = 0.4; // If close to the maximum altitude, set changeInY to a constant value of 0.4
