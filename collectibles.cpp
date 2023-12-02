@@ -76,7 +76,7 @@ void Collectibles::clean(){
         std::cout << "POP" << std::endl;
         remove(0);
     }
-    std::cout << "Collectibles size: " << object.size() << std::endl;
+    std::cout << "Collectibles size: " << objects.size() << std::endl;
 }
 
 void Collectibles::remove(int i){
