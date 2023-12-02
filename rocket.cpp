@@ -9,9 +9,17 @@ Rocket::Rocket(int x, int y){
 }
 
 Rocket::Rocket(){
-    x = Window::w_width/2-5;
-    y = Window::w_height-100;
+    x = getInitialX();
+    y = getInitialY();
     fuelLevel = 100.0;
+}
+
+int Rocket::getInitialX(){
+    return Window::w_width/2-5;
+}
+
+int Rocket::getInitialY(){
+    return Window::w_height-100;
 }
 
 void Rocket::draw(){
@@ -69,7 +77,7 @@ void Rocket::moveX(int dx){
 bool Rocket::reachedMaxHeight(int altitude){
     //check if the rocket has reached an altitude of 1000
     bool reached = false;
-    if(altitude > Rocket::max_altitude && altitude < Rocket::max_altitude +200){
+    if(altitude > Rocket::max_altitude && altitude < Rocket::max_altitude + 200){
         reached = true;
     }
     return reached;
@@ -77,6 +85,6 @@ bool Rocket::reachedMaxHeight(int altitude){
 
 void Rocket::reset(){
     altitude = 0;
-    y =Window::w_height-100;
-    x = Window::w_width/2-5;
+    y = getInitialY();
+    x = getInitialX();
 }

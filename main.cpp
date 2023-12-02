@@ -71,6 +71,8 @@ bool landing = false;
 //3 - Instructions
 //4 - Menu
 //5 - IDLE Game
+//6 - Loss
+//7 - Won
 int game_state = 4;
 
 //0 - Takeoff
@@ -191,6 +193,9 @@ int main()
                     //Displaying the menu
                     displayMenu();
                     break;
+                defualt:
+                    LCD.WriteLine("DEFAULT CASE");
+                    break;
             }
 
             //If the menu state is anything other than the menu, draw a back to menu option on the screen
@@ -242,7 +247,7 @@ int main()
                     break;
                 case 2:
                     //Pre-Land
-                    rocket.moveY(1);
+                    rocket.moveY(Rocket::max_down_speed);
                     if(rocket.getY() <= 1){
                         rocket_state = 3;
                     }
@@ -250,12 +255,11 @@ int main()
                 case 3:
                     rocket.moveY(-1);
                     launchpad.draw();
+
+                    if(rocket.getY() >= rocket.getInitialY()){
+                        game_state = 7;
+                    }
                     break;
-            }
- 
-            if(rocket.getY() > Window::w_height/2){
-                rocket.moveY(1);
-                launchpad.draw();
             }
             
             rocket.draw();
