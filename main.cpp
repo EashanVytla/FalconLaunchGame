@@ -248,6 +248,7 @@ int main()
                     //Pre-Land
                     moveBackgroundUp(rocket.getAltitude(), 0.7);
                     rocket.moveY(Rocket::max_down_speed);
+                    std::cout << rocket.getY() << std::endl;
                     if(rocket.getY() <= 1){
                         rocket_state = 3;
                     }
@@ -257,7 +258,6 @@ int main()
                     launchpad.draw();
 
                     if(rocket.getY() >= rocket.getInitialY()){
-                        std::cout << "HERE" << std::endl;
                         game_state = 7;
                     }
                     break;
