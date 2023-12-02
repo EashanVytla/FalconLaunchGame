@@ -116,7 +116,7 @@ int main()
     float initialTime = 0;
     bool game_over = false;
 
-    while (!sigintReceived || !LCD.closed) {
+    while (!sigintReceived && !LCD.closed) {
         //Keeping track of user click and position of the click
         bool button_press = detectButtonClick(&press_x, &press_y);
 
