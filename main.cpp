@@ -103,6 +103,7 @@ int main()
     displayMenu();
 
     float initialTime = 0;
+    bool game_over = false;
 
     while (!sigintReceived) {
         //Keeping track of user click and position of the click
@@ -113,7 +114,7 @@ int main()
         }
 
         //If the user clicked the screen (Only first loop cycle of click is counted)
-        if(button_press){
+        if(button_press || game_over){
             LCD.Clear();
             //If the menu state is menu, go to the selected state
             if(game_state == 4){
@@ -227,7 +228,7 @@ int main()
                 }
                 if(landing){
                     launchpad.draw();
-                    if(rocket.getY() < 50 && rocket.getY() > Window::w_height-100){
+                    if(rocket.getAltitude() < 50 && rocket.getAltitude() > Window::w_height-100){
                         rocket.moveY(-1);
                     }
                 }
@@ -386,8 +387,13 @@ void moveBackgroundDown(int alt){
     background_y += changeInY;
 }
 void drawProgressBar(double barWidth){
-    LCD.SetFontColor(0x005288);
-    //create rectangle based of input width
-    
-    LCD.FillRectangle(Window::w_width-110,0,barWidth,10);
+    if(barWidth < 20){
+         LCD.SetFontColor(RED);
+        LCD.FillRectangle(Window::w_width-110,0,barWidth,10);
+    }else{
+        LCD.SetFontColor(0x005288);
+        LCD.FillRectangle(Window::w_width-110,0,barWidth,10);
+
+    }
+
 }
