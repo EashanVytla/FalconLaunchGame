@@ -130,8 +130,6 @@ int main()
                 if(press_x < menu_x_split){
                     if(press_y < menu_y_split){
                         //If Play Game is pressed
-                        //TODO: After merging with Allen's branch make sure this is associated with the game_state = 0;
-                        initialTime = TimeNow();
                         game_state = 5;
                         rocket.reset();
                     }else{
@@ -151,7 +149,6 @@ int main()
                 //If the menu state is any of the others, bring it back to the menu
                 if(press_x > back_menu_x && press_y > back_menu_y){
                     collectibles.clean();
-                    initialTime = TimeNow();
                     rocket_state = 0;
                     game_state = 4;
                 }
@@ -185,6 +182,7 @@ int main()
                     //If the Launch button is pressed, then set game_state to 0       
                     if(press_x > 0 && press_y > Window::w_height-20){
                         game_state = 0;
+                        initialTime = TimeNow();
                         background_y = 0;
                         rocket.setFuelLevel(100.0);
                         descent = false;
