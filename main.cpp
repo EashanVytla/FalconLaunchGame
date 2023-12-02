@@ -190,6 +190,7 @@ int main()
                     break;
                 case 6:
                     game_over = true;
+                    LCD.Clear();
                     displayGameOver();
                     break;
             }
