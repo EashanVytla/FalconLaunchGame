@@ -34,6 +34,8 @@ void gameUpdate();
 
 void handleSigInt(int signum);
 
+void displayGameOver();
+
 //background x and y
 float background_x = 0;
 float background_y = 0;
