@@ -188,7 +188,6 @@ int main()
                         rocket.setFuelLevel(100.0);
                         descent = false;
                         rocket.reset();
-                        
                     }
                     break;
                 case 4:
@@ -240,11 +239,14 @@ int main()
                     }
                     break;
                 case 1:
+                    //Coast
+                    std::cout << "HERE1" << std::endl;
                     if(rocket.reachedMaxHeight(rocket.getAltitude())){
                         descent = true;
                     }
-                    //Coast
+
                     if(descent){
+                        std::cout << "HERE2" << std::endl;
                         moveBackgroundUp(rocket.getAltitude());
                         collectibles.generate(gameTime,rocket.getAltitude());
                         collectibles.update(&rocket);
