@@ -205,7 +205,7 @@ int main()
             //Gameplay
             drawBackground();
 
-            rocket.setAltitude(rocket.getAltitude() + 1);
+            rocket.setAltitude(background_y);
             LCD.SetFontColor(0x005288);
             LCD.WriteAt(rocket.getAltitude(),0,0);
             LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
@@ -221,11 +221,10 @@ int main()
                     }
                     break;
                 case 1:
-                    //Coast
                     if(rocket.reachedMaxHeight(rocket.getAltitude())){
                         descent = true;
                     }
-                    
+                    //Coast
                     if(descent){
                         moveBackgroundUp(rocket.getAltitude());
                         collectibles.generate(gameTime,rocket.getAltitude());
@@ -244,6 +243,13 @@ int main()
                 case 2:
                     //Pre-Land
                     rocket.moveY(1);
+                    if(rocket.getY() <= 1){
+                        rocket_state = 3;
+                    }
+                    break;
+                case 3:
+                    rocket.moveY(-1);
+                    launchpad.draw();
                     break;
             }
  

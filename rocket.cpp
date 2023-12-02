@@ -40,7 +40,7 @@ double Rocket::getFuelLevel(){
     if(fuelLevel < 0){
         fuelLevel = 0;
     }
-
+    
     return fuelLevel;
 }
 void Rocket::setFuelLevel(double newFuel){
@@ -58,8 +58,8 @@ int Rocket::getAltitude(){
     return altitude;
 }
 
-void Rocket::setAltitude(int alt){
-    altitude = alt;
+void Rocket::setAltitude(int background_y){
+    altitude = background_y - height;
 }
 
 void Rocket::moveX(int dx){
