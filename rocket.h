@@ -17,7 +17,7 @@ class Rocket{
         int getX();
         int getY();
         bool reachedMaxHeight(int altitude);
-        void setAltitude(int background_y);
+        void setAltitude(int);
         void reset();
         double getFuelLevel();
         void setFuelLevel(double newFuel);

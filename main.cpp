@@ -75,7 +75,8 @@ int game_state = 4;
 
 //0 - Takeoff
 //1 - Coast
-//2 - Land
+//2 - Pre-landing
+//3 - Land
 int rocket_state = 0;
 
 //Global variable to handle when the SIGINT is recieved.
@@ -204,7 +205,7 @@ int main()
             //Gameplay
             drawBackground();
 
-            rocket.setAltitude(background_y);
+            rocket.setAltitude(rocket.getAltitude() + 1);
             LCD.SetFontColor(0x005288);
             LCD.WriteAt(rocket.getAltitude(),0,0);
             LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
@@ -220,10 +221,11 @@ int main()
                     }
                     break;
                 case 1:
+                    //Coast
                     if(rocket.reachedMaxHeight(rocket.getAltitude())){
                         descent = true;
                     }
-                    //Coast
+                    
                     if(descent){
                         moveBackgroundUp(rocket.getAltitude());
                         collectibles.generate(gameTime,rocket.getAltitude());
@@ -240,9 +242,8 @@ int main()
                     }
                     break;
                 case 2:
-                    //Land
-                    launchpad.draw();
-                    rocket.moveY(-1);
+                    //Pre-Land
+                    rocket.moveY(1);
                     break;
             }
  
