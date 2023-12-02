@@ -33,6 +33,14 @@ int Rocket::getY(){
     return y;
 }
 double Rocket::getFuelLevel(){
+    if(fuelLevel > 100){
+        fuelLevel = 100;
+    }
+
+    if(fuelLevel < 0){
+        fuelLevel = 0;
+    }
+    
     return fuelLevel;
 }
 void Rocket::setFuelLevel(double newFuel){
