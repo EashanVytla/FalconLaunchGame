@@ -117,6 +117,10 @@ int main()
         //Keeping track of user click and position of the click
         bool button_press = detectButtonClick(&press_x, &press_y);
 
+        if(game_state == 0 && LCD.Touch(&drag_x, &drag_y)){
+            rocket.moveX(drag_x - drag_prev_x);
+        }
+
         //If the user clicked the screen (Only first loop cycle of click is counted)
         if(button_press){
             LCD.Clear();
@@ -202,10 +206,6 @@ int main()
         }
 
         if(game_state == 0){
-            if(LCD.Touch(&drag_x, &drag_y)){
-                rocket.moveX(drag_x - drag_prev_x);
-            }
-
             float gameTime = TimeNow() - initialTime;
             //Gameplay
             drawBackground();
