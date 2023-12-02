@@ -120,7 +120,7 @@ int main()
         //Keeping track of user click and position of the click
         bool button_press = detectButtonClick(&press_x, &press_y);
 
-        if(game_state == 0 && rocket_state == 1 && LCD.Touch(&drag_x, &drag_y)){
+        if(game_state == 0 && rocket_state >= 1 && LCD.Touch(&drag_x, &drag_y)){
             
             rocket.moveX(drag_x - drag_prev_x);
         }
