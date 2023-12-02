@@ -53,6 +53,9 @@ const int back_menu_y = 219;
 //Initializing the previous touch boolean to false
 bool prev_touch = false;
 
+//Progess bar width/ Fuel level
+double fuelLevel = 100;
+
 //Initializing a temporary placeholder for the leaderboard
 //In the final version this would be read from a file
 char leaderboard[10][21] = {"Eashan - 10%", "Allen - 9%", "Joe - 8%", "Stephanie - 7%", "Aidan - 6%", "Josh - 5%", "Marvin - 4%", "Charlie - 3%", "Gavin - 2%", "Sid - 1%"};
