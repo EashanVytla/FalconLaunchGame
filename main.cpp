@@ -226,7 +226,7 @@ int main()
             LCD.SetFontColor(0x005288);
             LCD.WriteAt(rocket.getAltitude(),0,0);
             LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
-            
+
             switch(rocket_state){
                 case 0:
                     //Takeoff
