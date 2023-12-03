@@ -5,13 +5,21 @@
 Rocket::Rocket(int x, int y){
     this->x = x;
     this->y = y;
-    fuelLevel = 100;
+    fuelLevel = 100.0;
 }
 
 Rocket::Rocket(){
-    x = Window::w_width/2-5;
-    y = Window::w_height-100;
-    fuelLevel = 100;
+    x = getInitialX();
+    y = getInitialY();
+    fuelLevel = 100.0;
+}
+
+int Rocket::getInitialX(){
+    return Window::w_width/2-5;
+}
+
+int Rocket::getInitialY(){
+    return Window::w_height-100;
 }
 
 void Rocket::draw(){
@@ -32,25 +40,51 @@ int Rocket::getX(){
 int Rocket::getY(){
     return y;
 }
+double Rocket::getFuelLevel(){
+    if(fuelLevel > 100){
+        fuelLevel = 100;
+    }
+
+    if(fuelLevel < 0){
+        fuelLevel = 0;
+    }
+    
+    return fuelLevel;
+}
+void Rocket::setFuelLevel(double newFuel){
+    fuelLevel = newFuel;
+}
+
 
 void Rocket::moveY(int dy){
     y -= dy;
 }
 
-int Rocket::getAltitude(int background_y){
+int Rocket::getAltitude(){
     //use the moving backgrounds position to output the rockets theoretical position
     //add the y of the rocket and subtract the ieght to get the bottom 
-    return (background_y + y - height);
+    return altitude;
+}
+
+void Rocket::setAltitude(int background_y){
+    altitude = background_y - height+80;
 }
 
 void Rocket::moveX(int dx){
     x += dx;
 }
+
 bool Rocket::reachedMaxHeight(int altitude){
     //check if the rocket has reached an altitude of 1000
     bool reached = false;
-    if(altitude == 1000){
+    if(altitude > Rocket::max_altitude && altitude < Rocket::max_altitude + 200){
         reached = true;
     }
     return reached;
+}
+
+void Rocket::reset(){
+    altitude = 0;
+    y = getInitialY();
+    x = getInitialX();
 }

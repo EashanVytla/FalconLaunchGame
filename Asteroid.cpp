@@ -1,27 +1,27 @@
 #include <FEHImages.h>
-#include "fuel.h"
+#include "Asteroid.h"
 #include "Rocket.h"
 
-Fuel::Fuel(){
+Asteroid::Asteroid(){
     setRandomPos();
 }
 
-void Fuel::draw(){
+void Asteroid::draw(){
     //Width: 13 Height: 13
      // Declares an image for a fuel
-    FEHImage fuel;
+    FEHImage asteroid;
     // Open the image
-    fuel.Open("FuelFEH.pic");
+    asteroid.Open("AsteroidFEH.pic");
     // Draw a fuel in the top left corner
-    fuel.Draw(getX(), getY());
+    asteroid.Draw(getX(), getY());
     // Close the image
-    fuel.Close();
+    asteroid.Close();
 }
 
-int Fuel::getWidth(){
+int Asteroid::getWidth(){
     return width;
 }
 
-int Fuel::getHeight(){
+int Asteroid::getHeight(){
     return height;
 }

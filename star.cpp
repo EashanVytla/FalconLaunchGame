@@ -18,12 +18,10 @@ void Star::draw(){
     star.Close();
 }
 
-bool Star::collision(int x, int y){
-    //Allen implement code here
-    bool collided = false;
-    if (getX() + width > x && getX() < x + Rocket::width &&
-        getY() + height > y && getY() < y + Rocket::height) {
-        collided = true;
-    }
-    return collided;
+int Star::getWidth(){
+    return width;
+}
+
+int Star::getHeight(){
+    return height;
 }

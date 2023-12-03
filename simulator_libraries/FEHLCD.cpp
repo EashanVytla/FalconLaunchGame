@@ -224,7 +224,7 @@ void FEHLCD::Update()
 
     if (tigrClosed(screen)) {
         SD.FCloseAll();
-        exit(0);
+        closed = true;
     }
 }
 
