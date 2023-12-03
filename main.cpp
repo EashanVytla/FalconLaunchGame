@@ -11,6 +11,7 @@
 #include "Collectibles.h"
 #include <FEHUtility.h>
 
+
 //Function prototypes
 //Displays the menu
 void displayMenu();
@@ -225,7 +226,7 @@ int main()
             LCD.SetFontColor(0x005288);
             LCD.WriteAt(rocket.getAltitude(),0,0);
             LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
-            
+
             switch(rocket_state){
                 case 0:
                     //Takeoff
@@ -305,13 +306,7 @@ void displayLeaderBoard(){
     //Write Leaderboard as a title
     LCD.WriteLine("Leaderboard");
     
-    //Loop through all top ten scores and display them
-    for(int i = 0; i < 10; i++){
-
-    }
-
-    char playerName[50];
-    int score;
+    LCD.WriteLine("Highscore: " + std::to_string(highScore));
 }
 
 bool checkCollectibleCollision(std::vector<Collectible*> collectibles, Rocket rocket){
@@ -376,11 +371,11 @@ void displayGameOver(){
 }
 
 void displayGameWon(int score){
-    LCD.WriteAt("You Landed!",Window::w_width/2-100, Window::w_height/2);
-    LCD.WriteAt("Score: " + score, Window::w_width/2-100, Window::w_height/2 + 50);
+    LCD.WriteAt("You Landed!",Window::w_width/2-100, Window::w_height/2 - 50);
+    LCD.WriteAt("Score: " + std::to_string(score), Window::w_width/2-100, Window::w_height/2);
     if(score > highScore){
         highScore = score;
-        LCD.WriteAt("Saved as highscore!", Window::w_width/2-100, Window::w_height/2 + 100);
+        LCD.WriteAt("Saved as highscore!", Window::w_width/2-100, Window::w_height/2 + 50);
     }
 }
 
@@ -397,12 +392,10 @@ void drawBackground(){
 }
 
 void moveBackgroundUp(int alt, float speedScalar){
-
     // Define variables to store the initial and final values for changeInY
     float initialChangeInY = 0.4;
     float finalChangeInY = Rocket::max_down_speed;
 
-        
     // Check if the altitude is within the specified range
     if (alt >= Rocket::buffer_altitude && alt <= Rocket::max_altitude + 50) {
         // Calculate changeInY based on altitude
@@ -444,7 +437,5 @@ void drawProgressBar(double barWidth){
     }else{
         LCD.SetFontColor(0x005288);
         LCD.FillRectangle(Window::w_width-110,0,barWidth,10);
-
     }
-
 }
