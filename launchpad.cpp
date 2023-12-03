@@ -36,7 +36,7 @@ bool Launchpad::landed(int rocketX){
     int left = rocketX;
     int right = rocketX + Rocket::width;
     bool inBetween = false;
-    if(rocketX > left && rocketX < right){
+    if(left > x && right < x + width){
         inBetween = true;
     }
     return inBetween;

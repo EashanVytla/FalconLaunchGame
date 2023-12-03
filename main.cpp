@@ -119,7 +119,7 @@ int main()
         //Keeping track of user click and position of the click
         bool button_press = detectButtonClick(&press_x, &press_y);
 
-        if(game_state == 0 && rocket_state == 1 && LCD.Touch(&drag_x, &drag_y)){
+        if(game_state == 0 && rocket_state >= 1 && LCD.Touch(&drag_x, &drag_y)){
             rocket.moveX(drag_x - drag_prev_x);
         }
 
@@ -248,7 +248,7 @@ int main()
                         collectibles.update(&rocket);
                         collectibles.draw();
                         drawProgressBar(rocket.getFuelLevel());
-                        rocket.setFuelLevel(rocket.getFuelLevel() - .6);
+                        rocket.setFuelLevel(rocket.getFuelLevel() - .3);
                     }else if(!descent){
                         moveBackgroundDown(rocket.getAltitude());
                     }
@@ -371,8 +371,8 @@ void displayMenu(){
 }
 
 void displayGameOver(){
-    LCD.WriteAt("GAME OVER",Window::w_width/2-100, Window::w_height/2);
-    LCD.WriteAt(std::string(reasonGameOver), Window::w_width/2-100, Window::w_height/2 + 50);
+    LCD.WriteAt("GAME OVER",Window::w_width/2-60, Window::w_height/2-50);
+    LCD.WriteAt(std::string(reasonGameOver),Window::w_width/2-90, Window::w_height/2 + 50);
 }
 
 void displayGameWon(int score){
