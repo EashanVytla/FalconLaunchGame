@@ -383,8 +383,8 @@ void displayMenu(){
 }
 
 void displayGameOver(){
-    LCD.WriteAt("GAME OVER",Window::w_width/2-100, Window::w_height/2);
-    LCD.WriteAt(std::string(reasonGameOver), Window::w_width/2-100, Window::w_height/2 + 50);
+    LCD.WriteAt("GAME OVER",Window::w_width/2-50, Window::w_height/2-50);
+    LCD.WriteAt(std::string(reasonGameOver),Window::w_width/2-50, Window::w_height/2 + 50);
 }
 
 void displayGameWon(){
