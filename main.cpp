@@ -306,13 +306,7 @@ void displayLeaderBoard(){
     //Write Leaderboard as a title
     LCD.WriteLine("Leaderboard");
     
-    //Loop through all top ten scores and display them
-    for(int i = 0; i < 10; i++){
-
-    }
-
-    char playerName[50];
-    int score;
+    LCD.WriteLine("Highscore: " + std::to_string(highScore));
 }
 
 bool checkCollectibleCollision(std::vector<Collectible*> collectibles, Rocket rocket){
