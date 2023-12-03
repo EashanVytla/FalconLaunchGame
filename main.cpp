@@ -10,12 +10,11 @@
 #include <csignal>
 #include "Collectibles.h"
 #include <FEHUtility.h>
-#include <FEHSD.h>
 
 //Function prototypes
 //Displays the menu
 void displayMenu();
-//Displays leaderboard from SD card
+//Displays leaderboard
 void displayLeaderBoard();
 //Displays the developer names
 void displayCredits();
@@ -35,7 +34,7 @@ void gameUpdate();
 void handleSigInt(int signum);
 
 void displayGameOver();
-void displayGameWon();
+void displayGameWon(int score = 0);
 
 //background x and y
 float background_x = 0;
@@ -60,7 +59,7 @@ bool prev_touch = false;
 
 //Initializing a temporary placeholder for the leaderboard
 //In the final version this would be read from a file
-char leaderboard[10][21] = {"Eashan - 10%", "Allen - 9%", "Joe - 8%", "Stephanie - 7%", "Aidan - 6%", "Josh - 5%", "Marvin - 4%", "Charlie - 3%", "Gavin - 2%", "Sid - 1%"};
+int highScore = 0;
 
 // if the Rocket is on the way down
 bool descent = false;
@@ -121,7 +120,6 @@ int main()
         bool button_press = detectButtonClick(&press_x, &press_y);
 
         if(game_state == 0 && rocket_state == 1 && LCD.Touch(&drag_x, &drag_y)){
-            
             rocket.moveX(drag_x - drag_prev_x);
         }
 
@@ -201,7 +199,7 @@ int main()
                     break;
                 case 7:
                     game_over = false;
-                    displayGameWon();
+                    displayGameWon(rocket.getFuelLevel());
                     break;
             }
 
@@ -306,24 +304,14 @@ void handleSigInt(int signum) {
 void displayLeaderBoard(){
     //Write Leaderboard as a title
     LCD.WriteLine("Leaderboard");
-
-
-    FEHFile *leaderboardFile = SD.FOpen("leaderboard.txt", "r");
     
     //Loop through all top ten scores and display them
     for(int i = 0; i < 10; i++){
-        //LCD.WriteLine(leaderboard[i]);
+
     }
-    if (leaderboardFile == nullptr) {
-        std::cerr << "Error opening leaderboard file for writing." << std::endl;
-    }
+
     char playerName[50];
     int score;
-    while (SD.FScanf(leaderboardFile, "%s %d", playerName, &score) != EOF) {
-        LCD.WriteLine(playerName);
-    }
-    SD.FClose(leaderboardFile);
-
 }
 
 bool checkCollectibleCollision(std::vector<Collectible*> collectibles, Rocket rocket){
@@ -387,9 +375,13 @@ void displayGameOver(){
     LCD.WriteAt(std::string(reasonGameOver), Window::w_width/2-100, Window::w_height/2 + 50);
 }
 
-void displayGameWon(){
-    LCD.WriteAt("You Won!",Window::w_width/2-100, Window::w_height/2);
-    LCD.WriteAt("Saved score on leaderboard.", Window::w_width/2-100, Window::w_height/2 + 50);
+void displayGameWon(int score){
+    LCD.WriteAt("You Landed!",Window::w_width/2-100, Window::w_height/2);
+    LCD.WriteAt("Score: " + score, Window::w_width/2-100, Window::w_height/2 + 50);
+    if(score > highScore){
+        highScore = score;
+        LCD.WriteAt("Saved as highscore!", Window::w_width/2-100, Window::w_height/2 + 100);
+    }
 }
 
 void drawBackground(){
