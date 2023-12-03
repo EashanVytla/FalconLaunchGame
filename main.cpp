@@ -11,6 +11,7 @@
 #include "Collectibles.h"
 #include <FEHUtility.h>
 
+
 //Function prototypes
 //Displays the menu
 void displayMenu();
@@ -377,7 +378,7 @@ void displayGameOver(){
 
 void displayGameWon(int score){
     LCD.WriteAt("You Landed!",Window::w_width/2-100, Window::w_height/2 - 50);
-    LCD.WriteAt("Score: " + score, Window::w_width/2-100, Window::w_height/2);
+    LCD.WriteAt("Score: " + std::to_string(score), Window::w_width/2-100, Window::w_height/2);
     if(score > highScore){
         highScore = score;
         LCD.WriteAt("Saved as highscore!", Window::w_width/2-100, Window::w_height/2 + 50);
