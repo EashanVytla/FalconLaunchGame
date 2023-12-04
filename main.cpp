@@ -13,24 +13,48 @@
 
 
 //Function prototypes
-//Displays the menu
+/**This function displays the menue screen on the LCD screen
+ * the function takes no parameters and returns nothing
+**/
 void displayMenu();
-//Displays leaderboard
-void displayLeaderBoard();
-//Displays the developer names
-void displayCredits();
-//Displays the instructions of the game
-void displayInstructions();
-//Draws background
-void drawBackground();
-//move background pixel
-void moveBackgroundUp(int alt, float = 1.0);
-//move background pixel
-void moveBackgroundDown(int alt, float = 1.0);
-//draw fuel level bar
-void drawProgressBar(double barWidth);
 
-void gameUpdate();
+/**This function displays the leaderboard on the LCD screen
+ * the function takes no parameters and returns nothing
+**/
+void displayLeaderBoard();
+
+/**This function displays the names of the Developers on the LCD screen
+ * the function takes no parameters and returns nothing
+**/
+void displayCredits();
+
+/**This function displays the intructions on the LCD screen
+ * the function takes no parameters and returns nothing
+**/
+void displayInstructions();
+
+/**This function adds the background on the LCD screen
+ * the function takes no parameters and returns nothing
+**/
+void drawBackground();
+
+/**This function moved the background up based off the the current altitude and a speed scalar
+ * The function uses rocket altitude as a parameter and a speed scalar as another parameter
+ * The code was written by: Allen
+**/
+void moveBackgroundUp(int alt, float = 1.0);
+
+/**This function moved the background down based off the the current altitude and a speed scalar
+ * The function uses rocket altitude as a parameter and a speed scalar as another parameter
+ * The code was written by: Allen
+**/
+void moveBackgroundDown(int alt, float = 1.0);
+
+/**This function draws the fuel progress bar based off the current fuel level
+ * The function uses the fuel Level of the rocket as a parameter which is then used as the width
+ * The code was written by: Allen
+**/
+void drawProgressBar(double barWidth);
 
 void handleSigInt(int signum);
 
@@ -245,16 +269,21 @@ int main()
 
                     if(descent){
                         moveBackgroundUp(rocket.getAltitude());
+                        //generate the items based off gameTime and altitude
                         collectibles.generate(gameTime,rocket.getAltitude());
                         collectibles.update(&rocket);
                         collectibles.draw();
+                        //draw the progress bar
                         drawProgressBar(rocket.getFuelLevel());
                         rocket.setFuelLevel(rocket.getFuelLevel() - .3);
+                        //if the rocket is on its way up
                     }else if(!descent){
+                        //move the background down so the rocket seems to be moving up
                         moveBackgroundDown(rocket.getAltitude());
                     }
-
+                    //if the rocket isb landing and is near the launchpad
                     if(rocket.getAltitude() < 50 && descent){
+                        //set the game state to the landing version
                         rocket_state = 2;
                     }
                     break;
@@ -267,14 +296,17 @@ int main()
                     }
                     break;
                 case 3:
+                //landing
                     rocket.moveY(-Rocket::max_down_speed);
                     launchpad.draw();
 
                     if(rocket.getY() >= rocket.getInitialY()){
                         game_over = true;
                         if(launchpad.landed(rocket.getX())){
+                            //if it landed sucessfuly set game state to win
                             game_state = 7;
                         }else{
+                            //set game state to game over
                             strcpy(reasonGameOver, "Failed landing.");
                             game_state = 6;
                         }
