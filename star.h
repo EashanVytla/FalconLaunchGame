@@ -12,7 +12,12 @@ class Star : public Collectible{
         static const int width = 7;
         static const int height = 7;
         Star();
+
+        /// @brief Draws the star using the collectible draw function and the .pic file of the rocket
+        //  written by: Allen
         void draw();
+
+        //inherited functions from collectible
         int getWidth();
         int getHeight();
 };

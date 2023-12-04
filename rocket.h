@@ -62,7 +62,7 @@ class Rocket{
         //  Written by Allen
         void reset();
 
-        /// @brief gets the current fuel level of the rocket
+        /// @brief gets the current fuel level of the rocket and checks for out of bounds
         /// @return the fuel level
         //  Written by Eashan
         double getFuelLevel();

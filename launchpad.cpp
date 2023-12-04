@@ -29,13 +29,18 @@ void Launchpad::draw(){
 }
 
 void Launchpad::move(int dy){
+    //change the y value
     y += dy;
 }
 
 bool Launchpad::landed(int rocketX){
+    //left side of the rocket
     int left = rocketX;
+    //right side of the rocket
     int right = rocketX + Rocket::width;
+
     bool inBetween = false;
+    //if both sides are in between the Xs of the launchpad
     if(left > x && right < x + width){
         inBetween = true;
     }
