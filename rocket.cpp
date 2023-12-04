@@ -41,6 +41,7 @@ int Rocket::getY(){
     return y;
 }
 double Rocket::getFuelLevel(){
+    //makes sure fuel level does not go above 100 or below 0
     if(fuelLevel > 100){
         fuelLevel = 100;
     }
@@ -61,13 +62,13 @@ void Rocket::moveY(int dy){
 }
 
 int Rocket::getAltitude(){
-    //use the moving backgrounds position to output the rockets theoretical position
-    //add the y of the rocket and subtract the ieght to get the bottom 
     return altitude;
 }
 
 void Rocket::setAltitude(int background_y){
-    altitude = background_y - height+80;
+    //use the moving backgrounds position to output the rockets theoretical position
+    //add the y of the rocket and subtract the hieght to get the bottom 
+    altitude = background_y;
 }
 
 void Rocket::moveX(int dx){
@@ -75,8 +76,8 @@ void Rocket::moveX(int dx){
 }
 
 bool Rocket::reachedMaxHeight(int altitude){
-    //check if the rocket has reached an altitude of 1000
     bool reached = false;
+    //check if the rocket has reached a max altitude
     if(altitude > Rocket::max_altitude && altitude < Rocket::max_altitude + 200){
         reached = true;
     }
@@ -84,6 +85,7 @@ bool Rocket::reachedMaxHeight(int altitude){
 }
 
 void Rocket::reset(){
+    //sets rocket to initial values
     altitude = 0;
     y = getInitialY();
     x = getInitialX();

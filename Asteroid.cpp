@@ -1,7 +1,7 @@
 #include <FEHImages.h>
 #include "Asteroid.h"
 #include "Rocket.h"
-
+//constructor for astroid
 Asteroid::Asteroid(){
     setRandomPos();
 }
