@@ -7,6 +7,7 @@ Star::Star(){
 }
 
 void Star::draw(){
+    //Star: https://www.pinterest.com/pin/1095852521801078570/
     //Width: 7 Height: 7
      // Declares an image for a star
     FEHImage star;

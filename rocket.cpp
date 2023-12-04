@@ -23,6 +23,7 @@ int Rocket::getInitialY(){
 }
 
 void Rocket::draw(){
+    //Falcon 9 Sprite Image: https://falcon9.webflow.io/
      // Declares an image for a Rocket
     FEHImage Rocket;
     // Open the image

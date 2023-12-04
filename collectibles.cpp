@@ -10,8 +10,10 @@ Collectibles::Collectibles(){
     generate_rate = 40;
 }
 
-int prev_time = 0;
 
+//REFERENCE: Vectors Guide: https://www.geeksforgeeks.org/vector-in-cpp-stl/
+
+int prev_time = 0;
 void Collectibles::generate(float time, int altitude){ 
     //generate_rate = sqrt((1.0 - (float)altitude/Rocket::max_altitude) * 30.0);
     int every = 60 / generate_rate;
