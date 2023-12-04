@@ -1,5 +1,6 @@
 #ifndef COLLECTIBLE_H
 #define COLLECTIBLE_H
+// REFERENCE: Polymorphism Guide:  https://www.geeksforgeeks.org/cpp-polymorphism/
 class Collectible{
     private:
         int x;

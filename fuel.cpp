@@ -7,6 +7,7 @@ Fuel::Fuel(){
 }
 
 void Fuel::draw(){
+    //Rocket Fuel: https://www.cleanpng.com/png-clip-art-fuel-computer-icons-vector-graphics-porta-6594439/download-png.html
     //Width: 13 Height: 13
      // Declares an image for a fuel
     FEHImage fuel;

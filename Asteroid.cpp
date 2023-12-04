@@ -7,6 +7,7 @@ Asteroid::Asteroid(){
 }
 
 void Asteroid::draw(){
+    //Asteroid: https://www.pngall.com/asteroid-png/
     //Width: 13 Height: 13
      // Declares an image for a fuel
     FEHImage asteroid;

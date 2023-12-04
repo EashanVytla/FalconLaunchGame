@@ -15,6 +15,7 @@ Launchpad::Launchpad(){
 }
 
 void Launchpad::draw(){
+    //Launchpad Sprite Image: https://www.nicepng.com/downpng/u2q8i1w7y3i1u2e6_launchpad-cartoon-rocket-launch-pad/
     //width: 64 Height: 80
     int width = 64;
     int height = 80;
