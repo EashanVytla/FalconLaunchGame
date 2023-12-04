@@ -199,7 +199,7 @@ int main()
             }else if(game_state != 4){
                 //If the menu state is any of the others, bring it back to the menu
                 if(press_x > back_menu_x && press_y > back_menu_y){
-                    //resetting values for new attempt
+                    //reseting collectibles once leaving game screen
                     collectibles.clean();
                     rocket_state = 0;
                     game_state = 4;
@@ -225,13 +225,13 @@ int main()
                     //Display the launch button
                     LCD.SetFontColor(0x005288);
                     LCD.WriteAt("LAUNCH", 0,Window::w_height-20);
-                    //Display logo
 
                     //Display rocket and launchpad
                     launchpad.draw();
                     rocket.draw();
                     //If the Launch button is pressed, then set game_state to 0       
                     if(press_x > 0 && press_y > Window::w_height-20){
+                        //resetting values for new attempt
                         game_state = 0;
                         initialTime = TimeNow();
                         background_y = 0;
@@ -260,29 +260,37 @@ int main()
                 LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
             }
         }
-
+        //if the game is playing
         if(game_state == 0){
-            if(rocket.getFuelLevel() ==0){
+            if(rocket.getFuelLevel() == 0){
+                //game over if the rocket fuel hits 0
                 game_state = 6;
                 game_over = true;
                 strcpy(reasonGameOver, "Ran out of fuel.");
             }
-          
+            //set the time to elapsed time
             float gameTime = TimeNow() - initialTime;
+
             //Gameplay
+            //______________________________
+            //draw background first so all objects are in front
             drawBackground();
 
+            //set the altitude of the rocket based off the current background Y value
             rocket.setAltitude(background_y);
             LCD.SetFontColor(0x005288);
+            //Display the altitude in the top left corner
             LCD.WriteAt(rocket.getAltitude(),0,0);
+            //display menue button in bottom right;
             LCD.WriteAt("Menu ->", back_menu_x, back_menu_y);
 
+            //switch case for the current rocket state
             switch(rocket_state){
                 case 0:
                     //Takeoff
                     rocket.moveY(1);
                     launchpad.draw();
-
+                    //move rocket until the rocket reaches the middle of the screen
                     if(rocket.getY() < Window::w_height/2){
                         rocket_state = 1;
                     }
@@ -290,14 +298,19 @@ int main()
                 case 1:
                     //Coast
                     if(rocket.reachedMaxHeight(rocket.getAltitude())){
+                        //rockets coasts up until the max height is reached
+                        //descent becomes true after max height
                         descent = true;
                     }
-
+                    //if the rocket is in descent 
                     if(descent){
+                        //the background moves up to make the rocket seem like it is going down
                         moveBackgroundUp(rocket.getAltitude());
                         //generate the items based off gameTime and altitude
                         collectibles.generate(gameTime,rocket.getAltitude());
+                        //checks if any collectibles have collided or reached the end of the screen
                         collectibles.update(&rocket);
+                        //draw collectible
                         collectibles.draw();
                         //draw the progress bar
                         drawProgressBar(rocket.getFuelLevel());
@@ -315,24 +328,31 @@ int main()
                     break;
                 case 2:
                     //Pre-Land
+                    //slow the background down by 30%
                     moveBackgroundUp(rocket.getAltitude(), 0.7);
                     rocket.moveY(Rocket::max_down_speed);
+                    //rocket y value goes below 0
                     if(rocket.getY() <= 1){
+                        //set rocket state to landed
                         rocket_state = 3;
                     }
                     break;
                 case 3:
                 //landing
+                    //move the rocket down at the same speed
                     rocket.moveY(-Rocket::max_down_speed);
+                    //draw in the launchpad
                     launchpad.draw();
-
+                    
+                    //if the rocket past the intial starting y
                     if(rocket.getY() >= rocket.getInitialY()){
+                        //end the game by setting game over to true
                         game_over = true;
                         if(launchpad.landed(rocket.getX())){
                             //if it landed sucessfuly set game state to win
                             game_state = 7;
                         }else{
-                            //set game state to game over
+                            //set game state to game over for failed landing
                             strcpy(reasonGameOver, "Failed landing.");
                             game_state = 6;
                         }
@@ -342,20 +362,21 @@ int main()
             
             rocket.draw();
         }
-
+        //set new position values for drag functionality
         drag_prev_x = drag_x;
         drag_prev_y = drag_y;
 
         //Update the screen
         LCD.Update();
     }
-
+    //clean all collectibles up at the end
     collectibles.clean();
 
     return 0;
 }
 
 void handleSigInt(int signum) {
+    //output signal recieved when ctrl C is inputted
     std::cout << "SIGINT received. Cleaning up and exiting.\n" << std::endl;
     sigintReceived = true;
 }
@@ -363,14 +384,8 @@ void handleSigInt(int signum) {
 void displayLeaderBoard(){
     //Write Leaderboard as a title
     LCD.WriteLine("Leaderboard");
-    
+    //write the high score to the screen
     LCD.WriteLine("Highscore: " + std::to_string(highScore));
-}
-
-bool checkCollectibleCollision(std::vector<Collectible*> collectibles, Rocket rocket){
-    int rate = rocket.getAltitude();
-
-    return true;
 }
 
 void displayInstructions(){ 
