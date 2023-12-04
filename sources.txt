@@ -2,3 +2,6 @@ Falcon 9 Sprite Image: https://falcon9.webflow.io/
 Launchpad Sprite Image: https://www.nicepng.com/downpng/u2q8i1w7y3i1u2e6_launchpad-cartoon-rocket-launch-pad/
 Rocket Fuel: https://www.cleanpng.com/png-clip-art-fuel-computer-icons-vector-graphics-porta-6594439/download-png.html
 Star: https://www.pinterest.com/pin/1095852521801078570/
+Asteroid: https://www.pngall.com/asteroid-png/
+Vectors Guide: https://www.geeksforgeeks.org/vector-in-cpp-stl/
+Polymorphism Guide:  https://www.geeksforgeeks.org/cpp-polymorphism/
