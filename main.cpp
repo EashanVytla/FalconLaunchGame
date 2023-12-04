@@ -13,6 +13,7 @@
 
 
 //Function prototypes
+
 /**This function displays the menue screen on the LCD screen
  * the function takes no parameters and returns nothing
  * The code was written by: Allen
