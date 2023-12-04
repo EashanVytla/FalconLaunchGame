@@ -15,26 +15,31 @@
 //Function prototypes
 /**This function displays the menue screen on the LCD screen
  * the function takes no parameters and returns nothing
+ * The code was written by: Allen
 **/
 void displayMenu();
 
 /**This function displays the leaderboard on the LCD screen
  * the function takes no parameters and returns nothing
+ * The code was written by: Eashan
 **/
 void displayLeaderBoard();
 
 /**This function displays the names of the Developers on the LCD screen
  * the function takes no parameters and returns nothing
+ * The code was written by: Eashan
 **/
 void displayCredits();
 
 /**This function displays the intructions on the LCD screen
  * the function takes no parameters and returns nothing
+ * The code was written by: Eashan
 **/
 void displayInstructions();
 
 /**This function adds the background on the LCD screen
  * the function takes no parameters and returns nothing
+ * The code was written by: Allen
 **/
 void drawBackground();
 
@@ -56,15 +61,29 @@ void moveBackgroundDown(int alt, float = 1.0);
 **/
 void drawProgressBar(double barWidth);
 
+/**This function lets the program close in a safe manner when the command ctrl C is pressed
+ * the function takes no parameters and returns nothing
+ * The code was written by: Eashan
+**/
 void handleSigInt(int signum);
 
+/**This function displays the Game over screen
+ * the function takes no parameters and returns nothing
+ * The code was written by: Allen
+**/
 void displayGameOver();
+
+/**This function displays the Game over screen
+ * the function takes the score as a parameter
+ * The code was written by: Eashan
+**/
 void displayGameWon(int score = 0);
 
 //background x and y
 float background_x = 0;
 float background_y = 0;
 
+//The reason for losing the game
 char reasonGameOver[40] = "Game Over";
 
 //Returns true if a button is clicked and sets x and y variables to the position of the click
@@ -111,6 +130,7 @@ int rocket_state = 0;
 //This is volatile to be accessed accross threads.
 volatile bool sigintReceived = false;
 
+//The change in Y for the rocket
 float changeInY = .4;
 
 int main()
@@ -129,21 +149,26 @@ int main()
     //Initialize prev x and y to calculate the user mouse drag
     int drag_prev_x = 0;
     int drag_prev_y = 0;
-
+    
+    //creating objects for rocket, launchpad, and collectibles
     Rocket rocket;
     Launchpad launchpad;
     Collectibles collectibles;
 
     //make the menue from function
     displayMenu();
-
+    
+    //set the inital time to 0
     float initialTime = 0;
-    bool game_over = false;
 
+    //intiialize game over as false
+    bool game_over = false;
+    
     while (!sigintReceived && !LCD.closed) {
         //Keeping track of user click and position of the click
         bool button_press = detectButtonClick(&press_x, &press_y);
-
+        
+        //let the Rocket be able to be dragged if the game is playing and not launching off
         if(game_state == 0 && rocket_state >= 1 && LCD.Touch(&drag_x, &drag_y)){
             rocket.moveX(drag_x - drag_prev_x);
         }
@@ -174,12 +199,13 @@ int main()
             }else if(game_state != 4){
                 //If the menu state is any of the others, bring it back to the menu
                 if(press_x > back_menu_x && press_y > back_menu_y){
+                    //resetting values for new attempt
                     collectibles.clean();
                     rocket_state = 0;
                     game_state = 4;
                 }
             }
-    
+            //Checking which game state it currently is
             switch(game_state){
                 case 0:
                     break;
