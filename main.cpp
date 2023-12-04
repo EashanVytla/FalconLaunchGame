@@ -88,6 +88,8 @@ char reasonGameOver[40] = "Game Over";
 
 //Returns true if a button is clicked and sets x and y variables to the position of the click
 //Ignores a button hold! If the button is held only the first loop cycle is counted
+//Run in loop to find button press
+//This method is used to prevent bugs in the future with finicky button press issues
 bool detectButtonClick(int *x, int *y);
 
 //Storing the middle of the menu as constants
@@ -406,8 +408,7 @@ void displayCredits(){
     LCD.WriteLine("Allen Thomas");
 }
 
-//Run in loop to find button press
-//This method is used to prevent bugs in the future with finicky button press issues
+
 bool detectButtonClick(int *x, int *y){
     //Current touch result
     bool touch = LCD.Touch(x, y);
@@ -439,13 +440,17 @@ void displayMenu(){
 }
 
 void displayGameOver(){
+    //display game Over in the center of the screen
     LCD.WriteAt("GAME OVER",Window::w_width/2-60, Window::w_height/2-50);
+    //output the reason for the game ending
     LCD.WriteAt(std::string(reasonGameOver),Window::w_width/2-90, Window::w_height/2 + 50);
 }
 
 void displayGameWon(int score){
+    //Display "You Landed!" and the score
     LCD.WriteAt("You Landed!",Window::w_width/2-100, Window::w_height/2 - 50);
     LCD.WriteAt("Score: " + std::to_string(score), Window::w_width/2-100, Window::w_height/2);
+    //if the score is a new high score output that it has been saved
     if(score > highScore){
         highScore = score;
         LCD.WriteAt("Saved as highscore!", Window::w_width/2-100, Window::w_height/2 + 50);
@@ -504,9 +509,11 @@ void moveBackgroundDown(int alt, float speedScalar){
     background_y += changeInY * speedScalar;
 }
 void drawProgressBar(double barWidth){
+    //if the Fuel level is below 20 make the bar red
     if(barWidth < 20){
-         LCD.SetFontColor(RED);
+        LCD.SetFontColor(RED);
         LCD.FillRectangle(Window::w_width-110,0,barWidth,10);
+    //otherwise keep the bar blue
     }else{
         LCD.SetFontColor(0x005288);
         LCD.FillRectangle(Window::w_width-110,0,barWidth,10);
